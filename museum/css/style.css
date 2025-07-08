@@ -1,0 +1,61 @@
+@font-face {
+  font-family: Forum;
+  src: url("assets/fonts/Forum/Forum-Regular.ttf");
+}
+html {
+  scroll-behavior: smooth;
+}
+header{
+  background-color: #030303;
+}
+.container{
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.header_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+}
+.header_svg{
+  background-image: url("../assets/svg/logo.svg");
+  height: 26px;
+  width: 49px;
+  background-size: cover;
+}
+.header_logo{
+padding: 74px;
+font-family: Forum;
+color: #FFFFFF;
+font-size: 28px;
+text-transform: uppercase
+}
+.nav-list {
+  list-style: none;
+  display: flex;
+gap: 55px;
+  align-items: center;
+}
+ul{
+  display: flex;
+  max-width: 720px;
+   justify-content: space-between; 
+}
+.nav-link {
+  font-family: roboto;
+  font-weight: 100;
+  font-size: 22px;
+  text-decoration: none;
+  color: #FFFFFF;
+   transition: 0.3s;
+   cursor: pointer;
+   
+}
+.nav-link:hover {
+  color:#9D8665;
+}
+.nav-link:active {
+  color:#7E6C51;
+}
