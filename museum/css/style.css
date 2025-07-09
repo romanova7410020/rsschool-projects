@@ -5,11 +5,17 @@ html {
 header{
   background-color: #030303;
 }
+a {
+  text-decoration: none;
+}
 .container{
   margin: 0 auto;
   max-width: 1440px;
+  width: 100%;
 }
-
+p{
+  margin: 0;
+}
 .header_container{
   display: flex;
   justify-content: space-between;
@@ -27,18 +33,20 @@ padding: 74px;
 font-family: Forum;
 color: #FFFFFF;
 font-size: 28px;
-text-transform: uppercase
+text-transform: uppercase;
+letter-spacing: 5px;
 }
 .nav-list {
   list-style: none;
   display: flex;
 gap: 55px;
   align-items: center;
+  letter-spacing: 2px;
+  
 }
 ul{
   display: flex;
-  max-width: 720px;
-   justify-content: space-between; 
+  justify-content: space-between; 
 }
 .nav-link {
   font-family: 'roboto';
@@ -79,13 +87,15 @@ ul{
   text-transform: uppercase;
   color: #FFFFFF;
   font-weight: 400;
-  line-height: 90px;
   margin-top: 150px;
+  letter-spacing: 5px;
 }
 .welcome_text{
   font-family: 'Roboto';
   font-weight: 100;
   font-size: 28px;
+  margin-top: -28px;
+  letter-spacing: 2px;
 }
 
 .discover-button {
@@ -103,6 +113,7 @@ ul{
   border-radius: 10px; 
   transition: all 0.3s ease; 
   margin-top: 75px;
+  letter-spacing: 2px;
 }
 
 .discover-button:hover {
@@ -116,9 +127,8 @@ ul{
 
 }
 
-.main_image {
+.slide_image {
   width: 1000px;
-  height: 100%;
   position: absolute;
   top: 0;
   right: 0;
@@ -134,12 +144,120 @@ ul{
 
 .welcome_column {
   position: relative;
-  z-index: 2; /* Текст поверх изображения */
+  z-index: 2; 
   max-width: 600px;
   
-  color: white; /* Белый текст для контраста */
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Тень для лучшей читаемости */
+  color: white; 
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5); 
+}
+.swiper_pagination{
+width: 600px;
+height: 120px;
+position: absolute;
+bottom: 0px;
+right: 0;
+background-color: #030303;
+z-index: 1; 
+display: flex;
+}
+.swiper_pagination_bullets {
+  display: flex;
+  gap: 25px;
+  margin-left: 55px;
+  margin-top: 52px;
+}
+.swiper_pagination_bullet {
+  width: 16px;
+  height: 16px;
+  background: #FFFFFF;
+  opacity: 1;
 }
 
+.swiper_pagination_bullet:first-child {
+  background: #D2B183; 
+}
+.left_arrow{
+  width: 28px;
+  height: 8px;
+  margin-top: 56px;
+  margin-left: 60px;
+}
 
+.right_arrow{
+    width: 28px;
+  height: 8px;
+   transform: scaleX(-1);
+   margin-top: 56px;
+   margin-left: 20px;
+}
 
+.custom_pagination{
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-size: 22px;
+  margin-top: 48px;
+  margin-left: 74px;
+}
+
+h2{
+  font-family: 'Forum';
+  font-size: 80px;
+  color: #9D8665;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font-weight: normal;
+  margin-top: 75px;
+}
+.underline_title {
+  position: relative;
+}
+.underline_title::after {
+  content: "";
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #710707;
+}
+.visiting_items{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 103px;
+  gap: 75px 60px;
+}
+.underline_item{
+  position: relative;
+}
+
+.underline_item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  width: 70%;
+  height: 3px;
+  background-color: #710707;
+}
+h3 {
+  font-family: 'Forum';
+  font-size: 32px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-top: 18px;
+color: #000000;
+}
+.item_text{
+  font-family: 'Roboto';
+  font-size: 22px;
+  font-weight: 100;
+ color: #000000;
+ margin-top: -10px;
+}
+.item_text2{
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 100;
+ color: #000000;
+ margin-top: 10px;
+}
