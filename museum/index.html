@@ -37,7 +37,7 @@
         <div class="container">
           <section class="main_welcome">
             <div class="welcome_column">
-                <h1 class="welcome_title">Welcome<br>to the Louvre</h1>
+                <h2 class="welcome_title">Welcome<br>to the Louvre</h2>
                 <p class="welcome_text" >From the castle to the museum</p>
                 <a href="./tour1.html" class="discover-button" target="_blank" >Discover the Louvre</a>
             </div>
@@ -124,6 +124,67 @@
                             <p class="item_text">360° Virtual Tour</p>
                             <p class="item_text2">Google Street Panorama View</p>
                         </a>
+                </div>
+            </div>
+        </section>
+        <section class="explore">
+            <div class="container">
+                <div class="explore_flex">
+                    <div class="explore_specification">
+                    <h2 class="explore_title">Picture explore</h2>
+                    <div class="underline_title"></div>
+                    <p class="explore_text_first">Las Meninas is a 1656 painting by Diego Velázquez, the leading <br>artist of the Spanish Golden Age.</p>
+                    <p class="explore_text_second">It was cleaned in 1984 to remove a <span style=color:#CAAA7D>"yellow veil"</span>  of dust that had gathered since the previous restoration in the 19th century.</p>
+                    <p class="explore_text_second">The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
+                </div>
+                <div class="explore_image">
+                    <div class="image_container">
+                        <img class="image_before slider-image" src="./assets/img/before.jpg" alt="image before">
+                      <img class="image_after slider-image" src="./assets/img/after.jpg" alt="image after"> 
+                    </div>
+                    <input type="range" min="0" max="100" value="70" class="explore_slider" aria-label="percent of before photo show"/>
+                    <div class="slider_line"></div>
+                    <div class="slider_button" aria-hidden="true">
+                     <svg width="40" height="40" viewBox="0 0 30 30">
+                     <circle cx="16" cy="15" r="13" fill="none" stroke="white" stroke-width="2"/>
+                    </svg>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+    <section class="video">
+            <div class="container">
+                <div class="video_content">
+                    <h2 class="video_title">Video journey</h2>
+                    <p class="video_text">Enter and visit one of the most famous museums in the world and enjoy <br>masterpieces such as Mona Lisa or Hammurabi's Code</p>
+                </div>
+                <div class="video_items">
+                    <video  id="firstvideo" preload="metadata" poster="./assets/img/poster0.jpg" src="./assets/video/Welcome to the Louvre - Bienvenue au Louvre - Musйe du Louvre.mp4" class="video_item"  ></video>
+                </div>
+                <div class="custom_controls">
+                    <button id="playPauseBtn" class="play_button"></button>
+                    <input type="range" id="progressBar" class="progress" min="0" max="1000" value="40" step="0.1">
+                     <button id="muteBtn" class="svg_sound_button">
+                         <svg width="38" height="31" viewBox="0 0 24 24" fill="#808080">
+                         <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1-3.29-2.5-4v8c1.5-.71 2.5-2.24 2.5-4zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4-.92 7-4.49 7-8.77s-3-7.85-7-8.77z"/>
+                        </svg>
+                     </button>
+                     <input type="range" id="progressBarvolume" class="progress_volume" min="0" max="100" value="40">
+                     <button id="fullscreenBtn" class="svg_fullscreen_button">
+                         <svg width="35" height="35" viewBox="0 0 24 24" fill="#808080">
+                         <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                        </svg>
+                     </button>
+                </div>
+                <div class="slider3_video">
+                   <video src="./assets/video/video1.mp4" width="452px" poster="./assets/img/poster1.jpg"></video>
+                   <video src="./assets/video/video2.mp4" width="452px" poster="./assets/img/poster2.jpg"></video>
+                   <video src="/assets/video/video3.mp4" width="452px" poster="./assets/img/poster3.jpg"></video>
+                 <!--  <video src="./assets/video/video4.mp4" width="452px" poster="./assets/img/poster4.jpg"></video> -->  
+                </div>
+                <div class="video_slider_paginator">
+                    <img src="./assets/img/video slider pagination.png" alt="video slider pagination">
                 </div>
             </div>
         </section>

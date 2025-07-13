@@ -94,13 +94,13 @@ ul{
   font-family: 'Roboto';
   font-weight: 100;
   font-size: 28px;
-  margin-top: -28px;
+  margin-top: -43px;
   letter-spacing: 2px;
 }
 
 .discover-button {
   display: inline-block;
-  height: 65px;
+  height: 75px;
   width: 360px;
   text-align: center; 
   line-height: 70px;
@@ -138,7 +138,7 @@ ul{
 .main_image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Заполнение области с сохранением пропорций */
+  object-fit: cover; 
   object-position: center;
 }
 
@@ -146,19 +146,18 @@ ul{
   position: relative;
   z-index: 2; 
   max-width: 600px;
-  
   color: white; 
   text-shadow: 1px 1px 3px rgba(0,0,0,0.5); 
 }
 .swiper_pagination{
-width: 600px;
-height: 120px;
-position: absolute;
-bottom: 0px;
-right: 0;
-background-color: #030303;
-z-index: 1; 
-display: flex;
+ width: 600px;
+ height: 120px;
+ position: absolute;
+ bottom: 0px;
+ right: 0;
+ background-color: #030303;
+ z-index: 1; 
+ display: flex;
 }
 .swiper_pagination_bullets {
   display: flex;
@@ -220,16 +219,22 @@ h2{
   height: 3px;
   background-color: #710707;
 }
+
 .visiting_items{
   display: flex;
   flex-wrap: wrap;
   margin-top: 103px;
+  padding-bottom: 75px;
   gap: 75px 60px;
 }
 .underline_item{
   position: relative;
+  transition: width 0,5s ease-out;
 }
-
+.item:hover {
+  transform: translateY(-5px);
+ box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+ }
 .underline_item::after {
   content: "";
   position: absolute;
@@ -239,6 +244,9 @@ h2{
   height: 3px;
   background-color: #710707;
 }
+.item:hover .underline_item {
+  width: calc(100% + 170px);
+ }
 h3 {
   font-family: 'Forum';
   font-size: 32px;
@@ -251,8 +259,8 @@ color: #000000;
   font-family: 'Roboto';
   font-size: 22px;
   font-weight: 100;
- color: #000000;
- margin-top: -10px;
+  color: #000000;
+  margin-top: -10px;
 }
 .item_text2{
   font-family: 'Roboto';
@@ -260,4 +268,240 @@ color: #000000;
   font-weight: 100;
  color: #000000;
  margin-top: 10px;
+}
+.explore_specification{
+
+  width: 660px;
+}
+
+.explore{
+  display: grid;
+  place-items: center;
+  background: #000000;
+  
+}
+.explore_flex{
+  display: flex;
+  justify-content: space-between;
+
+ 
+}
+.explore_title{
+  color:#FFFFFF
+}
+.explore_text_first{
+  font-family: 'Roboto';
+  font-size: 22px;
+  color: white; 
+  font-weight: 300;
+  margin-top: 103px;
+  line-height: 38.5px;
+}
+.explore_image{
+  width: 720px;
+  height: 700px;
+  margin-top: 90px;
+}
+.video_content{
+  display: flex; 
+  align-items: center; 
+  gap: 115px; 
+}
+.explore_text_second{
+   font-family: 'Roboto';
+  font-size: 22px;
+  color: white; 
+  font-weight: 300;
+  margin-top: 25px;
+  line-height: 38.5px;
+}
+.video_text{
+    font-family: 'Roboto';
+  font-size: 22px;
+  color: #000000; 
+  font-weight: 300;
+  line-height: 38.5px;
+}
+.explore_image{
+  margin-top: 90px;
+   display: grid;
+  place-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  --position: 61%;
+  margin-bottom: 75px;
+}
+.image_container{
+max-width: 720px;
+  max-height: 700px;
+  aspect-ratio: 1/1;
+}
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left;
+}
+
+.image_before {
+  position: absolute;
+  inset: 0;
+  width: var(--position);
+
+}
+.explore_slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.slider:focus-visible ~ .slider-button {
+  outline: 5px solid black;
+  outline-offset: 3px;
+}
+.slider_line {
+  position: absolute;
+  inset: 0;
+  width: .2rem;
+  height: 100%;
+  background-color: #fff; 
+  left: var(--position);
+  transform: translateX(-0%);
+  pointer-events: none;
+  mask: radial-gradient(circle at center, transparent 18px, white 19px);
+}
+
+.slider_button {
+  position: absolute;
+  color: black;
+  border-radius: 150vw;
+  display: grid;
+  place-items: center;
+  top: 50%;
+  left: var(--position);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.custom_controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+height: 85px;
+background: #000000;
+gap: 50px;
+margin: 0;
+}
+.progress {
+  background: linear-gradient(to right, #710707 0%, #710707 40%, #C4C4C4 40%, #C4C4C4 100%);
+  height: 8px;
+  width: 929px;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  
+}
+
+.progress::-webkit-slider-thumb,
+.progress_volume::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  background: #fff;
+}
+.play_button, .svg_sound_button, .svg_fullscreen_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.play_button{
+  margin-left: 30px;
+}
+
+.progress_volume {
+  background: linear-gradient(to right, #710707 0%, #710707 40%, #C4C4C4 40%, #C4C4C4 100%);
+  height: 8px;
+  width: 155px;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  
+}
+.video_items {
+    display: block;
+    margin: 0;
+    padding-top: 8px;
+    line-height: 0; 
+}
+.video_item{
+ width: 1440px;
+ height: 650px;
+ object-fit: cover;
+}
+.play_button {
+ width: 23px;
+ height: 31px;
+ background: none;
+ border: none;
+ cursor: pointer;
+ padding: 0;
+ position: relative;
+}
+.play_button::before {
+content: "";
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-30%, -50%);
+border-top: 10px solid transparent;
+border-bottom: 10px solid transparent;
+border-left: 15px solid #808080;  Серый цвет 
+}
+ .play_button:hover::before {
+border-left-color: #606060;  Темнее при наведении */
+}
+
+     .svg_sound_button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+    .svg_sound_button svg {
+        transition: fill 0.2s;
+    }
+    .svg_sound_button:hover svg {
+        fill: #606060;
+    }
+
+      .svg_fullscreen_button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+    .svg_fullscreen_button svg {
+        transition: fill 0.2s;
+    }
+ .svg_fullscreen_button:hover svg {
+     fill: #606060;
+}
+
+.slider3_video{
+  margin-top: 40px;
+ display: flex;
+ justify-content: space-between;
+}
+.video_slider_paginator{
+  margin-top: 40px;
+  margin-bottom: 75px;
+  margin-left: 620px;
 }
