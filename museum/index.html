@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onload="window.scrollTo(0, 0)">
     <header class="header">
         <div class="container">
             <div class="header_container">
@@ -78,7 +78,7 @@
           </section>
         </div>
         </section>
-        <section class="Visiting" id=#visiting>
+        <section class="Visiting" id="visiting">
             <div class="container">
                 <h2 class="visiting_title">Virtual tour</h2>
                 <div class="underline_title"></div>
@@ -128,7 +128,7 @@
                 </div>
             </div>
         </section>
-        <section class="explore">
+        <section class="explore" id="explore">
             <div class="container">
                 <div class="explore_flex">
                     <div class="explore_specification">
@@ -154,7 +154,7 @@
                 </div>
             </div>
         </section>
-    <section class="video">
+    <section class="video" id="video">
             <div class="container">
                 <div class="video_content">
                     <h2 class="video_title">Video journey</h2>
@@ -162,6 +162,9 @@
                 </div>
                 <div class="video_items">
                     <video  id="firstvideo" preload="metadata" poster="./assets/img/poster0.jpg" src="./assets/video/Welcome to the Louvre - Bienvenue au Louvre - Musйe du Louvre.mp4" class="video_item"  ></video>
+                    <button id="playpauseBTnig" class="play_button_big">
+                        <img src="./assets/svg/playbuttonbig.svg" alt="playbuttonbig">
+                    </button>
                 </div>
                 <div class="custom_controls">
                     <button id="playPauseBtn" class="play_button"></button>
@@ -179,17 +182,52 @@
                      </button>
                 </div>
                 <div class="slider3_video">
-                   <video controls src="./assets/video/video1.mp4" width="452px" poster="./assets/img/poster1.jpg"></video>
-                   <video src="./assets/video/video2.mp4" width="452px" poster="./assets/img/poster2.jpg"></video>
-                   <video src="/assets/video/video3.mp4" width="452px" poster="./assets/img/poster3.jpg"></video>
-                 <!--  <video src="./assets/video/video4.mp4" width="452px" poster="./assets/img/poster4.jpg"></video> -->  
+                    <div class="video_container">
+                        <video src="/assets/video/video3.mp4" width="452px" poster="./assets/img/poster3.jpg" class="small_video"></video>
+                        <button id="youtubeplaybtn" class="youtube_play_button">
+                        <img src="./assets/svg/youtube icon.svg" alt="youtube play button">
+                        </button>
+                        <img src="./assets/img/video_avatar.png" alt="video avatar" class="video_avatar">
+                        <h4 class="video_name">Exposition - Le Corps et l'Âme. De Dona</h4>
+                    </div>
+                    <div class="video_container">
+                        <video  src="./assets/video/video1.mp4" width="452px" poster="./assets/img/poster1.jpg"class="small_video"></video>
+                        <button id="youtubeplaybtn" class="youtube_play_button">
+                        <img src="./assets/svg/youtube icon.svg" alt="youtube play button">
+                        </button>
+                        <img src="./assets/img/video_avatar.png" alt="video avatar" class="video_avatar">
+                        <h4 class="video_name">Au Louvre ! La Vénus de Milo</h4>
+                    </div>
+                    <div class="video_container">
+                        <video src="./assets/video/video2.mp4" width="452px" poster="./assets/img/poster2.jpg"class="small_video"></video>
+                         <button id="youtubeplaybtn" class="youtube_play_button">
+                         <img src="./assets/svg/youtube icon.svg" alt="youtube play button">
+                         </button>
+                         <img src="./assets/img/video_avatar.png" alt="video avatar" class="video_avatar">
+                         <h4 class="video_name">Promenade dans les collections mésop</h4>
+                    </div>
+
+                 <!--<div class="video_container">
+                        <video src="./assets/video/video4.mp4" width="452px" poster="./assets/img/poster4.jpg" class="small_video"></video>
+                        <button id="youtubeplaybtn" class="youtube_play_button">
+                         <img src="./assets/svg/youtube icon.svg" alt="youtube play button">
+                         </button>
+                         <img src="./assets/img/video_avatar.png" alt="video avatar" class="video_avatar">
+                         <h4 class="video_name">Petits contes de Printemps - La ruse du Renard  </h4>
+                    </div> -->  
                 </div>
                 <div class="video_slider_paginator">
-                    <img src="./assets/img/video slider pagination.png" alt="video slider pagination">
+                    
+                    <div class="slider_pagination_circle"></div>
+                    <div class="slider_pagination_circle"></div>
+                    <div class="slider_pagination_circle"></div>
+                    <div class="slider_pagination_circle"></div>
+                    <div class="slider_pagination_circle"></div>
+                
                 </div>
             </div>
         </section>
-        <section class="gallery">
+        <section class="gallery" id="gallery">
             <div class="container">
                 <h2 class="gallery_title">Art Gallery</h2>
                 <div class="gallery_content">
@@ -217,7 +255,7 @@
                 </div>
             </div>
         </section>
-        <section class="Tickets">
+        <section class="Tickets" id="tickets">
             <div class="container">
                 <h2 class="tickets_title">Buy Tickets</h2>
                 <div class="underline_title"></div>
@@ -244,9 +282,9 @@
                             </div>
                         </div>
                          <div class="amount_selection">
-                            <h4 class="amount_title">Amount</h4>
                             <div class="amount_option">
-                                <span class="amount_name">Basic 18+</span>
+                                <h4 class="amount_title">Amount</h4>
+                                <span class="amount_name">Basic 18+ </span>
                                     <div class="quantity_wrapper">
                                     <button class="quantity_btn minus">–</button>
                                     <span class="quantity_value">1</span>
@@ -259,17 +297,17 @@
                                     <span class="quantity_value">1</span>
                                     <button class="quantity_btn plus">+</button>
                                     </div>
-                               
-                            </div> 
-                             <p class="amount_total">Total €220</p>
+                               <p class="amount_total">Total €220</p>
                                 <button class="buy_now_btn">Buy Now</button>
+                            </div> 
+                             
                         </div>  
                     </div>    
                 </div>                        
             </div>
         </section>
         <div class="parallax"></div>
-        <div class="contacts">
+        <section class="contacts" id="contacts">
             <div class="container">
                 <h2 class="contacts_title">Contacts</h2>
                 <div class="underline_title"></div>
@@ -291,7 +329,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
     <footer class="footer">
         <div class="container">
@@ -309,21 +347,33 @@
                     <li class="nav_item"><a href="#contacts" class="nav_link">Contacts</a></li>
                 </nav>
                 <div class="social_media">
-                    <a href="https://www.youtube.com/user/louvre" target="_blank">
-                        <img src="./assets/img/Youtube.png" alt="youtube">
-                    </a>
-                    <a href="https://www.instagram.com/museelouvre/" target="_blank">
-                        <img src="./assets/img/Instagram.png" alt="instagram">
-                    </a>
-                    <a href="https://www.facebook.com/museedulouvre" target="_blank">
-                        <img src="./assets/img/Facebook.png" alt="facebook">
-                    </a>
-                    <a href="http://twitter.com/museelouvre" target="_blank">
-                        <img src="./assets/img/Twitter.png" alt="twitter">
-                    </a>
-                    <a href="https://www.pinterest.fr/museedulouvre/" target="_blank">
-                        <img src="./assets/img/Pinterest.png" alt="pinterest">
-                    </a>
+                    <ul class="social_media_list">
+                        <li class="social_item">
+                            <a href="https://www.youtube.com/user/louvre" target="_blank" rel="noopener noreferrer" class="social_link">
+                                <img src="./assets/svg/Youtube.svg" alt="YouTube" class="social_icon">
+                            </a>
+                        </li>
+                        <li class="social_item">
+                            <a href="https://www.instagram.com/museelouvre/" target="_blank" rel="noopener noreferrer" class="social_link">
+                                <img src="./assets/svg/Instagram.svg" alt="Instagram" class="social_icon">
+                            </a>
+                        </li>
+                        <li class="social_item">
+                            <a href="https://www.facebook.com/museedulouvre" target="_blank" rel="noopener noreferrer" class="social_link">
+                                <img src="./assets/svg/Facebook.svg" alt="Facebook" class="social_icon">
+                            </a>
+                        </li>
+                        <li class="social_item">
+                            <a href="http://twitter.com/museelouvre" target="_blank" rel="noopener noreferrer" class="social_link">
+                                <img src="./assets/svg/Twitter.svg" alt="Twitter" class="social_icon">
+                            </a>
+                        </li>
+                        <li class="social_item">
+                            <a href="https://www.pinterest.fr/museedulouvre/" target="_blank" rel="noopener noreferrer" class="social_link">
+                                <img src="./assets/svg/Pinterest.svg" alt="Pinterest" class="social_icon">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="underline_title_footer"></div>
