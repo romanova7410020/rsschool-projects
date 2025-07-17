@@ -131,3 +131,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация громкости
     video.volume = progressBarVolume.value / 100;
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const burgerBtn = document.querySelector('.burger_button');
+    const navigation = document.querySelector('.header_navigation');
+    const welcomeColumn = document.querySelector('.welcome_column');
+    const navLinks = document.querySelectorAll('.nav_link');
+    
+    function toggleMenu() {
+        const isActive = burgerBtn.classList.toggle('active');
+        navigation.classList.toggle('active');
+        
+        // Управление скроллом и welcome_column
+        document.body.style.overflow = isActive ? 'hidden' : '';
+        welcomeColumn.style.display = isActive ? 'none' : 'block';
+    }
+    
+    burgerBtn.addEventListener('click', toggleMenu);
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            burgerBtn.classList.remove('active');
+            navigation.classList.remove('active');
+            document.body.style.overflow = '';
+            welcomeColumn.style.display = 'block';
+        });
+    });
+});
