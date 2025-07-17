@@ -255,7 +255,6 @@ h2{
 }
 .underline_item{
   position: relative;
-  transition: width 0,5s ease-out;
 }
 .item:hover {
   transform: translateY(-5px);
@@ -269,6 +268,7 @@ h2{
   width: 70%;
   height: 3px;
   background-color: #710707;
+  transition: width 1s ease-out;
 }
 .item:hover .underline_item {
   width: calc(100% + 170px);
@@ -885,13 +885,6 @@ margin-left: -120px;
   padding-bottom: 52px;
 }
 
-.overlay.active {
-    display: block;
-}
-
-.overlay.active {
-    display: block;
-}
 @media screen and (max-width: 1024px) {
   .container{
     max-width: 984px;
@@ -963,49 +956,86 @@ margin-left: -120px;
     margin-left: 300px;
     object-fit: contain;
   }
- .welcome_text {
-  margin-top: -16px;
-  font-size: 24px;
-  font-weight: 300;
- }
+  .welcome_text {
+   margin-top: -16px;
+   font-size: 24px;
+   font-weight: 300;
+  }
  .main_welcome {
- max-height: 585px;
+  max-height: 585px;
  
  }
-.swiper_pagination{
-  width: 700px; 
-}
-.discover_button {
-  max-width: 300px;
-  max-height: 60px;
-  margin-top: 51px;
-  font-size: 20px; 
-  line-height: 60px;
-}
-.custom_pagination{
- margin-left: 224px; 
- font-size: 20px;
- margin-top: 49px;
-}
-.swiper_pagination_bullet {
-  width: 12px;
-  height: 12px;
-}
-.swiper_pagination_bullets {
- margin-left: 46px;
- margin-top: 54px;
-}
-.left_arrow {
- margin-top: 55px;
- margin-left: 46px
-}
-.right_arrow {
-  margin-top: 55px;
-  margin-left: 22px;
+ .swiper_pagination{
+   width: 700px; 
+ }
+ .discover_button {
+   max-width: 300px;
+   max-height: 60px;
+   margin-top: 51px;
+   font-size: 20px; 
+   line-height: 60px;
+ }
+ .custom_pagination{
+   margin-left: 224px; 
+   font-size: 20px;
+   margin-top: 49px;
+ }
+  .swiper_pagination_bullet {
+   width: 12px;
+   height: 12px;
+ }
+  .swiper_pagination_bullets {
+   margin-left: 46px;
+   margin-top: 54px;
+ }
+  .left_arrow {
+   margin-top: 55px;
+   margin-left: 46px
+ }
+  .right_arrow {
+   margin-top: 55px;
+   margin-left: 22px;
+ }
+ h2{
+   font-size: 50px;
+   margin-top: 69px;
+ }
+ .underline_title::after {
+    bottom: 10px;
+ }
+  .visiting_items{
+   margin-top: 91px; 
+   gap: 60px 108px;
+   margin-left: 108px;
+ }
+ .visiting_item{
+   width: 330px;
+   height: 345px;
+ }
+ .item_img{
+   width: 330px;
+   height: 215px;
+ }
+ h3{
+   font-size: 28px;
+   letter-spacing: 3px;
+ }
+ .underline_item::after{
+   height: 2px;
+   bottom: 14px;
+   width: 46%;
+ }
+ .item_text {
+   font-size: 20px;
+   margin-top: -4px;
+ }
+ .item_text2{
+  font-size: 16px;
+ }
+
+
 }
 
 
 
 
-
-}
