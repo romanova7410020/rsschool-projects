@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+//бкргер-меню
 
 document.addEventListener('DOMContentLoaded', function() {
     const burgerBtn = document.querySelector('.burger_button');
@@ -161,3 +162,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+//перемешивание фото
+document.addEventListener('DOMContentLoaded', function() {
+    const gallery = document.querySelector('.gallery_content');
+    const images = Array.from(gallery.children);
+
+    // Перемешиваем (если нужно)
+    images.sort(() => Math.random() - 0.5);
+    gallery.innerHTML = '';
+    images.forEach(img => gallery.appendChild(img));
+
+    // Поднимаем 6, 7, 8, 9, 10 фото (по новому порядку)
+    const photosToLift = [5, 6, 7, 8, 9]; // Индексы 6-10 фото (нумерация с 0)
+    photosToLift.forEach(index => {
+        if (images[index]) {
+            images[index].classList.add('lift-up');
+        }
+    });
+});
+
+
+
+
+
