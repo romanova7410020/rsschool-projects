@@ -942,7 +942,7 @@ margin-left: -120px;
   .nav_item {
   margin-bottom: 15px;
   }
-  .nav_item::after{
+   .header_navigation .nav_item::after{
    content: "ᐳ";
    color: #ffffff;
    padding-left: 25px;
@@ -1178,6 +1178,7 @@ margin-left: -120px;
  }
   .contacts_content{
     margin-top: 91px;
+    margin-bottom: 58px;
   }
   .contact_title{
    font-size: 24px;
@@ -1194,9 +1195,19 @@ margin-left: -120px;
    font-family: "Roboto";
    margin-bottom: 15px;
   }
- 
-
-
-
+ .footer_container {
+    padding-top: 60px;
+ }
+ .footer_navigation {
+    margin-left: 140px;
+ }
+ .social_media_list {
+    margin-top: 85px;
+ }
+ .footer_nav_list {
+    column-gap: 100px;
+    row-gap: 12px;
+    margin-left: -47px;
+ }
 
 }
