@@ -880,7 +880,6 @@ margin-left: -120px;
   filter: brightness(0.9);
 }
 
-/* Эффекты при наведении */
 .social_link:hover {
   background-color: rgba(247, 205, 66, 0.1);
   box-shadow: 0 0 0 1px #eec53f;
@@ -1209,5 +1208,124 @@ margin-left: -120px;
     row-gap: 12px;
     margin-left: -47px;
  }
+}
+
+@media screen and (max-width: 768px){
+.container{
+    max-width: 728px;
+  }
+  .header_container {
+    height: 110px;
+  }
+  .header_navigation.active {
+    left: 0;
+    top: 110px;
+    width: 100%;
+  }
+  .welcome_column {
+    width: 728px;
+  }
+  .welcome_title {
+   position: relative;
+    font-size: 40px;
+   text-align: center;
+    color: #ffffff;
+   margin-top: 0px;
+    line-height: 60px;
+    width: 728px;
+  }
+  .welcome_text {
+   font-size: 20px;
+   text-align: center;
+    width: 728px;
+    margin-top: -8px;
+  }
+  .discover_button{
+    display: none;
+  }
+  .image1{
+    margin-top: 215px;
+  }
+  .main_welcome {
+   max-height: 861px;
+  }
+  .dark_section{
+    height: 861px;
+  }
+  .swiper{
+    width: 768px;
+  }
+ .swiper_pagination {
+   height: 100px;
+    bottom: -51px;
+    width: 768px;
+ }
+  .custom_pagination {
+    margin-top: 39px;
+    margin-left: 205px;
+ }
+  .swiper_pagination_bullets {
+    margin-left: 46px;
+    margin-top: 44px;
+  }
+  .left_arrow {
+    margin-top: 45px;
+  }
+  .right_arrow {
+    margin-top: 45px;
+  }
+ .image1{
+    max-width: 728px;
+    max-height: 546px;
+    margin-left: 272px;
+ }
+  .header_navigation.active {
+    height: 861px;
+     padding-top: 20px;
+  }
+  .nav_list{
+    align-items: flex-start;
+    margin-left: 55px;
+    gap: 10px;
+  }
+  .nav_link {
+    font-size: 20px;
+  }
+  h2{
+   font-size: 40px;
+   margin-top: 47px;
+  }
+ .underline_title::after {
+   bottom: 3px;
+ }
+  .visiting_item{
+   width: 280px;
+   height: 301px;
+ }
+  .item_img{
+   width: 280px;
+   height: 180px;
+ }
+  .visiting_items {
+    margin-top: 70px;
+    gap: 40px 56px;
+   margin-left: 56px;
+  }
+ h3{
+   font-size: 22px;
+ }
+ .underline_item::after {
+    height: 2px;
+    bottom: 9px;
+    width: 54%;
+ }
+ .item_text {
+    margin-top: 0px;
+    letter-spacing: -1px;
+ }
+
+
+
+
 
 }
