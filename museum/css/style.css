@@ -355,7 +355,6 @@ color: #000000;
   place-content: center;
   position: relative;
   overflow: hidden;
-  border-radius: 1rem;
   --position: 61%;
   margin-bottom: 75px;
 }
@@ -1310,6 +1309,7 @@ margin-left: -120px;
     margin-top: 70px;
     gap: 40px 56px;
    margin-left: 56px;
+    padding-bottom: 80px;
   }
  h3{
    font-size: 22px;
@@ -1323,9 +1323,18 @@ margin-left: -120px;
     margin-top: 0px;
     letter-spacing: -1px;
  }
-
-
-
-
+.explore_text_first{
+  display: none;
+}
+ .explore_text_second{
+   display: none;
+ }
+.explore_image {
+   width: 750px;
+    height: 705px;
+    margin-top: 37px;
+    margin-left: 0px;
+    margin-bottom: 40px;
+}
 
 }
