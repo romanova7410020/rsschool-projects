@@ -1366,7 +1366,7 @@ margin-left: -120px;
    left: 8%;
   }
   .video_name {
-    top: 10%;
+    top: 23%;
    left: 17%;
   }
  .video_slider_paginator {
@@ -1390,6 +1390,89 @@ margin-left: -120px;
  .gallery {
    height: 1220px;
  }
+ .tickets_content{
+   margin-bottom: 40px;
+  }
+ .tickets_content img {
+    width: 444px;
+    height: 340px;
+   margin-top: -26px;
+ }
+  .amount_option {
+   margin-left: 0px;
+  }
+  h4 {
+    margin-top: -25px;
+    margin-bottom: 38px;
+  }
+  .quantity_wrapper {
+    margin-top: 10px;
+    margin-bottom: 26px;
+  }
+    .amount_total {
+    margin-top: 15px;
+  }
+  .buy_now_btn {
+    margin-top: 39px;
+  }
+ .parallax{
+  height: 300px;
+ }
+ .contact_info { 
+   width: 100%;
+
+ }
+ .contact_map img {
+  width: 728px;
+  height: 476px;
+ }
+
+ .contacts_content{
+ display: block;
+ margin-bottom: 62px;
+ }
+ .contact_title {
+    font-size: 20px;
+  }
+  .contact_adress {
+    margin-top: 5px;
+    font-size: 18px;
+  }
+  .contact_phone, .contact_mail {
+    font-size: 18px;
+  }
+ .contact_map{
+  margin-top: 28px;
+ }
+ .footer_container {
+  padding-top: 49px;
+  display: block;
+ }
+  .footer_navigation {
+   margin-left: 344px;
+   margin-top:  -23px;
+  }
+  .footer_nav_list {
+    column-gap: 79px;
+    row-gap: 7px;
+  }
+  .social_media{
+    width: 340px;
+  }
+ .social_media_list {
+    margin-top: 35px;
+    margin-left: 297px;
+    margin-bottom: 39px;
+  }
+ .underline_title_footer {
+    height: 1px;
+    width: 768px;
+ }
+ .footer_copyright {
+   margin-top: 40px;
+    padding-bottom: 38px;
+ }
+
 
 }
     
