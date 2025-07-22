@@ -1575,9 +1575,86 @@ margin-left: -120px;
     margin-left: -1px;
     margin-bottom: 44px;
   }
+  .video_item {
+   width: 380px;
+    height: 172px;
+  }
+  .custom_controls {
+    width: 380px;
+    height: 55px;
+  }
+ .small_video {
+   width: 180px;
+    height: 101px;
+ }
+  .slider3_video {
+    margin-top: 38px;
+  }
+   .video_slider_paginator {
+    margin-left: 100px;
+    margin-top: 39px;
+  }
+ .slider_pagination_circles {
+    gap: 18px;
+ }
+  .gallery {
+   margin-top: 88px;
+  }
+  .gallery_content img {
+    width: 178px;
+  }
+ .gallery {
+   height: 757px;
+  }
+  .progress_volume {
+   display: none; /*открыть потом*/
+  }
+   .tickets_content img {
+    width: 380px;
+    height: 160px;
+    margin-top: -30px;
+  }
+  .tickets_content {
+    display: block;
+  }
+  .contact_map img {
+    width: 380px;
+    height: 248px;
+  }
+  .social_media_list {
+    margin-left: 10px;
+  }
+  .footer_navigation {
+    margin-left: 15px;
+  }
+  .amount_selection{
+   margin-left: 101px;
+  }
+  .amount_title {
+    font-size: 16px;
+    margin-left: 61px;
+  }
+  h4 {
+   margin-top: 37px;
+   margin-bottom: 18px;
+  }
+ .amount_name {
+    font-size: 17px;
+ }
+  .quantity_wrapper {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+ .amount_total {
+   margin-top: 21px;
+   font-size: 16px;
+   margin-left: 48px;
+    }
+ }
 
 
 
+}
 
 
 
