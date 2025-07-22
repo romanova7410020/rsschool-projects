@@ -1323,20 +1323,19 @@ margin-left: -120px;
     margin-top: 0px;
     letter-spacing: -1px;
  }
-.explore_text_first{
+ .explore_text_first{
   display: none;
-}
+ }
  .explore_text_second{
    display: none;
  }
-.explore_image {
+ .explore_image {
    width: 750px;
     height: 705px;
     margin-top: 37px;
     margin-left: 0px;
     margin-bottom: 40px;
  }
-  
  .video_items {
     margin-top: -14px;
  }
@@ -1442,11 +1441,11 @@ margin-left: -120px;
     font-size: 18px;
   }
  .contact_map{
-  margin-top: 28px;
+   margin-top: 28px;
  }
  .footer_container {
-  padding-top: 49px;
-  display: block;
+   padding-top: 49px;
+   display: block;
  }
   .footer_navigation {
    margin-left: 344px;
@@ -1466,16 +1465,116 @@ margin-left: -120px;
   }
  .underline_title_footer {
     height: 1px;
-    width: 768px;
+    width: 728px;
  }
  .footer_copyright {
    margin-top: 40px;
     padding-bottom: 38px;
  }
+}
+   
+@media screen and (max-width: 420px){
+.container{
+    max-width: 380px;
+  }
+ .header_container {
+    height: 90px;
+  }
+ .header_logo {
+    padding: 55px;
+    font-size: 16px;
+ }
+ .header_svg {
+    height: 16px;
+    width: 29px;
+ }
+  .welcome_title {
+   font-size: 28px;
+    line-height: 40px;
+   width: 420px;
+   margin-top: 5px;
+   margin-left: -28px;
+  }
+ .welcome_text {
+   font-size: 16px;
+    text-align: center;
+    width: 420px;
+    margin-top: 26px;
+    margin-left: -20px;
+  }
+ .image1 {
+    max-width: 380px;
+    max-height: 285px;
+    margin-left: 20px;
+  }
+  .dark_section {
+    height: 544px;
+  }
+  .welcome_column {
+   width: 420px;
+   height: 544px;
+  }
+  .main_welcome {
+   max-height: 544px;
+  }
+  .swiper_pagination {
+   height: 80px;
+    bottom: 4px;
+    width: 420px;
+  }
+  .custom_pagination {
+    margin-top: 35px;
+   margin-left: 112px;
+    font-size: 16px;
+  }
+  .swiper_pagination_bullet {
+    width: 7px;
+    height: 7px;
+ }
+ .swiper_pagination_bullets {
+    margin-left: 21px;
+   margin-top: 41px;
+   gap: 11px;
+  }
+  .left_arrow {
+    width: 20px;
+   margin-top: 40px;
+   margin-left: 24px;
+  }
+  .right_arrow {
+    width: 20px;
+    margin-top: 40px;
+    margin-left: 13px;
+  }
+
+
+
+
 
 
 }
-    
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
