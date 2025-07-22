@@ -1546,6 +1546,35 @@ margin-left: -120px;
     margin-top: 40px;
     margin-left: 13px;
   }
+  h2 {
+    font-size: 28px;
+  }
+  .underline_title::after {
+    bottom: -1px;
+  }
+  .visiting_items {
+    margin-top: 64px;
+    gap: 34px 56px;
+    margin-left: 50px;
+    padding-bottom: 34px;
+  }
+  .underline_item::after {
+    height: 2px;
+    bottom: 13px;
+  }
+  .item_text {
+    margin-top: -5px;
+  }
+  .explore_specification {
+    width: 380px;
+  }
+ .explore_image {
+    width: 383px;
+    height: 364px;
+    margin-top: 40px;
+    margin-left: -1px;
+    margin-bottom: 44px;
+  }
 
 
 
