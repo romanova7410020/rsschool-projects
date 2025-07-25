@@ -421,7 +421,7 @@ max-width: 720px;
         
 video.video_item {
  width: 100%;
-  max-height: 650px;
+  height: 650px;
   object-fit: cover;
   display: block;
   cursor: pointer;
@@ -1087,7 +1087,7 @@ margin-left: -120px;
   }
  .custom_controls {
    margin-top: 0px;
-   height: 60px;
+   height: 66px;
  }
  .progress {
     height: 5px;
@@ -1133,7 +1133,7 @@ margin-left: -120px;
   margin-bottom: 56px;
  }
  .tickets_content img{
-   max-width: 700px;
+   width: 700px;
    max-height: 440px;
    object-fit: cover; 
    object-position: center;

@@ -32,6 +32,7 @@ function updatePagination(swiper) {
   document.querySelector('.total-slides').textContent = total;
 }
 */
+/*
 const container = document.querySelector('.explore_image');
 document.querySelector('.explore_slider').addEventListener('input', (e) => {
   container.style.setProperty('--position', `${e.target.value}%`);
@@ -162,7 +163,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
         });
 
 
-
+*/
 
 //бкргер-меню
 
