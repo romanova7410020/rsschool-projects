@@ -37,100 +37,130 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
   container.style.setProperty('--position', `${e.target.value}%`);
 })
 
+ document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('firstvideo');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const progressBar = document.getElementById('progressBar');
+            const muteBtn = document.getElementById('muteBtn');
+            const progressBarVolume = document.getElementById('progressBarvolume');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const bigPlayBtn = document.getElementById('playpauseBTnig');
 
-document.querySelectorAll('.progress, .progress_volume').forEach(slider => {
-  slider.addEventListener('input', function() {
-    const value = this.value;
-    this.style.background = `linear-gradient(to right, #710707 0%, #710707 ${value}%, #C4C4C4 ${value}%, white 100%)`;
-  });
-});
+            // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
+            
+            function setProgressBarBackground(input, value, max) {
+                const percent = max ? (value / max) * 100 : 0;
+                input.style.background = 
+                  `linear-gradient(to right, #710707 0%, #710707 ${percent}%, #C4C4C4 ${percent}%, #C4C4C4 100%)`;
+            }
+            function showBigPlay(show) {
+                bigPlayBtn.style.display = show ? 'block' : 'none';
+            }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('firstvideo');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const progressBar = document.getElementById('progressBar');
-    const muteBtn = document.getElementById('muteBtn');
-    const progressBarVolume = document.getElementById('progressBarvolume');
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
-    
-    // Инициализация иконок
-    updatePlayPauseIcon();
-    updateMuteIcon();
-    
-    // Play/Pause
-    playPauseBtn.addEventListener('click', togglePlayPause);
-    video.addEventListener('click', togglePlayPause);
-    
-    function togglePlayPause() {
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
-        updatePlayPauseIcon();
-    }
-    
-    function updatePlayPauseIcon() {
-        if (video.paused) {
-            playPauseBtn.innerHTML = '<svg width="23" height="31" viewBox="0 0 24 24" fill="#808080"><path d="M8 5v14l11-7z"/></svg>';
-        } else {
-            playPauseBtn.innerHTML = '<svg width="23" height="31" viewBox="0 0 24 24" fill="#808080"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-        }
-    }
-    
-    // Прогрессбар
-    video.addEventListener('loadedmetadata', function() {
-        progressBar.max = video.duration;
-    });
-    
-   video.addEventListener('timeupdate', function() {
-    if (!isNaN(video.duration)) {
-        const progressPercent = (video.currentTime / video.duration) * 100;
-        progressBar.style.setProperty('--progress', `${progressPercent}%`);
-        progressBar.value = video.currentTime;
-    }
-});
-    
-    progressBar.addEventListener('input', function() {
-        video.currentTime = progressBar.value;
-    });
-    
-    // Громкость
-    muteBtn.addEventListener('click', toggleMute);
-    
-    function toggleMute() {
-        video.muted = !video.muted;
-        updateMuteIcon();
-    }
-    
-    function updateMuteIcon() {
-        if (video.muted) {
-            muteBtn.innerHTML = '<svg width="38" height="31" viewBox="0 0 24 24" fill="#808080"><path d="M16.5 12c0-1.77-1-3.29-2.5-4v8c1.5-.71 2.5-2.24 2.5-4zM19 8l-4 4h1l4 4z"/></svg>';
-        } else {
-            muteBtn.innerHTML = '<svg width="38" height="31" viewBox="0 0 24 24" fill="#808080"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1-3.29-2.5-4v8c1.5-.71 2.5-2.24 2.5-4zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4-.92 7-4.49 7-8.77s-3-7.85-7-8.77z"/></svg>';
-        }
-    }
-    
-    progressBarVolume.addEventListener('input', function() {
-        video.volume = progressBarVolume.value / 100;
-        video.muted = false;
-        updateMuteIcon();
-    });
-    
-    // Полноэкранный режим
-    fullscreenBtn.addEventListener('click', function() {
-        if (!document.fullscreenElement) {
-            video.requestFullscreen().catch(err => {
-                console.error('Ошибка:', err);
+            // === ПЛЕЙ/ПАУЗА ===
+            function togglePlayPause() {
+                if (video.paused || video.ended) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+                updatePlayPauseIcon();
+            }
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            video.addEventListener('click', togglePlayPause);
+
+            bigPlayBtn.addEventListener('click', function() {
+                video.play();
             });
-        } else {
-            document.exitFullscreen();
-        }
-    });
-    
-    // Инициализация громкости
-    video.volume = progressBarVolume.value / 100;
-});
+
+            video.addEventListener('play', function() {
+                showBigPlay(false);
+                updatePlayPauseIcon();
+            });
+            video.addEventListener('pause', function() {
+                showBigPlay(true);
+                updatePlayPauseIcon();
+            });
+            video.addEventListener('ended', function() {
+                showBigPlay(true);
+                updatePlayPauseIcon();
+            });
+
+            function updatePlayPauseIcon() {
+                if (video.paused || video.ended) {
+                    playPauseBtn.innerHTML = '<img src="./assets/svg/play.svg" alt="Play" width="23" height="31">';;
+                } else {
+                    playPauseBtn.innerHTML = '<img src="./assets/svg/pause.svg" alt="Pause" width="23" height="31">';;
+                }
+            }
+
+            // === ПРОГРЕССБАР ===
+            video.addEventListener('loadedmetadata', function() {
+                progressBar.max = video.duration;
+                setProgressBarBackground(progressBar, 0, video.duration);
+            });
+            video.addEventListener('timeupdate', function() {
+                if (!isNaN(video.duration)) {
+                    progressBar.value = video.currentTime;
+                    setProgressBarBackground(progressBar, video.currentTime, video.duration);
+                }
+            });
+            progressBar.addEventListener('input', function() {
+                video.currentTime = progressBar.value;
+                setProgressBarBackground(progressBar, progressBar.value, progressBar.max);
+            });
+            
+
+            // === ГРОМКОСТЬ И MUTE ===
+            muteBtn.addEventListener('click', toggleMute);
+            progressBarVolume.addEventListener('input', function() {
+                video.volume = progressBarVolume.value / 100;
+                if (video.volume > 0) {
+                    video.muted = false;
+                }
+                updateMuteIcon();
+                setProgressBarBackground(progressBarVolume, progressBarVolume.value, 100);
+            });
+            function toggleMute() {
+                video.muted = !video.muted;
+                // Если muted, установить volume ползунок в 0 для визуального совпадения (не обязательно)
+                if (video.muted) {
+                    setProgressBarBackground(progressBarVolume, 0, 100);
+                } else {
+                    setProgressBarBackground(progressBarVolume, video.volume * 100, 100);
+                }
+                updateMuteIcon();
+            }
+            function updateMuteIcon() {
+    if (video.muted || video.volume === 0) {
+        muteBtn.innerHTML = '<img src="./assets/svg/mute.svg" alt="mute" width="36" height="30">';
+    } else {
+        muteBtn.innerHTML = '<img src="./assets/svg/volume.svg" alt="volume" width="36" height="30">';
+    }
+}
+
+            // === ПОЛНОЭКРАННЫЙ РЕЖИМ ===
+            fullscreenBtn.addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen().catch(err => {
+                            console.error('Ошибка при входе в полноэкранный режим:', err);
+                        });
+                    }
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+
+            // === ИНИЦИАЛИЗАЦИЯ ===
+            video.volume = progressBarVolume.value / 100;
+    setProgressBarBackground(progressBarVolume, progressBarVolume.value, 100);
+    setProgressBarBackground(progressBar, 0, video.duration || 1);
+    updateMuteIcon();
+    showBigPlay(video.paused);
+    updatePlayPauseIcon();
+        });
+
 
 
 
@@ -181,6 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+
 
 
 
