@@ -1,38 +1,4 @@
 
-
-/*
-const swiper = new Swiper('.swiper', {
-  // Автоматически считает количество слайдов
-  loop: false, // Отключаем бесконечный цикл, чтобы нумерация была точной
-
-  // Настройки пагинации
-  pagination: {
-    el: '.swiper_pagination',
-    clickable: true, // Можно кликать по точкам для переключения
-    dynamicBullets: false, // Отключаем динамическое изменение размера точек
-  },
-});
-
-const swiper = new Swiper('.swiper', {
-  // ... остальные настройки
-  on: {
-    init: function () {
-      updatePagination(this);
-    },
-    slideChange: function () {
-      updatePagination(this);
-    },
-  },
-});
-
-function updatePagination(swiper) {
-  const current = swiper.realIndex + 1;
-  const total = swiper.slides.length;
-  
-  document.querySelector('.current-slide').textContent = current;
-  document.querySelector('.total-slides').textContent = total;
-}
-*/
 /*
 const container = document.querySelector('.explore_image');
 document.querySelector('.explore_slider').addEventListener('input', (e) => {
@@ -48,8 +14,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
             const fullscreenBtn = document.getElementById('fullscreenBtn');
             const bigPlayBtn = document.getElementById('playpauseBTnig');
 
-            // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
-            
+            //прогресс бар красный
             function setProgressBarBackground(input, value, max) {
                 const percent = max ? (value / max) * 100 : 0;
                 input.style.background = 
@@ -59,7 +24,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
                 bigPlayBtn.style.display = show ? 'block' : 'none';
             }
 
-            // === ПЛЕЙ/ПАУЗА ===
+            // запуск=
             function togglePlayPause() {
                 if (video.paused || video.ended) {
                     video.play();
@@ -96,7 +61,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
                 }
             }
 
-            // === ПРОГРЕССБАР ===
+            // перемотка видео
             video.addEventListener('loadedmetadata', function() {
                 progressBar.max = video.duration;
                 setProgressBarBackground(progressBar, 0, video.duration);
@@ -113,7 +78,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
             });
             
 
-            // === ГРОМКОСТЬ И MUTE ===
+            // громкость
             muteBtn.addEventListener('click', toggleMute);
             progressBarVolume.addEventListener('input', function() {
                 video.volume = progressBarVolume.value / 100;
@@ -125,7 +90,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
             });
             function toggleMute() {
                 video.muted = !video.muted;
-                // Если muted, установить volume ползунок в 0 для визуального совпадения (не обязательно)
+                
                 if (video.muted) {
                     setProgressBarBackground(progressBarVolume, 0, 100);
                 } else {
@@ -141,7 +106,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
     }
 }
 
-            // === ПОЛНОЭКРАННЫЙ РЕЖИМ ===
+            // большой экран
             fullscreenBtn.addEventListener('click', function() {
                 if (!document.fullscreenElement) {
                     if (video.requestFullscreen) {
@@ -154,7 +119,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
                 }
             });
 
-            // === ИНИЦИАЛИЗАЦИЯ ===
+            
             video.volume = progressBarVolume.value / 100;
     setProgressBarBackground(progressBarVolume, progressBarVolume.value, 100);
     setProgressBarBackground(progressBar, 0, video.duration || 1);
@@ -178,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const isActive = burgerBtn.classList.toggle('active');
         navigation.classList.toggle('active');
         
-        // Управление скроллом и welcome_column
         document.body.style.overflow = isActive ? 'hidden' : '';
         welcomeColumn.style.display = isActive ? 'none' : 'block';
     }
@@ -200,13 +164,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.querySelector('.gallery_content');
     const images = Array.from(gallery.children);
 
-    // Перемешиваем (если нужно)
     images.sort(() => Math.random() - 0.5);
     gallery.innerHTML = '';
     images.forEach(img => gallery.appendChild(img));
 
-    // Поднимаем 6, 7, 8, 9, 10 фото (по новому порядку)
-    const photosToLift = [5, 6, 7, 8, 9]; // Индексы 6-10 фото (нумерация с 0)
+    const photosToLift = [5, 6, 7, 8, 9]; 
     photosToLift.forEach(index => {
         if (images[index]) {
             images[index].classList.add('lift-up');
