@@ -1,4 +1,10 @@
-
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('SW зарегистрирован:', reg.scope))
+      .catch(err => console.error('Ошибка регистрации SW:', err));
+  });
+}
 /*
 const container = document.querySelector('.explore_image');
 document.querySelector('.explore_slider').addEventListener('input', (e) => {
