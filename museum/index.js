@@ -1,16 +1,48 @@
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('SW зарегистрирован:', reg.scope))
-      .catch(err => console.error('Ошибка регистрации SW:', err));
+
+//слайдер welcome
+document.addEventListener('DOMContentLoaded', () => {
+  const swiper = new Swiper('.swiper', {
+    loop: true,
+    speed: 300,
+    navigation: {
+      nextEl: '.right_arrow',
+      prevEl: '.left_arrow',
+    },
   });
-}
-/*
+
+  const bullets = document.querySelectorAll('.swiper-pagination_bullet');
+  const currentSlideElem = document.querySelector('.current_slide');
+  const totalSlidesElem = document.querySelector('.total-slides');
+
+  const slidesCount = document.querySelectorAll('.swiper-slide').length;
+  totalSlidesElem.textContent = slidesCount < 10 ? '0' + slidesCount : slidesCount;
+
+  function updateCustomPagination() {
+    const realIndex = swiper.realIndex;
+    bullets.forEach((bullet, idx) => {
+      bullet.classList.toggle('active', idx === realIndex);
+    });
+    let num = realIndex + 1;
+    currentSlideElem.textContent = num < 10 ? '0' + num : num;
+  }
+
+  swiper.on('slideChange', updateCustomPagination);
+
+  bullets.forEach((bullet, idx) => {
+    bullet.addEventListener('click', () => swiper.slideToLoop(idx));
+  });
+  updateCustomPagination();
+});
+
+
+
+
+//слайдер в эксплоэре
 const container = document.querySelector('.explore_image');
 document.querySelector('.explore_slider').addEventListener('input', (e) => {
   container.style.setProperty('--position', `${e.target.value}%`);
 })
-
+//видео биг
  document.addEventListener('DOMContentLoaded', function() {
             const video = document.getElementById('firstvideo');
             const playPauseBtn = document.getElementById('playPauseBtn');
@@ -135,7 +167,7 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
         });
 
 
-*/
+
 
 //бкргер-меню
 
