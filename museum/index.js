@@ -215,7 +215,26 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// Функция открыть pop-up
+function openPopup() {
+  document.getElementById('popup-overlay').classList.add('show');
+  document.getElementById('popup').classList.add('show');
+}
 
+// Функция закрыть pop-up
+function closePopup() {
+  document.getElementById('popup-overlay').classList.remove('show');
+  document.getElementById('popup').classList.remove('show');
+}
+
+// Показываем pop-up по клику на любую кнопку Buy Now
+document.querySelectorAll('.buy_now_btn').forEach(btn => {
+  btn.addEventListener('click', openPopup);
+});
+
+// Закрываем pop-up по клику на overlay
+document.getElementById('popup-overlay').addEventListener('click', closePopup);
+document.getElementById('popup-close').addEventListener('click', closePopup);
 
 
 

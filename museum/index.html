@@ -96,16 +96,16 @@
                 </div>
                 
                 <div class="swiper-slide">
-                     <img src="./assets/img/slide2.jpg" alt="slide2">
+                     <img src="./assets/img/slide2.jpg" alt="slide2" loading="lazy">
                 </div>
                 <div class="swiper-slide">
-                     <img src="/assets/img/slide3.jpg" alt="slide3">
+                     <img src="/assets/img/slide3.jpg" alt="slide3" loading="lazy">
                 </div>
                 <div class="swiper-slide">
-                     <img src="/assets/img/slide4.jpg" alt="slide4">
+                     <img src="/assets/img/slide4.jpg" alt="slide4" loading="lazy">
                 </div>
                 <div class="swiper-slide">
-                     <img src="/assets/img/slide5.jpg" alt="slide5">
+                     <img src="/assets/img/slide5.jpg" alt="slide5" loading="lazy">
                 </div>  
               </div>  
             <div class="swiper-pagination">
@@ -421,7 +421,139 @@
             </div>
         </div>
     </footer>
+<div class="popup-overlay" id="popup-overlay"></div>
+<div class="popup" id="popup">
+  <div class="container">
+    <button class="popup-close" id="popup-close">&times;</button>
+    <div class="booking-fields">
+        <div class="booking-group">
+            <div class="booking-wrap">
+                <img src="./assets/svg/logopop.svg" alt = "logo">
+                <p class="booking-title">Booking tickets</p>
+                <p class="booking-p">Tour to Louvre</p>
+                <div class="booking-underline-item"></div>
+            </div>
+        <form class="booking-form">               
+            <div class="form-row">
+                <input type="date" required>
+                 <input type="time" required>
+            </div>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="E-mail" required>
+                 <input type="tel" placeholder="Phone" required>
+                <select required>
+                    <option value="entry">Permanent exhibition</option>
+                    <option value="entry">Temporary exhibition</option>
+                    <option value="entry">Combined Admission</option>
+                </select>
+                <div class="tickets-section">
+                    <label class="section-label">Entry Ticket</label>
+                    <div class="booking-underline-item"></div>
+                    <div class="ticket-wrap">
+                         <div class="ticket-row">
+                            Basic 18+ (20 €)
+                            <div class="button-wrap">
+                                <button type="button" class="minus">-</button>
+                                <span class="count" id="basic-count">2</span>
+                                <button type="button" class="plus">+</button>
+                            </div>
+                            
+                        </div>
+                        <div class="ticket-row">
+                            Senior 65+ (10 €)
+                             <div class="button-wrap">
+                                <button type="button" class="minus">-</button>
+                                <span class="count" id="senior-count">2</span>
+                                <button type="button" class="plus">+</button>
+                             </div>
+                        </div>
+                     </div>
+                   
+                </div>
+        </form>
+        </div>
+        <div class="payment-group">
+            <div class="overview-container">
+                <div class="overview-header">
+                    <div>
+                    <div class="overview-title">Overview</div>
+                    <div class="tour-name">Tour to Louvre</div>
+                    <div class="overview-date">
+                        <span> Friday, August 19</span><br>
+                        <span> 16 : 30</span><br>
+                        <span> Temporary exhibition</span>
+                    </div>
+                    </div>
+                    <img src="./assets/img/overview.png" class="overview-img" alt="Louvre">
+                </div>
+                <div class="overview-tickets">
+                    <div class="ticket-cont">
+                    <div>
+                     <span class="ticket-count">  2  </span>   Basic (20 €)   
+                    </div>
+                    <div>40 €</div>
+                    </div>
+                    
+                    <div class="ticket-cont">
+                        <div>
+                           <span class="ticket-count"> 2 </span>   Senior (10 €) 
+                        </div>
+                    <div>20 €</div>
+                    </div>
+                    
+                </div>
+                <hr>
+                <div class="overview-total">
+                    <span>Total:</span>
+                    <span class="total-bold">60 €</span>
+                </div>
+
+                <form class="card-form">
+                    <div class="card-inputs">
+                        <div>
+                            <label>Card number</label><br>
+                            <input type="text"  required>
+                        </div>
+                        <div class="card-logo">
+                            <img src="/assets/img/Visa.png" alt="visa">
+                            <img src="/assets/img/Mastercard.png" alt="mastercard">
+                        </div>
+                    </div>
+                    <div class="card-inputs-row">
+                    <label>
+                        Expiration date<br>
+                        <div>
+                            <input type="text" class="inline-short" placeholder="03" maxlength="2" required>
+                             <input type="text" class="inline-short" placeholder="2025" maxlength="4" required>     
+                        </div>
+                        
+                    </label>
+                   
+                    </div>
+                    <div class="card-name">
+                        <label>Cardholder name</label> 
+                        <input type="text" placeholder="" required>
+                    </div>
+                </form>
+                <form class="second-card">
+                    <div class="card_item"></div>
+                    <div class="cvc">
+                        <label>
+                            CVC/CVV <br>
+                            <input type="text" class="inline-short" placeholder="" maxlength="4" required>
+                            <span class="card-cvc-hint">The last 3 or 4 digits on back of the card</span>
+                    </label>
+                    </div>
+                    
+                </form>
+                    <button type="submit" class="book-btn">Book</button>
+                
+                </div>
+        </div>
+    </div>
+  </div>
+</div>
     <script src="index.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>  
 </body>
 </html>
