@@ -1,3 +1,54 @@
+//карта
+
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const map = L.map('map').setView([48.86091, 2.3364], 17);  
+
+   
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker([48.86091, 2.3364]).addTo(map).bindPopup('marker1');
+    L.marker([48.8602, 2.3333]).addTo(map).bindPopup('marker2');
+    L.marker([48.8607, 2.3397]).addTo(map).bindPopup('marker2');
+    L.marker([48.8619, 2.3330]).addTo(map).bindPopup('marker2');
+    L.marker([48.8625, 2.3365]).addTo(map).bindPopup('marker2');
+  });
+
+//галерея
+document.addEventListener('DOMContentLoaded', function() {
+    const gallery = document.querySelector('.gallery_content');
+    const images = Array.from(gallery.children);
+
+    images.sort(() => Math.random() - 0.5);
+
+    gallery.innerHTML = '';
+    images.forEach(img => gallery.appendChild(img));
+
+    // lift-up для средней колонки
+    const photosToLift = [5, 6, 7, 8, 9];
+    photosToLift.forEach(index => {
+        if (images[index]) {
+            images[index].classList.add('lift-up');
+        }
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                entry.target.classList.remove('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    images.forEach((img, i) => {
+        img.style.transitionDelay = (i * 0.07) + 's';
+        observer.observe(img);
+    });
+});
+
 
 //слайдер welcome
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,9 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     bullet.addEventListener('click', () => swiper.slideToLoop(idx));
   });
   updateCustomPagination();
+  
 });
-
-
 
 
 //слайдер в эксплоэре
@@ -197,22 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-//перемешивание фото
-document.addEventListener('DOMContentLoaded', function() {
-    const gallery = document.querySelector('.gallery_content');
-    const images = Array.from(gallery.children);
 
-    images.sort(() => Math.random() - 0.5);
-    gallery.innerHTML = '';
-    images.forEach(img => gallery.appendChild(img));
-
-    const photosToLift = [5, 6, 7, 8, 9]; 
-    photosToLift.forEach(index => {
-        if (images[index]) {
-            images[index].classList.add('lift-up');
-        }
-    });
-});
 
 //синхронизация цен на главной и в попе
 const prices = {
@@ -607,10 +642,12 @@ const form = document.getElementById('booking-form');
       usernameError.textContent = '';
       usernameError.style.display = 'none';
       usernameInput.setCustomValidity('');
+      usernameInput.classList.remove('invalid');
     } else {
       usernameError.textContent = 'Имя должно содержать от 3 до 15 символов, только буквы и пробелы.';
       usernameError.style.display = 'block';
       usernameInput.setCustomValidity('Неверный формат имени');
+      usernameInput.classList.add('invalid');
     }
   });
 
@@ -620,10 +657,12 @@ const form = document.getElementById('booking-form');
       emailError.textContent = '';
       emailError.style.display = 'none';
       emailInput.setCustomValidity('');
+      emailInput.classList.remove('invalid');
     } else {
       emailError.textContent = 'Введите корректный email в формате: username@example.com';
       emailError.style.display = 'block';
       emailInput.setCustomValidity('Неверный формат email');
+      emailInput.classList.add('invalid');
     }
   });
 
@@ -633,10 +672,12 @@ const form = document.getElementById('booking-form');
       phoneError.textContent = '';
       phoneError.style.display = 'none';
       phoneInput.setCustomValidity('');
+      phoneInput.classList.remove('invalid');
     } else {
       phoneError.textContent = 'Номер должен содержать только цифры, разделённые пробелами или дефисами на группы по 2-3 цифры, всего не более 10 цифр.';
       phoneError.style.display = 'block';
       phoneInput.setCustomValidity('Неверный формат номера телефона');
+      phoneInput.classList.add('invalid');
     }
   });
 
@@ -691,3 +732,26 @@ const form = document.getElementById('booking-form');
       }
     }
   });
+
+
+//картва
+ymaps.ready(init);
+  function init() {
+    var myMap = new ymaps.Map('map', {
+      center: [48.86091, 2.3364],
+      zoom: 16
+    });
+
+    var places = [
+      { name: 'marker1', coords: [48.86091, 2.3364] },
+      { name: 'marker2', coords: [48.8602, 2.3333] },
+      { name: 'marker3', coords: [48.8607, 2.3397] }
+    ];
+
+    places.forEach(function(place) {
+      var placemark = new ymaps.Placemark(place.coords, {
+        balloonContent: place.name
+      });
+      myMap.geoObjects.add(placemark);
+    });
+  }

@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-</head>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <body onload="window.scrollTo(0, 0)">
     <header class="header">
         <div class="container">
@@ -360,8 +360,7 @@
                             <a href="mailto:info@louvre.fr" class="contact_link">info@louvre.fr</a>
                          </p>
                     </div>
-                    <div class="contact_map">
-                        <img src="./assets/img/map.webp" alt="map" loading="lazy">
+                    <div class="map"  id="map"style="height: 620px; width: 960px;   filter: grayscale(100%);">
                     </div>
                 </div>
             </div>
@@ -560,6 +559,7 @@
   </div>
 </div>
     <script src="index.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>  
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </body>
 </html>
