@@ -241,29 +241,34 @@
                          <img src="./assets/svg/fullscreen.svg" alt="fullscreen">
                      </button>
                 </div>
-                <div class="slider3_video">
-                    <div class="video_container">
-                         <iframe 
-                            width="452" 
-                            height="254" 
-                            src="https://www.youtube.com/embed/aWmJ5DgyWPI?controls=0&modestbranding=1&disablekb=1&fs=0&rel=0" frameborder="0"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
-                        <iframe width="452" height="254" src="https://www.youtube.com/embed/2OR0OCr6uRE?si=ah9jTUvPPN2Y0qwT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        <iframe width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY?si=aFY7JerF4uSm5t4C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="video_slider_paginator">
-                    <div class="slider_pagination_circles">
-                        <img src="./assets/svg/double_arrow.svg" alt="double arrow">
-                    <div class="slider_pagination_circle"></div>
-                    <div class="slider_pagination_circle"></div>
-                    <div class="slider_pagination_circle"></div>
-                    <div class="slider_pagination_circle"></div>
-                    <div class="slider_pagination_circle"></div>
-                        <img src="./assets/svg/double_arrow.svg" alt="double arrow" class="double_arrow_left">
-                    </div>
-                </div>
+              <div class="slider3_video">
+  <div class="video_container " id="video-swiper">
+    <div class="swiper-wrapper">
+      <div class="">
+        <iframe id="yt1" width="452" height="254" src="https://www.youtube.com/embed/aWmJ5DgyWPI?enablejsapi=1&controls=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="">
+        <iframe id="yt2" width="452" height="254" src="https://www.youtube.com/embed/VIDEO_ID_2?enablejsapi=1&controls=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="">
+        <iframe id="yt3" width="452" height="254" src="https://www.youtube.com/embed/VIDEO_ID_3?enablejsapi=1&controls=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    
+    <div class="custom-pagination">
+      <div class="custom-pagination-container">
+        <img src="./assets/svg/double_arrow.svg" class="custom-pagination-prev">
+        <div class="custom-bullet"></div>
+        <div class="custom-bullet"></div>
+        <div class="custom-bullet"></div>
+        <div class="custom-bullet"></div>
+        <div class="custom-bullet"></div>
+        <img src="./assets/svg/double_arrow.svg" class="custom-pagination-next">
+      </div>
+    </div>
+  </div>
+</div>
+            </div>
             </div>
         </section>
         <section class="gallery" id="gallery">

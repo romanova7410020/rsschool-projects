@@ -5,11 +5,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const map = L.map('map').setView([48.86091, 2.3364], 17);  
 
    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+      maxZoom: 19
     }).addTo(map);
+    const darkGrayIcon = L.divIcon({
+  className: 'custom-marker',
+  html: `
+    <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Основной фон маркера темно-серый -->
+      <path d="M15 0C6.71573 0 0 6.71573 0 15C0 26.25 15 42 15 42C15 42 30 26.25 30 15C30 6.71573 23.2843 0 15 0Z" fill="#444444"/>
+      <!-- Белый круг внутри -->
+      <circle cx="15" cy="15" r="7" fill="#FFFFFF"/>
+    </svg>
+  `,
+  iconSize: [30, 42],
+  iconAnchor: [15, 42],  // Точка "привязки" иконки к координатам
+  popupAnchor: [0, -38]   // Точка, где будет появляться попап относительно иконки
+});
 
-    L.marker([48.86091, 2.3364]).addTo(map).bindPopup('marker1');
+
+    L.marker([48.86091, 2.3364], { icon: darkGrayIcon }).addTo(map).bindPopup('marker1');
     L.marker([48.8602, 2.3333]).addTo(map).bindPopup('marker2');
     L.marker([48.8607, 2.3397]).addTo(map).bindPopup('marker2');
     L.marker([48.8619, 2.3330]).addTo(map).bindPopup('marker2');
@@ -214,6 +230,8 @@ document.querySelector('.explore_slider').addEventListener('input', (e) => {
     updateMuteIcon();
     showBigPlay(video.paused);
     updatePlayPauseIcon();
+
+    
         });
 
 
@@ -755,3 +773,7 @@ ymaps.ready(init);
       myMap.geoObjects.add(placemark);
     });
   }
+
+ 
+
+ 
