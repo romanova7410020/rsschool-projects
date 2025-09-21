@@ -38,6 +38,7 @@ h1, h2,h3,h4,h5,h6 {
   --h3-font-size: 20px;
   --body-decoration-size: 48px;
   --body-decoration-weight:300;
+  --font-style: italic;
 }
 header{
 background-color: #222222;
@@ -140,11 +141,13 @@ max-height: 60px;
   line-height: 132px;
   margin-top: 40px;
 }
-.main-statistic h3{
-  font-family: var(--font-primary);
+h3{
+   font-family: var(--font-primary);
   font-size: var(--h3-font-size);
   font-weight: var(--base-font-weight);
   text-transform: uppercase;
+}
+.main-statistic h3{
   margin-top: 43px;
   line-height: 28px;
 }
@@ -183,7 +186,7 @@ margin-top: 320px;
 }
 .second-main{
   max-width: 220px;
-  width: 100%; 
+  width: 100%;
 }
 .second-main img{
   max-width: 100%;
@@ -281,4 +284,74 @@ height: 100%;
 }
 .gallery img:nth-child(6){
   margin-top: 217px;
+}
+.price-title{
+  margin-top: 60px;
+}
+.price-title p{
+  font-family: var(--font-secondary);
+  font-size: var(--base-font-size);
+}
+.price-column4{
+  margin-top:44px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.price-column{
+  border: 1px solid black;
+  width: 318px;
+  height: 498px;
+  display: flex;
+  flex-direction: column;
+
+}
+.price-column h3{
+  margin-top: 24px;
+  margin-left: 24px;
+}
+.price-column ul{
+  margin-left: 39px;
+  list-style-type: square;
+  margin-top: 12px;
+  font-family: var(--font-secondary);
+  font-size: var(--base-font-size);
+}
+.price-column ul li {
+  margin-bottom: 7px;
+}
+h4{
+  font-family: var(--font-primary);
+  font-size: var(--base-font-size);
+}
+.price-column h4{
+  margin-top: 11px;
+  margin-left: 24px;
+}
+.price-button {
+  margin-top: auto;
+  padding-bottom: 24px;
+}
+.price-button button{
+  margin-left: 24px;
+  width: 272px;
+  height: 60px;
+  background-color: #222222;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+  font-size: var(--base-font-size);
+}
+.price-button button:hover{
+  cursor: pointer;
+  background-color: #FF3C3C;
+  color: #222222;
+  border: 1px solid #FF3C3C ;
+}
+.price-button p{
+font-style: var(--font-style);
+font-family: var(--font-secondary);
+font-size: var(--base-font-size);
+margin-left: 24px;
+margin-bottom: 10px;
 }
