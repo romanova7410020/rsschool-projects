@@ -17,11 +17,11 @@
                 <a  class="logo" href="#"><img src="./image/png/Vector.png" alt="logo"></a>
         <nav class="header-navigation">
             <ul class="navigation">
-                <li>About me</li>
-                <li>Portfolio</li>
-                <li>Price</li>
-                <li>FAQ</li>
-                <li>Contacts</li>
+                <li><a href="#about">About me</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#price">Price</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contacts">Contacts</a></li>
             </ul>
         </nav>
             </div>
@@ -52,7 +52,7 @@
                             <h3>Capture the Moment. Tell Your Story.</h3>
                         </div>
                         <div class="slow-down">
-                            <a href="#" class="slow-down-a">Scroll down</a>
+                            <a href="#about" class="slow-down-a">Scroll down</a>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 5V19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M19 12L12 19L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -71,7 +71,7 @@
             </div>
         </div>
     </section>
-    <section class="about-me">
+    <section class="about-me" id="about">
         <div class="wrapper">
             <div class="three-columns">
                 <div class="first-column">
@@ -92,14 +92,15 @@
             </div>
         </div>
     </section>
-    <section class="gallery">
+    <section class="gallery" id="portfolio">
         <div class="wrapper">
              <div class="gallery-title">
                 <h2>my portfolio</h2>
                 <p>Every shoot is a story. Here you’ll find portraits,<br> love stories, family sessions, and more.</p>
             </div>
         </div>
-            <div class="gallery-slider">
+        <div class="gallery-wrapper">
+             <div class="gallery-slider">
           <!--  <img src="./image/png/port1.png" alt="port1">
             <img src="./image/png/port2.png" alt="port2">
             <img src="./image/png/port3.png" alt="port3"> -->
@@ -113,8 +114,9 @@
             <img src="./image/png/port11.png" alt="port11">
             <img src="./image/png/port12.png" alt="port12">-->
             </div>
+        </div>
     </section>
-    <section class="price">
+    <section class="price" id="price">
         <div class="wrapper">
             <div class="price-title">
                 <h2>Packages & Pricing</h2>
@@ -192,7 +194,7 @@
             </div>
         </div>
     </section>
-    <section class="FAQ">
+    <section class="FAQ" id="faq">
         <div class="wrapper">
             <div class="FAQ-wrapper">
                 <div class="FAQ-title">
@@ -237,4 +239,29 @@
         </div>
     </section>
 </body>
+<footer>
+    <div class="wrapper">
+        <div class="footer-form">
+            <h3>Like my portfolio? Sign up for a shoot!</h3>
+        <form action="#" method="post">
+            <label for="username"></label>
+            <input type="text" id="username" name="username" required placeholder="YOUR NAME">
+
+            <label for="phone"></label>
+            <input type="tel" id="phone" name="phone" required placeholder="+ 1">
+
+            <button type="submit">BOOK NOW</button>
+        </form>
+        </div>
+     </div>
+        <div class="footer-links" id="contacts">
+            <ul class="navigation">
+                <li><a>Instagram</a></li>
+                <li><a>Telegram</a></li>
+                <li><a>WhatsApp</a></li>
+                <li><a>EUROPE</a></li>
+                <li><a>+1 234 9843572</a></li>
+            </ul>
+        </div>
+</footer>
 </html>
