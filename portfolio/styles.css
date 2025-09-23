@@ -297,6 +297,7 @@ height: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
+  margin-bottom: 60px;
 }
 .price-column{
   border: 1px solid black;
@@ -354,4 +355,63 @@ font-family: var(--font-secondary);
 font-size: var(--base-font-size);
 margin-left: 24px;
 margin-bottom: 10px;
+}
+.FAQ{
+  background-color: #222222;
+  color: #FFFFFF;
+}
+.FAQ-wrapper{
+display: flex;
+justify-content: space-between;
+}
+.FAQ-title{
+  margin-top: 60px;
+}
+.accordion{
+  margin-top: 60px;
+  max-width: 680px;
+  width: 100%;
+  padding-bottom: 60px;
+}
+details{
+  border-top: 1px solid #FFFFFF;
+}
+summary{
+  font-family: var(--font-primary);
+  font-size: var(--h3-font-size);
+  font-weight: var(--base-font-weight);
+  text-transform: uppercase;
+  padding: 17px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+summary:hover{
+  color: #FF3C3C;
+}
+summary::marker{
+  content: '';
+}
+summary::after{
+  content: '';
+  width: 24px;
+  height: 24px;
+  background: url('./image/png/plus.svg') no-repeat center/contain;
+  transition: transform 200ms ease;
+}
+summary:hover::after {
+  background: url('./image/png/plus-red.svg')
+}
+details p{
+  font-family: var(--font-secondary);
+  font-size: var(--base-font-size);
+  line-height: 24px;
+  padding-bottom: 16px;
+}
+details[open] summary::after{
+  content: '';
+  background: url(./image/png/minus.svg);
+}
+::details-content{
+  transition: transform 1s ease;
 }
