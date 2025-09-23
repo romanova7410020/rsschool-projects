@@ -138,7 +138,7 @@ width: 100%;
 }
 .main-statistic h1{
   font-family: var(--font-primary);
-  font-size: var(--h1-font-size);
+  font-size: clamp(68px, 10vw, 116px);;
   font-weight: var(--h1-font-weight);
   text-transform: uppercase;
   line-height: 132px;
@@ -197,6 +197,8 @@ margin-top: 320px;
   display: block;
 }
 .third-main img{
+  max-width: 280px;
+  width: 100%;
   margin-top: 60px;
 }
 .third-main{
@@ -476,4 +478,20 @@ footer{
   cursor: pointer;
   background-color: #FF3C3C;
   color: #222222;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper{
+    max-width: 728px;
+    margin: 0 auto;
+  }
+  .main-statistic h1{
+    max-width: 68px;
+}
+.second-main{
+  display: none;
+}
+.third-main img{
+  max-width: 220px;
+  width: 100%;
 }
