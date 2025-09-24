@@ -225,6 +225,7 @@ margin-top: 320px;
   margin-bottom: 60px;
 display: flex;
 gap: 40px;
+flex-wrap: wrap;
 }
 .first-column, .second-column, .third-column{
   display: flex;
@@ -506,6 +507,21 @@ footer{
     font-size: 68px;
     line-height: 80px;
   }
+  .third-column img{
+    display: none;
+  }
+  .first-column {
+    max-width: 728px;
+    width: 100%;
+  }
+  .second-column {
+     max-width: 728px;
+     width: 100%;
+  }
+  .three-columns{
+ flex-direction: column;
+ align-items: center;
+}
 }
 @media screen and (max-width: 768px) {
   .wrapper{
@@ -573,4 +589,7 @@ footer{
 .main-statistic {
     margin-top: 162px;
 }
+.third-column p {
+   margin-left: -365px;
+  }
 }
