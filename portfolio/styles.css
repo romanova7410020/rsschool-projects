@@ -595,4 +595,8 @@ footer{
   .gallery-slider{
     margin-left: -336px;/* 'это потом н забыть удалить при слайдере*/
   }
+  .price-column4 {
+  margin-left: 34px;
+  gap:20px;
+}
 }
