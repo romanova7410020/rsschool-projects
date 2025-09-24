@@ -402,6 +402,9 @@ summary{
   justify-content: space-between;
   align-items: center;
 }
+.accordion details:first-child {
+  border-top: none;
+}
 summary:hover{
   color: #FF3C3C;
   cursor: pointer;
@@ -522,6 +525,8 @@ footer{
  flex-direction: column;
  align-items: center;
 }
+.accordion {
+    max-width: 728px;
 }
 @media screen and (max-width: 768px) {
   .wrapper{
@@ -599,4 +604,15 @@ footer{
   margin-left: 34px;
   gap:20px;
 }
+.FAQ-wrapper{
+  flex-direction: column;
+}
+.FAQ-title p{
+  line-height:24px;
+  letter-spacing: 0.9px;
+}
+.accordion {
+    margin-top: 39px;
+}
+
 }
