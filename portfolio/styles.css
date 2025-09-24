@@ -528,6 +528,10 @@ footer{
 .accordion {
     max-width: 728px;
 }
+.footer-form input {
+    max-width: 243px;
+}
+}
 @media screen and (max-width: 768px) {
   .wrapper{
     max-width: 728px;
@@ -550,7 +554,7 @@ footer{
 .burger{
   display: block;
 }
-.navigation{
+.header .navigation{
   display: none;
 }
 .burger {
@@ -614,5 +618,7 @@ footer{
 .accordion {
     margin-top: 39px;
 }
-
+.footer-form form{
+    text-align: left;
+}
 }
