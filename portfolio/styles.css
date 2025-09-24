@@ -592,4 +592,7 @@ footer{
 .third-column p {
    margin-left: -365px;
   }
+  .gallery-slider{
+    margin-left: -336px;/* 'это потом н забыть удалить при слайдере*/
+  }
 }
