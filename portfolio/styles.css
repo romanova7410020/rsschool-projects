@@ -587,7 +587,25 @@ footer{
   background-color: #222222;
   border: none !important;
 }
-
+.header .navigation{
+  display: flex;
+  margin-top: 50px;
+  flex-direction: column;
+  position: absolute;
+  top: 0px;
+  right: -100%; ;
+  height: 740px;
+  background-color: #222222;
+  max-width: 768px;
+  width: 100%;
+ z-index: 1000;
+ align-items: center;
+ justify-content: center;
+ transition: right 0.3s ease;
+}
+.header .navigation_active{
+right: 0;
+}
 .burger::before {
   content: '';
   position: absolute;
@@ -597,8 +615,17 @@ footer{
   height: 2px;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="2"><rect width="12" height="2" fill="white"/></svg>');
   background-size: contain;
+  transition: all 0.3s ease;
 }
-
+.burger._active::before {
+  width: 20px;
+top:50%;
+transform: rotate(-45deg) translate(0px, -50%);
+}
+.burger._active::after {
+bottom:50%;
+transform: rotate(45deg) translate(0px, 50%);
+}
 .burger::after {
   content: '';
   position: absolute;
@@ -608,8 +635,13 @@ footer{
   height: 2px;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="2"><rect width="20" height="2" fill="white"/></svg>');
   background-size: contain;
+  transition: all 0.3s ease;
 }
-
+.body-block{
+  overflow: hidden;
+  height: 100vh;
+  touch-action: none;
+}
 .main-wrapper{
   justify-content: flex-start;
 }
