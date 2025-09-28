@@ -93,7 +93,6 @@ width: 100%;
 }
 .hero-wrapper{
     display: flex;
-    justify-content: space-between;
     height: 862px;
 }
 .sidebar {
@@ -129,15 +128,16 @@ width: 100%;
 }
 .main-hero{
   display: flex;
-  gap: 40px;
-  margin-left: 60px;
+gap: 40px;
 }
 .first-main{
   display: flex;
   flex-direction: column;
+  margin-left: 60px;
 }
 .main-statistic{
   margin-top: 153px;
+  max-width: 740px;
 }
 .main-statistic h1{
   font-family: var(--font-primary);
@@ -260,6 +260,7 @@ h2{
 .gallery-wrapper{
   max-width: 1440px;
   margin: 0 auto;
+
 }
 .gallery img.show-slide {
   display: block;
@@ -271,10 +272,9 @@ height: 100%;
   overflow: hidden;
   gap: 20px;
   padding-bottom: 60px;
-}
-.gallery img:first-child{
   margin-left: -260px;
 }
+
 .gallery-title{
   padding-top: 60px;
   color: #FFFFFF;
@@ -285,16 +285,10 @@ height: 100%;
   line-height: 24px;
   margin-bottom: 40px;
 }
-.gallery img:nth-child(2){
+.gallery img:nth-child(1),.gallery img:nth-child(3),.gallery img:nth-child(5),.gallery img:nth-child(8),.gallery img:nth-child(11){
   margin-top: 120px;
 }
-.gallery img:nth-child(3){
-  margin-top: 217px;
-}
-.gallery img:nth-child(5){
-  margin-top: 120px;
-}
-.gallery img:nth-child(6){
+.gallery img:nth-child(2),.gallery img:nth-child(6),.gallery img:nth-child(9){
   margin-top: 217px;
 }
 .price-title{
@@ -486,6 +480,24 @@ footer{
   background-color: #FF3C3C;
   color: #222222;
 }
+@media (hover: none) {
+  .your-element {
+    pointer-events: none;
+  }
+}
+@media (min-width: 1441px) {
+  .gallery-slider {
+    justify-content: center;
+  }
+  .gallery-slider img {
+    display: block;
+    height: 100%;
+  }
+  .gallery-wrapper {
+    max-width: none;
+    width: auto;
+  }
+}
 @media screen and (max-width: 1000px) {
   .wrapper{
     max-width: 960px;
@@ -601,9 +613,9 @@ footer{
 .third-column p {
    margin-left: -365px;
   }
-  .gallery-slider{
-    margin-left: -336px;/* 'это потом н забыть удалить при слайдере*/
-  }
+ .gallery-slider {
+   margin-left: -596px;
+    }
   .price-column4 {
   margin-left: 34px;
   gap:20px;
@@ -638,9 +650,11 @@ footer{
 }
     .third-main img {
         margin-top: -32px;
+        margin-left: 50px;
     }
            .third-column p {
         margin-left: -171px;
+}
 }
 @media screen and (max-width: 500px) {
   .wrapper{
@@ -672,6 +686,24 @@ footer{
  .hero-wrapper {
  height: 800px;
 }
+ footer .navigation{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  footer .navigation li{
+    height: 60px;
+    padding-top: 0;
+  }
+  .footer-links{
+height: 340px;
+  }
+  .footer-links li:nth-child(1) {
+    padding: 37px 27px 0px 27px;
+}
+.footer-links li {
+    padding: 0px 0px;
+}
 }
 @media screen and (max-width: 380px) {
   .wrapper{
@@ -693,15 +725,19 @@ footer{
 margin-top: 60px;
 left: 0px;
 }
-    .third-column p {
-        margin-left: -60px;
+.first-main {
+    margin-left: 0px;
+}
+
+.third-column p {
+  margin-left: -60px;
     }
-        .gallery-slider {
-        margin-left: -530px;
+.gallery-slider {
+  margin-left: -791px;
     }
-    .price-column4 {
-        margin-left: 10px;
-        margin-top: 47px;
+.price-column4 {
+  margin-left: 10px;
+  margin-top: 47px;
 }
 .footer-form form{
   display: flex;
@@ -715,22 +751,4 @@ gap: 5px;
   .footer-form button {
     max-width: 340px;
   }
-  footer .navigation{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-  footer .navigation li{
-    height: 60px;
-    padding-top: 0;
-  }
-  .footer-links{
-height: 340px;
-  }
-  .footer-links li:nth-child(1) {
-    padding: 37px 27px 0px 27px;
-}
-.footer-links li {
-    padding: 0px 0px;
-}
 }
