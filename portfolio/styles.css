@@ -480,12 +480,22 @@ footer{
   background-color: #FF3C3C;
   color: #222222;
 }
-@media (hover: none) {
-  .your-element {
-    pointer-events: none;
+@media screen and (max-width: 1439px) {
+  .navigation li:hover,
+  .price-column:hover,
+  .slow-down:hover,
+  summary:hover,
+  .price-column:hover button,
+  .footer-form input:hover,
+  .footer-form button:hover
+  {
+    color: inherit !important;
+    cursor: default !important;
+    border-color: initial !important;
+    background-color: transparent !important;
   }
 }
-@media (min-width: 1441px) {
+@media screen and (min-width: 1441px) {
   .gallery-slider {
     justify-content: center;
   }
