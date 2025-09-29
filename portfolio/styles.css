@@ -485,7 +485,6 @@ footer{
   .price-column:hover,
   .slow-down:hover,
   summary:hover,
-  .price-column:hover button,
   .footer-form input:hover,
   .footer-form button:hover
   {
@@ -494,6 +493,14 @@ footer{
     border-color: initial !important;
     background-color: transparent !important;
   }
+  summary:hover::after {
+    background: url('./image/png/plus.svg')
+}
+ .price-column:hover button{
+  background-color: #222222;
+  color: #FFFFFF;
+  border-color: initial !important;
+}
 }
 @media screen and (min-width: 1441px) {
   .gallery-slider {
