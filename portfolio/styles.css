@@ -649,9 +649,7 @@ footer{
 .burger{
   display: block;
 }
-.header .navigation{
-  display: none;
-}
+
 .burger {
   position: relative;
   width: 50px;
@@ -660,23 +658,29 @@ footer{
   background-color: #222222;
   border: none !important;
 }
+.header-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
 .header .navigation{
-  display: flex;
+  display: none;
   margin-top: 50px;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   top: 0px;
-  right: -100%; ;
+  right: -768px;
   height: 740px;
   background-color: #222222;
   max-width: 768px;
-  width: 100%;
+  width: 768px;
  z-index: 1000;
  align-items: center;
  justify-content: center;
  transition: right 0.3s ease;
 }
 .header .navigation_active{
+display: flex !important;
 right: 0;
 }
 .burger::before {
