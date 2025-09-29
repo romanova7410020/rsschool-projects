@@ -20,3 +20,27 @@ if (burgerMenu) {
     });
   });
 }
+
+const bookButton = document.querySelectorAll('.book-button');
+const popup = document.querySelector('.popup');
+const closeButton = document.querySelector('.close-button');
+const bodyBlock = document.body;
+
+bookButton.forEach(button => {
+button.addEventListener('click', () => {
+  popup.classList.toggle('hidden')
+   bodyBlock.classList.add('body-block')
+});
+});
+
+closeButton.addEventListener('click', () =>{
+  popup.classList.toggle('hidden')
+  bodyBlock.classList.remove('body-block')
+});
+
+popup.addEventListener('click', (event) => {
+if (event.target.classList.contains('popup')) {
+  popup.classList.toggle('hidden')
+  bodyBlock.classList.remove('body-block')
+}
+});
