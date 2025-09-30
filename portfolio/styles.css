@@ -58,6 +58,8 @@ width: 100%;
 .wrapper{
     max-width: 1400px;
     margin: 0 auto;
+    padding-left: 10px;
+  padding-right: 10px;
 }
 .logo img{
     margin-top: 20px;
@@ -80,10 +82,7 @@ width: 100%;
 .navigation li {
   padding: 18px 20px;
 }
-.navigation li:hover{
-  cursor: pointer;
-  color: #FF3C3C;
-}
+
 .navigation li:last-child {
   padding-right: 0;
 }
@@ -179,10 +178,7 @@ gap: 60px;
 .slow-down{
   margin-top: 153px;
 }
-.slow-down:hover{
-  cursor: pointer;
-  color: #FF3C3C;
-}
+
 .slow-down a{
   font-family: var(--font-secondary);
   font-size: var(--base-font-size);
@@ -317,10 +313,7 @@ height: 100%;
   flex-direction: column;
 
 }
-.price-column:hover{
-  border: 1px solid #FF3C3C;
-  transition: transform 1s ease;
-}
+
 .price-column h3{
   margin-top: 24px;
   margin-left: 24px;
@@ -357,12 +350,7 @@ h4{
   font-family: var(--font-primary);
   font-size: var(--base-font-size);
 }
-.price-column:hover button{
-  cursor: pointer;
-  background-color: #FF3C3C;
-  color: #222222;
-  border: 1px solid #FF3C3C ;
-}
+
 .price-button p{
 font-style: var(--font-style);
 font-family: var(--font-secondary);
@@ -443,6 +431,10 @@ justify-content: space-between;
 .FAQ-title{
   margin-top: 60px;
 }
+.FAQ-title p{
+  font-family: var(--font-secondary);
+  font-size: var(--base-font-size);
+}
 .accordion{
   margin-top: 60px;
   max-width: 680px;
@@ -465,10 +457,7 @@ summary{
 .accordion details:first-child {
   border-top: none;
 }
-summary:hover{
-  color: #FF3C3C;
-  cursor: pointer;
-}
+
 summary::marker{
   content: '';
 }
@@ -507,17 +496,13 @@ footer{
   gap: 8px;
 }
 .footer-form input{
-  max-width: 380px;
+  max-width: 366px;
   height: 56px;
   width: 100%;
   padding-left: 12px;
   transition: border-color 0.3s ease;
 }
-.footer-form input:hover{
-  border-color: #FF3C3C;
-  border-style: solid;
-  border-width: 1px;
-}
+
 .footer-form button{
   max-width: 200px;
   width: 100%;
@@ -540,32 +525,43 @@ footer{
 .footer-links li{
   padding: 34px 20px;
 }
+
+@media (hover: hover) and (pointer: fine) {
+  .navigation li:hover{
+  cursor: pointer;
+  color: #FF3C3C;
+}
+.slow-down:hover{
+  cursor: pointer;
+  color: #FF3C3C;
+}
+.price-column:hover{
+  border: 1px solid #FF3C3C;
+  transition: transform 1s ease;
+}
+.price-column:hover button{
+  cursor: pointer;
+  background-color: #FF3C3C;
+  color: #222222;
+  border: 1px solid #FF3C3C ;
+}
+summary:hover{
+  color: #FF3C3C;
+  cursor: pointer;
+}
+summary:hover::after {
+  background: url('./image/png/plus-red.svg')
+}
+.footer-form input:hover{
+  border-color: #FF3C3C;
+  border-style: solid;
+  border-width: 1px;
+}
 .footer-form button:hover{
   border-color: #FF3C3C;
   cursor: pointer;
   background-color: #FF3C3C;
   color: #222222;
-}
-@media screen and (max-width: 1439px) {
-  .navigation li:hover,
-  .price-column:hover,
-  .slow-down:hover,
-  summary:hover,
-  .footer-form input:hover,
-  .footer-form button:hover
-  {
-    color: inherit !important;
-    cursor: default !important;
-    border-color: initial !important;
-    background-color: transparent !important;
-  }
-  summary:hover::after {
-    background: url('./image/png/plus.svg')
-}
- .price-column:hover button{
-  background-color: #222222;
-  color: #FFFFFF;
-  border-color: initial !important;
 }
 }
 @media screen and (min-width: 1441px) {
@@ -579,6 +575,14 @@ footer{
   .gallery-wrapper {
     max-width: none;
     width: auto;
+  }
+}
+@media screen and (max-width: 1419px) {
+  .three-columns {
+    justify-content: center;
+  }
+  .price-column4 {
+  justify-content: center;
   }
 }
 @media screen and (max-width: 1000px) {
@@ -792,7 +796,7 @@ transform: rotate(45deg) translate(0px, 50%);
    font-weight: 300;
   }
   .main-statistic {
-        margin-top: 60px;
+        margin-top: 50px;
 }
   .main-hero {
     margin-left: 0px;
@@ -822,6 +826,11 @@ height: 340px;
 }
 .footer-links li {
     padding: 0px 0px;
+}
+}
+@media screen and (max-width: 410px) {
+.first-main {
+    margin-left: 30px;
 }
 }
 @media screen and (max-width: 380px) {
