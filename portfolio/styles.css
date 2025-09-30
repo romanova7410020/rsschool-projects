@@ -635,6 +635,7 @@ summary:hover::after {
   .wrapper{
     max-width: 728px;
     margin: 0 auto;
+    padding: 0 0;
   }
 
 .third-main img{
@@ -646,6 +647,10 @@ summary:hover::after {
   position: relative;
    left: -22px;
 
+}
+    .price-column4 {
+  justify-content: unset;
+    }
 }
 .sidebar hr {
     height: 442px;
@@ -756,7 +761,7 @@ transform: rotate(45deg) translate(0px, 50%);
 .footer-form form{
     text-align: left;
 }
-}
+
 @media screen and (max-width: 767px){
      .main-statistic h1{
     font-size: 60px;
@@ -796,7 +801,7 @@ transform: rotate(45deg) translate(0px, 50%);
    font-weight: 300;
   }
   .main-statistic {
-        margin-top: 50px;
+        margin-top: 60px;
 }
   .main-hero {
     margin-left: 0px;
