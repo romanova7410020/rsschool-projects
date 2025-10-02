@@ -531,10 +531,12 @@ footer{
   .navigation li:hover{
   cursor: pointer;
   color: #FF3C3C;
+transition: 0.3s;
 }
 .slow-down:hover{
   cursor: pointer;
   color: #FF3C3C;
+  transition: 0.3s;
 }
 .price-column:hover{
   border: 1px solid #FF3C3C;
@@ -545,24 +547,29 @@ footer{
   background-color: #FF3C3C;
   color: #222222;
   border: 1px solid #FF3C3C ;
+  transition: 0.3s;
 }
 summary:hover{
   color: #FF3C3C;
   cursor: pointer;
+  transition: 0.3s;
 }
 summary:hover::after {
-  background: url('./image/png/plus-red.svg')
+  background: url('./image/png/plus-red.svg');
+  transition: 0.3s;
 }
 .footer-form input:hover{
   border-color: #FF3C3C;
   border-style: solid;
   border-width: 1px;
+  transition: 0.3s;
 }
 .footer-form button:hover{
   border-color: #FF3C3C;
   cursor: pointer;
   background-color: #FF3C3C;
   color: #222222;
+  transition: 0.3s;
 }
 }
 @media screen and (min-width: 1441px) {
