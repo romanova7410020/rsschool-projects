@@ -44,3 +44,75 @@ if (event.target.classList.contains('popup')) {
   bodyBlock.classList.remove('body-block')
 }
 });
+
+
+window.addEventListener('load', () =>{
+  const slider = document.querySelector('.gallery-slider');
+  const leftScroll = document.querySelector('.left-scroll');
+  const rightScroll = document.querySelector('.right-scroll');
+
+  const visibleWidth = slider.clientWidth;
+  const totalWidth = slider.scrollWidth;
+
+  const centerScrollPosition = (totalWidth / 2) -(visibleWidth / 2);
+  slider.scrollLeft = centerScrollPosition;
+
+
+  let scrollInterval = null;
+  const scrollSpeed = 8;
+
+  function startScroll(direction){
+    if(scrollInterval) return;
+    scrollInterval = requestAnimationFrame(function scrollStep(){
+      const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+      const newScrollleft = slider.scrollLeft + direction * scrollSpeed;
+      if (newScrollleft < 0) newScrollleft = 0;
+      if(newScrollleft > maxScrollLeft) newScrollleft = maxScrollLeft;
+
+      slider.scrollLeft = newScrollleft;
+      if(newScrollleft === 0 || newScrollleft === maxScrollLeft){
+        stopScroll();
+        return;
+      }
+      scrollInterval = requestAnimationFrame(scrollStep);
+    });
+  }
+function stopScroll(){
+  if (scrollInterval) {
+    cancelAnimationFrame(scrollInterval);
+    scrollInterval = null;
+  }
+}
+leftScroll.addEventListener('mouseenter',() => startScroll(-1));
+leftScroll.addEventListener('mouseleave', stopScroll);
+rightScroll.addEventListener('mouseenter', () => startScroll(1));
+rightScroll.addEventListener('mouseleave', stopScroll);
+
+
+let isTouchg = false;
+let startX = 0;
+let scrollStart = 0;
+
+slider.addEventListener('touchstart', (e) => {
+isTouchg = true;
+startX = e.touches[0].pageX;
+scrollStart = slider.scrollLeft;
+});
+
+slider.addEventListener('touchmove', (e) => {
+  if (!isTouchg) return;
+
+  const currentX = e.touches[0].pageX;
+  const deltaX = startX - currentX;
+
+  slider.scrollLeft = scrollStart + deltaX;
+  e.preventDefault();
+
+});
+slider.addEventListener('touchend', () => {
+isTouchg = false
+});
+});
+
+
+

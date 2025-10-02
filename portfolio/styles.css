@@ -251,26 +251,41 @@ h2{
   background-color: #222222;
 }
 .gallery-slider img {
-  display: none;
+  height: 100%;
 }
 .gallery-wrapper{
   max-width: 1440px;
-  margin: 0 auto;
+  margin: 0 auto;position: relative;
+}
 
-}
-.gallery img.show-slide {
-  display: block;
-height: 100%;
-}
 .gallery-slider{
   display: flex;
   flex-direction: row;
   overflow: hidden;
   gap: 20px;
+ padding-left: 20px;
+ padding-right: 20px;
   padding-bottom: 60px;
-  margin-left: -260px;
+  overflow-x: auto;
 }
-
+.left-scroll{
+  position: absolute;
+  width: calc(100% - 70%);
+  top: 0;
+  left: 0;
+  opacity: 0;
+  height: 90%;
+  pointer-events: auto;
+}
+.right-scroll{
+  position: absolute;
+  width: calc(100% - 70%);
+  top: 0;
+  right: 0;
+  opacity: 0;
+  height: 90%;
+  pointer-events: auto;
+}
 .gallery-title{
   padding-top: 60px;
   color: #FFFFFF;
@@ -573,13 +588,10 @@ summary:hover::after {
 }
 }
 @media screen and (min-width: 1441px) {
-  .gallery-slider {
-    justify-content: center;
-  }
-  .gallery-slider img {
-    display: block;
-    height: 100%;
-  }
+.gallery-slider{
+  justify-content: center
+}
+
   .gallery-wrapper {
     max-width: none;
     width: auto;
@@ -749,9 +761,6 @@ transform: rotate(45deg) translate(0px, 50%);
 .third-column p {
    margin-left: -365px;
   }
- .gallery-slider {
-   margin-left: -596px;
-    }
   .price-column4 {
   margin-left: 34px;
   gap:20px;
@@ -896,9 +905,7 @@ line-height: 1.5;
 .third-column p {
   margin-left: -60px;
     }
-.gallery-slider {
-  margin-left: -791px;
-    }
+
 .price-column4 {
   margin-left: 10px;
   margin-top: 39px;
