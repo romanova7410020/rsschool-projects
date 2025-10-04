@@ -410,6 +410,7 @@ margin-bottom: 10px;
  top: 18px;
   right: 18px;
   position: absolute;
+  cursor: pointer;
 }
 .popup-content{
   position: relative;
@@ -686,6 +687,7 @@ summary:hover::after {
   cursor: pointer;
   background-color: #222222;
   border: none !important;
+  transition: all 0.3s ease;
 }
 .header-wrapper {
   overflow: hidden;
@@ -693,7 +695,7 @@ summary:hover::after {
   width: 100%;
 }
 .header .navigation{
-  display: none;
+  display: flex;
   margin-top: 50px;
   flex-direction: column;
   position: fixed;
@@ -706,7 +708,7 @@ summary:hover::after {
  z-index: 1000;
  align-items: center;
  justify-content: center;
- transition: right 0.3s ease;
+ transition: right 0.5s ease;
 }
 .header .navigation_active{
 display: flex !important;
@@ -865,6 +867,12 @@ height: 340px;
   .wrapper{
     max-width: 340px;
   }
+    .header .navigation {
+      max-width: 380px;
+    }
+    .navigation li:last-child {
+    padding-right: 20px;
+    }
   .main-statistic h3 {
     letter-spacing: -0.35px;
   }
@@ -905,7 +913,19 @@ line-height: 1.5;
 .third-column p {
   margin-left: -60px;
     }
-
+.popup-content {
+    max-width: 340px;
+    width: 100%;
+}
+.popup-form input {
+    width: 288px;
+}
+.popup-form button {
+    width: 300px;
+}
+.popup-form h3 {
+  text-align: center;
+}
 .price-column4 {
   margin-left: 10px;
   margin-top: 39px;

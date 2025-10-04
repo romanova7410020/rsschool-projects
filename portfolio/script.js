@@ -26,6 +26,15 @@ const popup = document.querySelector('.popup');
 const closeButton = document.querySelector('.close-button');
 const bodyBlock = document.body;
 
+document.addEventListener('keydown', function(event) {
+console.log(event.code);
+if(event.code === 'Escape'){
+popup.classList.toggle('hidden')
+}
+});
+
+
+
 bookButton.forEach(button => {
 button.addEventListener('click', () => {
   popup.classList.toggle('hidden')
@@ -44,7 +53,6 @@ if (event.target.classList.contains('popup')) {
   bodyBlock.classList.remove('body-block')
 }
 });
-
 
 window.addEventListener('load', () =>{
   const slider = document.querySelector('.gallery-slider');
@@ -83,9 +91,9 @@ function stopScroll(){
     scrollInterval = null;
   }
 }
-leftScroll.addEventListener('mouseenter',() => startScroll(-1));
+rightScroll.addEventListener('mouseenter',() => startScroll(-1));
 leftScroll.addEventListener('mouseleave', stopScroll);
-rightScroll.addEventListener('mouseenter', () => startScroll(1));
+leftScroll.addEventListener('mouseenter', () => startScroll(1));
 rightScroll.addEventListener('mouseleave', stopScroll);
 
 
