@@ -327,7 +327,6 @@ h2{
   height: 498px;
   display: flex;
   flex-direction: column;
-
 }
 
 .price-column h3{
@@ -569,7 +568,6 @@ transition: 0.3s;
   background-color: #FF3C3C;
   color: #222222;
   border: 1px solid #FF3C3C ;
-  transition: 0.3s;
 }
 summary:hover{
   color: #FF3C3C;
@@ -600,10 +598,6 @@ summary:hover::after {
 }
 }
 @media screen and (min-width: 1441px) {
-.gallery-slider{
-  justify-content: center
-}
-
   .gallery-wrapper {
     max-width: none;
     width: auto;
