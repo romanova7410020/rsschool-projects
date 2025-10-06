@@ -73,7 +73,7 @@ window.addEventListener('load', () =>{
     if(scrollInterval) return;
     scrollInterval = requestAnimationFrame(function scrollStep(){
       const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
-      const newScrollleft = slider.scrollLeft + direction * scrollSpeed;
+      let newScrollleft = slider.scrollLeft + direction * scrollSpeed;
       if (newScrollleft < 0) newScrollleft = 0;
       if(newScrollleft > maxScrollLeft) newScrollleft = maxScrollLeft;
 
@@ -92,9 +92,9 @@ function stopScroll(){
   }
 }
 rightScroll.addEventListener('mouseenter',() => startScroll(-1));
-leftScroll.addEventListener('mouseleave', stopScroll);
-leftScroll.addEventListener('mouseenter', () => startScroll(1));
 rightScroll.addEventListener('mouseleave', stopScroll);
+leftScroll.addEventListener('mouseenter', () => startScroll(1));
+leftScroll.addEventListener('mouseleave', stopScroll);
 
 
 let isTouchg = false;
@@ -123,4 +123,37 @@ isTouchg = false
 });
 
 
+const storageKey = 'accordeonStatus';
 
+function saveAccordeonStatus() {
+  const accordeonItems = document.getElementsByName('accordeon-group');
+  const status ={};
+
+  Array.from(accordeonItems).forEach(item => {
+    status[item.id] = item.open;
+  })
+sessionStorage.setItem(storageKey, JSON.stringify(status));
+};
+
+function restoreAccordionStatus() {
+  const saveStatus = sessionStorage.getItem(storageKey);
+  if (saveStatus) {
+    const status = JSON.parse(saveStatus);
+    Object.keys(status).forEach(itemId => {
+      const element =document.getElementById(itemId);
+      if (element && status[itemId] === true){
+        element.open = true;
+      }
+    });
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  restoreAccordionStatus();
+
+const accordeonItems = document.getElementsByName('accordeon-group');
+ Array.from(accordeonItems).forEach(item => {
+  item.addEventListener('toggle', saveAccordeonStatus);
+
+  window.addEventListener('beforeunload', saveAccordeonStatus)
+})
+});

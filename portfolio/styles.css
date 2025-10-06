@@ -478,15 +478,21 @@ summary{
 summary::marker{
   content: '';
 }
-summary::after{
+summary::after {
   content: '';
-  width: 24px;
-  height: 24px;
-  background: url('./image/png/plus.svg') no-repeat center/contain;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  display: inline-block;
   transition: transform 200ms ease;
 }
-summary:hover::after {
-  background: url('./image/png/plus-red.svg')
+summary::after {
+  background:
+    linear-gradient(90deg, currentColor, currentColor),
+    linear-gradient(0deg, currentColor, currentColor);
+  background-size: 100% 1.5px, 1.5px 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 details p{
   font-family: var(--font-secondary);
@@ -499,7 +505,7 @@ details[open] summary::after{
   background: url(./image/png/minus.svg);
 }
 ::details-content{
-  transition: transform 1s ease;
+  transition: transform 0.2s ease;
 }
 footer{
   margin-top: 35px;
@@ -571,7 +577,12 @@ summary:hover{
   transition: 0.3s;
 }
 summary:hover::after {
-  background: url('./image/png/plus-red.svg');
+    background:
+    linear-gradient(90deg, #FF3C3C, #FF3C3C),
+    linear-gradient(0deg, #FF3C3C, #FF3C3C);
+  background-size: 100% 1.5px, 1.5px 100%;
+  background-position: center;
+  background-repeat: no-repeat;
   transition: 0.3s;
 }
 .footer-form input:hover{
@@ -708,7 +719,7 @@ summary:hover::after {
  z-index: 1000;
  align-items: center;
  justify-content: center;
- transition: right 0.5s ease;
+ transition: right 0.8s ease;
 }
 .header .navigation_active{
 display: flex !important;
@@ -721,9 +732,9 @@ right: 0;
    right: 0px;
   width: 12px;
   height: 2px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="2"><rect width="12" height="2" fill="white"/></svg>');
   background-size: contain;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+  background-color: white;
 }
 .burger._active::before {
   width: 20px;
@@ -741,9 +752,9 @@ transform: rotate(45deg) translate(0px, 50%);
   right: 0px;
   width: 20px;
   height: 2px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="2"><rect width="20" height="2" fill="white"/></svg>');
   background-size: contain;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+  background-color: white;
 }
 .body-block{
   overflow: hidden;
