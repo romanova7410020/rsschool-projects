@@ -139,14 +139,21 @@ function restoreAccordionStatus() {
   const saveStatus = sessionStorage.getItem(storageKey);
   if (saveStatus) {
     const status = JSON.parse(saveStatus);
+
     Object.keys(status).forEach(itemId => {
       const element =document.getElementById(itemId);
-      if (element && status[itemId] === true){
-        element.open = true;
+
+      if (element)
+        element.open = status[itemId];
+      });
+      }  else {
+        const firstAccordeon = document.getElementById('accordeon-item1');
+        if (firstAccordeon)
+            firstAccordeon.open = true;
+         saveAccordeonStatus();
       }
-    });
-  }
-}
+    }
+
 document.addEventListener('DOMContentLoaded', function(){
   restoreAccordionStatus();
 
