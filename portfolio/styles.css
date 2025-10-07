@@ -259,6 +259,7 @@ h2{
 }
 
 .gallery-slider{
+  scrollbar-width: none;
   display: flex;
   flex-direction: row;
   overflow: hidden;
