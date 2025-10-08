@@ -717,8 +717,11 @@ summary:hover::after {
   align-items: center;
  justify-content: center;
  transition: right 0.8s ease;
+ gap: 40px;
 }
-
+.navigation li {
+    padding: 0px;
+}
 .header .navigation_active{
 display: flex !important;
 right: 0;
