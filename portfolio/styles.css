@@ -712,7 +712,7 @@ summary:hover::after {
   height: 100vh;
   background-color: #222222;
   max-width: 768px;
-  width: 768px;
+  width: 100%;
  z-index: 1000;
   align-items: center;
  justify-content: center;
@@ -812,6 +812,7 @@ transform: rotate(45deg) translate(0px, 50%);
  .header .navigation {
       max-width: 767px;
       justify-content: center;
+      align-items: center;
     }
      .navigation li {
   width: 100%;
@@ -843,6 +844,7 @@ transform: rotate(45deg) translate(0px, 50%);
   .header .navigation {
       max-width: 700px;
       justify-content: center;
+      align-items: center;
     }
   }
   @media screen and (max-width: 600px){
@@ -861,14 +863,9 @@ transform: rotate(45deg) translate(0px, 50%);
   padding-right: 10px;
   }
   .header .navigation {
-      max-width: 500px;
       justify-content: center;
+      align-items: center;
     }
-    .navigation li {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
   .sidebar{
     display: none;
   }
@@ -920,6 +917,9 @@ height: 340px;
       padding-left: 10px;
   padding-right: 10px;
   }
+   .header .navigation {
+      align-items: center;
+    }
 }
 @media screen and (max-width: 410px) {
   .wrapper{
@@ -927,6 +927,9 @@ height: 340px;
       padding-left: 10px;
   padding-right: 10px;
   }
+   .header .navigation {
+      align-items: center;
+    }
 .first-main {
     margin-left: 30px;
 }
@@ -937,6 +940,7 @@ height: 340px;
   }
     .header .navigation {
       max-width: 380px;
+      align-items: center;
     }
     .navigation li:last-child {
     padding-right: 20px;
