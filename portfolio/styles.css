@@ -615,6 +615,8 @@ summary:hover::after {
 @media screen and (max-width: 1000px) {
   .wrapper{
     max-width: 960px;
+    padding-left: 10px;
+  padding-right: 10px;
   }
   .second-main{
   display: none;
@@ -716,9 +718,11 @@ summary:hover::after {
  justify-content: center;
  transition: right 0.8s ease;
 }
+
 .header .navigation_active{
 display: flex !important;
 right: 0;
+
 }
 .burger::before {
   content: '';
@@ -794,11 +798,26 @@ transform: rotate(45deg) translate(0px, 50%);
 }
 }
 @media screen and (max-width: 767px){
+   .wrapper{
+    max-width: 740px;
+    padding-left: 10px;
+  padding-right: 10px;
+  }
      .main-statistic h1{
     font-size: 60px;
      }
       .main-statistic {
         margin-top: 12px;
+}
+ .header .navigation {
+      max-width: 767px;
+      justify-content: center;
+    }
+     .navigation li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 .main-hero{
     display: flex;
@@ -815,10 +834,41 @@ transform: rotate(45deg) translate(0px, 50%);
         margin-left: -171px;
 }
 }
+@media screen and (max-width: 700px){
+ .wrapper{
+    max-width: 680px;
+    padding-left: 10px;
+  padding-right: 10px;
+  }
+  .header .navigation {
+      max-width: 700px;
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 600px){
+ .wrapper{
+    max-width: 580px;
+  }
+  .header .navigation {
+      max-width: 600px;
+      justify-content: center;
+    }
+  }
 @media screen and (max-width: 500px) {
   .wrapper{
     max-width: 480px;
+      padding-left: 10px;
+  padding-right: 10px;
   }
+  .header .navigation {
+      max-width: 500px;
+      justify-content: center;
+    }
+    .navigation li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
   .sidebar{
     display: none;
   }
@@ -864,7 +914,19 @@ height: 340px;
     padding: 0px 0px;
 }
 }
+@media screen and (max-width: 455px) {
+.wrapper{
+    max-width: 415px;
+      padding-left: 10px;
+  padding-right: 10px;
+  }
+}
 @media screen and (max-width: 410px) {
+  .wrapper{
+    max-width: 390px;
+      padding-left: 10px;
+  padding-right: 10px;
+  }
 .first-main {
     margin-left: 30px;
 }
