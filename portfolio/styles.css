@@ -709,12 +709,12 @@ summary:hover::after {
   position: fixed;
   top: 0px;
   right: -768px;
-  height: 740px;
+  height: 100vh;
   background-color: #222222;
   max-width: 768px;
   width: 768px;
  z-index: 1000;
- align-items: center;
+  align-items: center;
  justify-content: center;
  transition: right 0.8s ease;
 }
