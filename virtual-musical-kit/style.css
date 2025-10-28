@@ -1,0 +1,82 @@
+.body {
+  margin: 0 auto;
+  background-color: antiquewhite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 50px;
+  text-align:  center;
+}
+.piano {
+  background: url('./piano.png') no-repeat center center;
+  background-size: contain;
+  width: 763px;
+  height: 600px;
+  position: relative;
+}
+.keyWhite {
+  position: relative;
+  display: inline-block;
+  border: 1px solid black;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: bottom;
+  font-family: sans-serif;
+  border-radius: 0 0 10px 10px;
+  margin-top: 227px;
+  left: 102px;
+  width: 55px;
+  height: 223px;
+  background: white;
+  z-index: 1;
+}
+.keyWhite:hover {
+  background: #c9c8c8;
+}
+
+.keyBlack {
+  display: inline-block;
+  border: 1px solid black;
+  background: black;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: sans-serif;
+  border-radius: 0 0 10px 10px;
+  margin-top: 227px;
+  width: 35px;
+  height: 130px;
+  z-index: 2;
+  position: absolute;
+  margin-left: 0px;
+}
+.keyBlack:hover {
+  background: #363636;
+}
+.key_W {
+  margin-left: -410px;
+}
+
+.key_E {
+margin-left: -355px;
+}
+.key_R {
+  margin-left: -245px;
+}
+.key_Y {
+  margin-left: -190px;
+}
+.key_U {
+  margin-left: -135px
+}
+.key_I {
+  margin-left: -25px;
+}
+.key_O {
+  margin-left: 31px;
+}
