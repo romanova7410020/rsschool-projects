@@ -47,7 +47,10 @@ const keyLabels = {
   key_L: 'L',
   key_M: 'M',
 };
-
+const pastelColors = [
+    '#FFD1DC', '#FFB347', '#B0E0E6', '#B4EEB4', '#E6E6FA',
+    '#FFDAB9', '#FDFD96', '#CAE1FF', '#FF6961', '#CFCFC4'
+];
 const soundMap = {};
 keyWhiteClasses.forEach(className => {
   const note = keyLabels[className];
@@ -113,16 +116,13 @@ keyWhiteClasses.forEach(className => {
       sound.currentTime = 0;
       sound.play();
     }
-    const pastelColors = [
-    '#FFD1DC', '#FFB347', '#B0E0E6', '#B4EEB4', '#E6E6FA',
-    '#FFDAB9', '#FDFD96', '#CAE1FF', '#FF6961', '#CFCFC4'
-  ];
+
    const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
    keyDiv.style.background = randomColor;
 
    keyDiv.addEventListener('mouseleave', () =>{
     keyDiv.style.background = 'white';
-    sound.pause();
+    
   });
   });
 });
@@ -134,4 +134,32 @@ keyBlackClasses.forEach(className => {
     parent: mainElement,
   });
 });
+
+window.addEventListener('keydown', (event) => {
+  const pressedKey = event.code;
+  if (!pressedKey.startsWith('Key')) return;
+  const keyLetter = pressedKey.slice(3);
+  const className = 'key_' + keyLetter;
+
+if (keyWhiteClasses.includes(className)) {
+    const sound = soundMap[className];
+    if (sound) {
+      sound.pause();
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    const keyDiv = document.querySelector(`.${className}`);
+    if (keyDiv) {
+      const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+      keyDiv.style.background = randomColor;
+      setTimeout(() => {
+        keyDiv.style.background = 'white';
+      }, 300);
+    }
+  }
+});
+
+
+
 
