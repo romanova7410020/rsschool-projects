@@ -35,6 +35,7 @@ const mainElement = createElement({
 })
 
 const keyWhiteClasses = ['key_A', 'key_S', 'key_D', 'key_F', 'key_G', 'key_H', 'key_J', 'key_K', 'key_L', 'key_M',];
+const keyBlackClasses = ['key_W','key_E', 'key_R', 'key_T', 'key_Y', 'key_U', 'key_I'];
 const keyLabels = {
   key_A: 'A',
   key_S: 'S',
@@ -47,6 +48,20 @@ const keyLabels = {
   key_L: 'L',
   key_M: 'M',
 };
+const keyBlackLabels = {
+  key_W: 'W',
+  key_E: 'E',
+  key_R: 'R',
+  key_T: 'T',
+  key_Y: 'Y',
+  key_U: 'U',
+  key_I: 'I',
+};
+
+const allKeys = {
+  ...keyLabels,
+  ...keyBlackLabels,
+}
 const pastelColors = [
     '#FFD1DC', '#FFB347', '#B0E0E6', '#B4EEB4', '#E6E6FA',
     '#FFDAB9', '#FDFD96', '#CAE1FF', '#FF6961', '#CFCFC4'
@@ -96,13 +111,43 @@ keyWhiteClasses.forEach(className => {
   });
 
   input.addEventListener('keydown', e => {
+    const isLetter = e.key.length === 1 && /^[a-zA-Z]$/.test(e.key);
+    const controlKey = ['Backspace', 'Enter', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key);
+    if (input.value.length >= 1 && isLetter && !controlKey) {
+    e.preventDefault();
+    return;
+  }
+    if (!isLetter && !controlKey) {
+      e.preventDefault();
+    }
+
     if (e.key === 'Enter') {
-      label.textContent = input.value.toUpperCase();
+      const newLetter = input.value.toUpperCase();
+      const isUnique = (() => {
+        const upperLetter = newLetter.toUpperCase();
+        return !Object.entries(allKeys).filter(([key]) => key !== className)
+        .map(([, value]) => value.toUpperCase()).includes(upperLetter);
+      }) ();
+      if (!isUnique) {
+        alert ('Please, choose another unique letter.');
+        input.focus();
+        input.select();
+        return;
+      }
+      allKeys[className] = newLetter;
+      label.textContent = newLetter;
+
       input.style.display = 'none';
       label.style.display = 'inline-block';
       keyButton.style.display = 'inline-block';
     }
   });
+  input.addEventListener('input', e => {
+    const filterLetter = e.target.value.replace(/[^a-zA-Z]/g, '');
+    if (e.target.value !== filterLetter) {
+      e.target.value = filterLetter;
+    }
+  })
 
   input.addEventListener('blur', () => {
   input.style.display = 'none';
@@ -128,17 +173,7 @@ keyWhiteClasses.forEach(className => {
   });
 });
 
-
-const keyBlackClasses = ['key_W','key_E', 'key_R', 'key_T', 'key_Y', 'key_U', 'key_I'];
-const keyBlackLabels = {
-  key_W: 'W',
-  key_E: 'E',
-  key_R: 'R',
-  key_T: 'T',
-  key_Y: 'Y',
-  key_U: 'U',
-  key_I: 'I',
-};
+// black
 const keyBlackDivs = [];
 keyBlackClasses.forEach(className => {
   const keyBlackDiv = createElement({
@@ -181,40 +216,29 @@ const darkPastelColors = [
 });
 
 window.addEventListener('keydown', (event) => {
-  const pressedKey = event.code;
-  if (!pressedKey.startsWith('Key')) return;
-  const keyLetter = pressedKey.slice(3);
-  const className = 'key_' + keyLetter;
+  const pressedKey = event.key.toUpperCase();
 
-if (keyWhiteClasses.includes(className)) {
+  const matchedEntry = Object.entries(allKeys)
+    .find(([className, letter]) => letter.toUpperCase() === pressedKey);
+
+  if (matchedEntry) {
+    const [className] = matchedEntry;
     const sound = soundMap[className];
     if (sound) {
       sound.pause();
       sound.currentTime = 0;
       sound.play();
     }
+
     const keyDiv = document.querySelector(`.${className}`);
     if (keyDiv) {
-      const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+      const isWhite = keyWhiteClasses.includes(className);
+      const colors = isWhite ? pastelColors : darkPastelColors;
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
       keyDiv.style.background = randomColor;
+
       setTimeout(() => {
-        keyDiv.style.background = 'white';
-      }, 300);
-    }
-  }
-if (keyBlackClasses.includes(className)) {
-    const sound = soundMap[className];
-    if (sound) {
-      sound.pause();
-      sound.currentTime = 0;
-      sound.play();
-    }
-    const keyBlackDiv = document.querySelector(`.${className}`);
-    if (keyBlackDiv) {
-      const colorIndex = darkPastelColors[Math.floor(Math.random() * darkPastelColors.length)];
-      keyBlackDiv.style.background = colorIndex;
-      setTimeout(() => {
-        keyBlackDiv.style.background = 'black';
+        keyDiv.style.background = isWhite ? 'white' : '';
       }, 300);
     }
   }
