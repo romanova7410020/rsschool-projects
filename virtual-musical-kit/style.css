@@ -42,7 +42,13 @@ h1 {
 .keyWhite:hover {
   background: #c9c8c8;
 }
+.keyWhite:first-child {
+  border-radius: 10px 0 10px 10px;
+}
 
+.key_M {
+ border-radius: 0px 10px 10px 10px;
+}
 .keyBlack {
   display: inline-block;
   border: 1px solid black;
@@ -72,16 +78,16 @@ margin-left: -355px;
 .key_R {
   margin-left: -245px;
 }
-.key_Y {
+.key_T {
   margin-left: -190px;
 }
-.key_U {
+.key_Y {
   margin-left: -135px
 }
-.key_I {
+.key_U {
   margin-left: -25px;
 }
-.key_O {
+.key_I {
   margin-left: 31px;
 }
 .label-wrapper {

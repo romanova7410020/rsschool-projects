@@ -110,7 +110,7 @@ keyWhiteClasses.forEach(className => {
   keyButton.style.display = 'inline-block';
 });
   keyDiv.addEventListener('click', () => {
-    const sound =soundMap[className];
+    const sound = soundMap[className];
     if (sound) {
       sound.pause();
       sound.currentTime = 0;
@@ -127,12 +127,56 @@ keyWhiteClasses.forEach(className => {
   });
   });
 });
-const keyBlackClasses = ['key_W','key_E', 'key_R', 'key_Y', 'key_U', 'key_I', 'key_O']
+
+
+const keyBlackClasses = ['key_W','key_E', 'key_R', 'key_T', 'key_Y', 'key_U', 'key_I'];
+const keyBlackLabels = {
+  key_W: 'W',
+  key_E: 'E',
+  key_R: 'R',
+  key_T: 'T',
+  key_Y: 'Y',
+  key_U: 'U',
+  key_I: 'I',
+};
+const keyBlackDivs = [];
 keyBlackClasses.forEach(className => {
-  createElement({
+  const keyBlackDiv = createElement({
     tag: 'div',
     classes: ['keyBlack', className],
     parent: mainElement,
+  });
+   keyBlackDivs.push(keyBlackDiv);
+});
+const darkPastelColors = [
+  '#CC8C8C', '#CC9933', '#7A9B9B', '#739973', '#7A7A9A',
+  '#CCAA99', '#CCCC66', '#6699CC', '#CC6666', '#999966'
+];
+
+ keyBlackDivs.forEach((keyBlackDiv, index) => {
+  const className = keyBlackClasses[index];
+  const note = keyBlackLabels[className];
+  soundMap[className] = new Audio(`sounds/${note}.mp3`);
+
+  keyBlackDiv.addEventListener('click', () => {
+    const sound = soundMap[className];
+    if (sound) {
+      sound.pause();
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    const colorIndex = darkPastelColors[Math.floor(Math.random() * darkPastelColors.length)];
+    keyBlackDiv.style.background = colorIndex;
+  });
+
+  keyBlackDiv.addEventListener('mouseleave', () => {
+    keyBlackDiv.style.background = '';
+    const sound = soundMap[className];
+    if (sound) {
+      sound.pause();
+      sound.currentTime = 0;
+    }
   });
 });
 
@@ -149,7 +193,6 @@ if (keyWhiteClasses.includes(className)) {
       sound.currentTime = 0;
       sound.play();
     }
-
     const keyDiv = document.querySelector(`.${className}`);
     if (keyDiv) {
       const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
@@ -159,8 +202,26 @@ if (keyWhiteClasses.includes(className)) {
       }, 300);
     }
   }
+if (keyBlackClasses.includes(className)) {
+    const sound = soundMap[className];
+    if (sound) {
+      sound.pause();
+      sound.currentTime = 0;
+      sound.play();
+    }
+    const keyBlackDiv = document.querySelector(`.${className}`);
+    if (keyBlackDiv) {
+      const colorIndex = darkPastelColors[Math.floor(Math.random() * darkPastelColors.length)];
+      keyBlackDiv.style.background = colorIndex;
+      setTimeout(() => {
+        keyBlackDiv.style.background = 'black';
+      }, 300);
+    }
+  }
 });
 
+
+//canvas with circles
 const canvas = document.createElement('canvas');
 canvas.classList.add('canvas');
 document.body.appendChild(canvas);
@@ -250,7 +311,7 @@ function Circle(x, y, dx, dy, radius, type) {
 }
 let circleArray = [];
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 7; i++) {
   let radius = 30;
   let x = Math.random() * (canvas.width / dpr - radius * 2) + radius;
   let dx = (Math.random() - 0.5) * 8;
