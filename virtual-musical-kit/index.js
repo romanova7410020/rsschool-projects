@@ -16,7 +16,7 @@ function createElement(options) {
   children.forEach (childOptions => {
     createElement ({
       ...childOptions,
-      parent: element
+      parent: element,
     });
   });
   return element;
@@ -34,28 +34,28 @@ const mainElement = createElement({
   parent: bodyElement,
 })
 
-const keyWhiteClasses = ['key_A', 'key_S', 'key_D', 'key_F', 'key_G', 'key_H', 'key_J', 'key_K', 'key_L', 'key_M',];
-const keyBlackClasses = ['key_W','key_E', 'key_R', 'key_T', 'key_Y', 'key_U', 'key_I'];
+const keyWhiteClasses = ['KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'KeyM',];
+const keyBlackClasses = ['KeyW','KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI'];
 const keyLabels = {
-  key_A: 'A',
-  key_S: 'S',
-  key_D: 'D',
-  key_F: 'F',
-  key_G: 'G',
-  key_H: 'H',
-  key_J: 'J',
-  key_K: 'K',
-  key_L: 'L',
-  key_M: 'M',
+  KeyA: 'A',
+  KeyS: 'S',
+  KeyD: 'D',
+  KeyF: 'F',
+  KeyG: 'G',
+  KeyH: 'H',
+  KeyJ: 'J',
+  KeyK: 'K',
+  KeyL: 'L',
+  KeyM: 'M',
 };
 const keyBlackLabels = {
-  key_W: 'W',
-  key_E: 'E',
-  key_R: 'R',
-  key_T: 'T',
-  key_Y: 'Y',
-  key_U: 'U',
-  key_I: 'I',
+  KeyW: 'W',
+  KeyE: 'E',
+  KeyR: 'R',
+  KeyT: 'T',
+  KeyY: 'Y',
+  KeyU: 'U',
+  KeyI: 'I',
 };
 
 const allKeys = {
@@ -219,13 +219,9 @@ let isActiveKey = false;
 window.addEventListener('keydown', (event) => {
   if (isActiveKey) return;
   isActiveKey = true;
-  const pressedKey = event.key.toUpperCase();
 
-  const matchedEntry = Object.entries(allKeys)
-    .find(([className, letter]) => letter.toUpperCase() === pressedKey);
-
-  if (matchedEntry) {
-    const [className] = matchedEntry;
+   const className = event.code;
+  if (!(className in allKeys)) return;
     const sound = soundMap[className];
     if (sound) {
       sound.pause();
@@ -244,12 +240,35 @@ window.addEventListener('keydown', (event) => {
         keyDiv.style.background = isWhite ? 'white' : '';
       }, 300);
     }
-  }
-});
+  });
 
 window.addEventListener('keyup', () => {
   isActiveKey = false;
 });
+
+//melody
+const melody  = createElement ({
+  tag: 'section',
+  classes: ['melody'],
+  parent: bodyElement,
+});
+const melodytitle  = createElement ({
+  tag: 'h3',
+  classes: ['melody-title'],
+  parent: melody,
+  text: 'Enter the key sequence for the melody'
+});
+const melodyImput = createElement ({
+  tag: 'input',
+  classes: ['melody-input'],
+  parent: melody,
+});
+const melodyButton  = createElement ({
+  tag: 'button',
+  classes: ['melody-button'],
+  parent: melody,
+  text: 'Play',
+})
 
 
 //canvas with circles
@@ -351,9 +370,6 @@ for (let i = 0; i < 7; i++) {
   let type = i % 2 === 0 ? 1 : 2;
   circleArray.push(new Circle(x, y, dx,dy,radius, type));
 }
-
-
-
 
 function animate() {
   requestAnimationFrame(animate);
