@@ -36,7 +36,7 @@ const mainElement = createElement({
 
 const keyWhiteClasses = ['KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'KeyM',];
 const keyBlackClasses = ['KeyW','KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI'];
-const keyLabels = {
+const keyMap = {
   KeyA: 'A',
   KeyS: 'S',
   KeyD: 'D',
@@ -47,8 +47,6 @@ const keyLabels = {
   KeyK: 'K',
   KeyL: 'L',
   KeyM: 'M',
-};
-const keyBlackLabels = {
   KeyW: 'W',
   KeyE: 'E',
   KeyR: 'R',
@@ -58,19 +56,25 @@ const keyBlackLabels = {
   KeyI: 'I',
 };
 
-const allKeys = {
-  ...keyLabels,
-  ...keyBlackLabels,
-}
 const pastelColors = [
     '#FFD1DC', '#FFB347', '#B0E0E6', '#B4EEB4', '#E6E6FA',
     '#FFDAB9', '#FDFD96', '#CAE1FF', '#FF6961', '#CFCFC4'
 ];
-const soundMap = {};
-keyWhiteClasses.forEach(className => {
-  const note = keyLabels[className];
-  soundMap[className] = new Audio (`sounds/${note}.mp3`);
+const darkPastelColors = [
+  '#CC8C8C', '#CC9933', '#7A9B9B', '#739973', '#7A7A9A',
+  '#CCAA99', '#CCCC66', '#6699CC', '#CC6666', '#999966'
+];
+const soundKeyMap = {};
+Object.entries(keyMap).forEach(([className, letter]) => {
+  soundKeyMap[className] = letter;
+});
+const reverseKeyMap = {};
+Object.entries(keyMap).forEach(([className, letter]) => {
+  reverseKeyMap[letter] = className;
+});
 
+
+keyWhiteClasses.forEach(className => {
  const keyDiv = createElement({
     tag: 'div',
     classes: ['keyWhite', className],
@@ -85,7 +89,7 @@ keyWhiteClasses.forEach(className => {
 
   const label = createElement({
     tag: 'span',
-    text: keyLabels[className],
+    text: keyMap[className],
     parent: labelWrapper,
   });
 
@@ -125,17 +129,21 @@ keyWhiteClasses.forEach(className => {
       const newLetter = input.value.toUpperCase();
       const isUnique = (() => {
         const upperLetter = newLetter.toUpperCase();
-        return !Object.entries(allKeys).filter(([key]) => key !== className)
+        return !Object.entries(keyMap).filter(([key]) => key !== className)
         .map(([, value]) => value.toUpperCase()).includes(upperLetter);
       }) ();
+
       if (!isUnique) {
         alert ('Please, choose another unique letter.');
         input.focus();
         input.select();
         return;
       }
-      allKeys[className] = newLetter;
+      const oldLetter = keyMap[className];
+      keyMap[className] = newLetter;
       label.textContent = newLetter;
+      delete reverseKeyMap[oldLetter];
+      reverseKeyMap[newLetter] = className;
 
       input.style.display = 'none';
       label.style.display = 'inline-block';
@@ -155,12 +163,11 @@ keyWhiteClasses.forEach(className => {
   keyButton.style.display = 'inline-block';
 });
   keyDiv.addEventListener('click', () => {
-    const sound = soundMap[className];
-    if (sound) {
-      sound.pause();
-      sound.currentTime = 0;
-      sound.play();
-    }
+    const soundLetter = soundKeyMap[className];
+    const sound = new Audio(`sounds/${soundLetter}.mp3`);
+    sound.pause();
+    sound.currentTime = 0;
+    sound.play();
 
    const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
    keyDiv.style.background = randomColor;
@@ -176,30 +183,18 @@ keyWhiteClasses.forEach(className => {
 // black
 const keyBlackDivs = [];
 keyBlackClasses.forEach(className => {
+
   const keyBlackDiv = createElement({
     tag: 'div',
     classes: ['keyBlack', className],
     parent: mainElement,
   });
-   keyBlackDivs.push(keyBlackDiv);
-});
-const darkPastelColors = [
-  '#CC8C8C', '#CC9933', '#7A9B9B', '#739973', '#7A7A9A',
-  '#CCAA99', '#CCCC66', '#6699CC', '#CC6666', '#999966'
-];
-
- keyBlackDivs.forEach((keyBlackDiv, index) => {
-  const className = keyBlackClasses[index];
-  const note = keyBlackLabels[className];
-  soundMap[className] = new Audio(`sounds/${note}.mp3`);
-
-  keyBlackDiv.addEventListener('click', () => {
-    const sound = soundMap[className];
-    if (sound) {
-      sound.pause();
-      sound.currentTime = 0;
-      sound.play();
-    }
+   keyBlackDivs.push(keyBlackDiv); keyBlackDiv.addEventListener('click', () => {
+    const soundLetter = soundKeyMap[className];
+    const sound = new Audio(`sounds/${soundLetter}.mp3`);
+    sound.pause();
+    sound.currentTime = 0;
+    sound.play();
 
     const colorIndex = darkPastelColors[Math.floor(Math.random() * darkPastelColors.length)];
     keyBlackDiv.style.background = colorIndex;
@@ -207,7 +202,8 @@ const darkPastelColors = [
 
   keyBlackDiv.addEventListener('mouseleave', () => {
     keyBlackDiv.style.background = '';
-    const sound = soundMap[className];
+    const soundLetter = soundKeyMap[className];
+    const sound = new Audio(`sounds/${soundLetter}.mp3`);
     if (sound) {
       sound.pause();
       sound.currentTime = 0;
@@ -215,19 +211,24 @@ const darkPastelColors = [
   });
 });
 
+
+
 let isActiveKey = false;
 window.addEventListener('keydown', (event) => {
   if (isActiveKey) return;
   isActiveKey = true;
 
-   const className = event.code;
-  if (!(className in allKeys)) return;
-    const sound = soundMap[className];
-    if (sound) {
-      sound.pause();
-      sound.currentTime = 0;
-      sound.play();
-    }
+    const letter = event.code.replace('Key', '');
+    const className = reverseKeyMap[letter];
+      if (!className) return;
+
+    const soundLetter = soundKeyMap[className];
+      if (soundLetter) {
+    const sound = new Audio(`sounds/${soundLetter}.mp3`);
+    sound.pause();
+    sound.currentTime = 0;
+    sound.play();
+  }
 
     const keyDiv = document.querySelector(`.${className}`);
     if (keyDiv) {
