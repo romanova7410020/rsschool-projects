@@ -215,7 +215,10 @@ const darkPastelColors = [
   });
 });
 
+let isActiveKey = false;
 window.addEventListener('keydown', (event) => {
+  if (isActiveKey) return;
+  isActiveKey = true;
   const pressedKey = event.key.toUpperCase();
 
   const matchedEntry = Object.entries(allKeys)
@@ -242,6 +245,10 @@ window.addEventListener('keydown', (event) => {
       }, 300);
     }
   }
+});
+
+window.addEventListener('keyup', () => {
+  isActiveKey = false;
 });
 
 
