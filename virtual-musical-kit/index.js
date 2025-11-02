@@ -362,7 +362,7 @@ function Circle(x, y, dx, dy, radius, type) {
 }
 let circleArray = [];
 
-for (let i = 0; i < 7; i++) {
+for (let i = 0; i < 4; i++) {
   let radius = 30;
   let x = Math.random() * (canvas.width / dpr - radius * 2) + radius;
   let dx = (Math.random() - 0.5) * 8;
