@@ -112,7 +112,7 @@ keyWhiteClasses.forEach(className => {
     input.style.display ='inline-block';
     input.value =label.textContent;
      input.focus();
-  });
+0000000000000000000000  });
 
   input.addEventListener('keydown', e => {
     const isLetter = e.key.length === 1 && /^[a-zA-Z]$/.test(e.key);
@@ -259,7 +259,7 @@ const melodytitle  = createElement ({
   parent: melody,
   text: 'Enter the key sequence for the melody'
 });
-const melodyImput = createElement ({
+const melodyInput = createElement ({
   tag: 'input',
   classes: ['melody-input'],
   parent: melody,
@@ -269,7 +269,81 @@ const melodyButton  = createElement ({
   classes: ['melody-button'],
   parent: melody,
   text: 'Play',
-})
+});
+const allowedKeys = Object.values(keyMap);
+const maxLength = allowedKeys.length * 2;
+function playSoundByLetter(letter){
+  const className = reverseKeyMap[letter];
+  if (!className) return Promise.resolve();
+  return new Promise( resolve => {
+    const soundLetter = soundKeyMap[className];
+    const sound = new Audio(`sounds/${soundLetter}.mp3`);
+    const keyDiv = document.querySelector(`.${className}`);
+    let isWhite;
+   
+    if (keyDiv) {
+      isWhite = keyWhiteClasses.includes(className);
+      const colors = isWhite ? pastelColors : darkPastelColors;
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      keyDiv.style.background = randomColor;
+    } 
+    let resolved = false;
+    function cleanup() {
+      if (resolved) return;
+      resolved = true;
+      if (keyDiv) {
+       keyDiv.style.background = '';
+      }
+      if (!sound.paused) {
+        sound.pause();
+        sound.currentTime = 0;
+      }
+      resolve();
+    }
+    sound.play();
+
+    sound.addEventListener('ended', cleanup);
+    const timeoutId = setTimeout(() => {
+      cleanup();
+      clearTimeout(timeoutId);
+    }, 500);
+});
+}
+async function playSequence(sequence) {
+  melodyInput.disabled = true;
+  melodyButton.disabled = true;
+  melodyInput.classList.add('disabled');
+  melodyButton.classList.add('disabled');
+
+  for (const letter of sequence) {
+    await playSoundByLetter(letter);
+    await new Promise(r => setTimeout(r, 100));
+  }
+
+  melodyInput.disabled = false;
+  melodyButton.disabled = false;
+  melodyInput.classList.remove('disabled');
+  melodyButton.classList.remove('disabled');
+};
+melodyButton.addEventListener('click', () => {
+  let input = melodyInput.value.toUpperCase();
+  const filtered = input.split('').filter((char) => allowedKeys.includes(char));
+  if (filtered.length === 0) {
+    alert ('Please, enter the key sequence for the melody in English letters only');
+    return
+  }
+  if (filtered.length > maxLength) {
+    alert ('Sequence is too long');
+    return
+  }
+  playSequence(filtered);
+});
+melodyInput.addEventListener('input', e => {
+  const filtered = e.target.value.toUpperCase().split('').filter(ch => allowedKeys.includes(ch)).join('');
+  if (e.target.value.toUpperCase() !== filtered) {
+    e.target.value = filtered;
+  }
+});
 
 
 //canvas with circles

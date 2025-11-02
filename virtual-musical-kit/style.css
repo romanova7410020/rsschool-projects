@@ -160,6 +160,10 @@ canvas {
 .melody-button:hover{
   background-color:  rgb(236, 200, 40)
 }
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 @media screen and (max-width: 730px) {
   .piano {
     width: 334px;
