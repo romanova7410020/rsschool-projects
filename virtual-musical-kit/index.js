@@ -145,6 +145,9 @@ keyWhiteClasses.forEach(className => {
       delete reverseKeyMap[oldLetter];
       reverseKeyMap[newLetter] = className;
 
+      allowedKeys.length = 0;
+      Object.values(keyMap).forEach(val => allowedKeys.push(val));
+
       input.style.display = 'none';
       label.style.display = 'inline-block';
       keyButton.style.display = 'inline-block';
@@ -174,7 +177,7 @@ let sound;
     keyDiv.classList.add('active');
    const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
    keyDiv.style.background = randomColor;
-   
+
    sound.play();
    sound.addEventListener('ended', () => {
     keyDiv.classList.remove('active');
