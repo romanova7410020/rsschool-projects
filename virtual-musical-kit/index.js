@@ -112,7 +112,7 @@ keyWhiteClasses.forEach(className => {
     input.style.display ='inline-block';
     input.value =label.textContent;
      input.focus();
-0000000000000000000000  });
+});
 
   input.addEventListener('keydown', e => {
     const isLetter = e.key.length === 1 && /^[a-zA-Z]$/.test(e.key);
@@ -162,23 +162,36 @@ keyWhiteClasses.forEach(className => {
   label.style.display = 'inline-block';
   keyButton.style.display = 'inline-block';
 });
+let sound;
   keyDiv.addEventListener('click', () => {
     const soundLetter = soundKeyMap[className];
-    const sound = new Audio(`sounds/${soundLetter}.mp3`);
+    if (sound && !sound.paused) {
     sound.pause();
     sound.currentTime = 0;
-    sound.play();
+  }
+    sound = new Audio(`sounds/${soundLetter}.mp3`);
 
+    keyDiv.classList.add('active');
    const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
    keyDiv.style.background = randomColor;
+   
+   sound.play();
+   sound.addEventListener('ended', () => {
+    keyDiv.classList.remove('active');
+    keyDiv.style.background = '';
+  });
+  });
 
    keyDiv.addEventListener('mouseleave', () =>{
-    keyDiv.style.background = 'white';
+    if (sound && !sound.paused) {
     sound.pause();
     sound.currentTime = 0;
+  }
+  keyDiv.classList.remove('active');
+  keyDiv.style.background = '';
   });
   });
-});
+
 
 // black
 const keyBlackDivs = [];
@@ -309,6 +322,7 @@ function playSoundByLetter(letter){
     }, 500);
 });
 }
+melodyInput.maxLength = maxLength;
 async function playSequence(sequence) {
   melodyInput.disabled = true;
   melodyButton.disabled = true;

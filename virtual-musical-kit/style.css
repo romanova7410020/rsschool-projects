@@ -69,6 +69,10 @@ h1 {
 .keyBlack:hover {
   background: #363636;
 }
+.keyWhite.active,
+.keyBlack.active {
+  transition: box-shadow 0.3s ease;
+}
 .KeyW {
   margin-left: -410px;
 }
