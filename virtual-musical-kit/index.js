@@ -167,6 +167,7 @@ keyWhiteClasses.forEach(className => {
 });
 let sound;
   keyDiv.addEventListener('click', () => {
+    if (isPlaying) return;
     const soundLetter = soundKeyMap[className];
     if (sound && !sound.paused) {
     sound.pause();
@@ -231,6 +232,7 @@ keyBlackClasses.forEach(className => {
 
 let isActiveKey = false;
 window.addEventListener('keydown', (event) => {
+  if (isPlaying) return;
   if (isActiveKey) return;
   isActiveKey = true;
 
@@ -302,7 +304,7 @@ function playSoundByLetter(letter){
       const colors = isWhite ? pastelColors : darkPastelColors;
       const randomColor = colors[Math.floor(Math.random() * colors.length)];
       keyDiv.style.background = randomColor;
-    } 
+    }
     let resolved = false;
     function cleanup() {
       if (resolved) return;
@@ -326,7 +328,10 @@ function playSoundByLetter(letter){
 });
 }
 melodyInput.maxLength = maxLength;
+
+let isPlaying = false;
 async function playSequence(sequence) {
+  isPlaying = true;
   melodyInput.disabled = true;
   melodyButton.disabled = true;
   melodyInput.classList.add('disabled');
@@ -341,6 +346,7 @@ async function playSequence(sequence) {
   melodyButton.disabled = false;
   melodyInput.classList.remove('disabled');
   melodyButton.classList.remove('disabled');
+  isPlaying = false;
 };
 melodyButton.addEventListener('click', () => {
   let input = melodyInput.value.toUpperCase();
