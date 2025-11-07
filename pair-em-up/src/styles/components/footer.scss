@@ -1,0 +1,31 @@
+@use '../base/variables.scss' as *;
+@use '../base/mixins.scss' as *;
+
+.footer{
+  @include flex-container(row, space-between, center, nowrap);
+  position: absolute;
+  max-width: 1260px;
+  width: 90%;
+  bottom: 0;
+  height: 60px;
+}
+.changeBtn.glass-card {
+  cursor: pointer;
+  text-align: center;
+  font-family: $font-playfair;
+  font-size: clamp(1rem, 1vw, 2rem);
+  color: $font-color;
+  @include glass-card(120px, 6vh, 70px, 60px, 6vh, 40px);
+  &:hover {
+    background-color: rgba(255, 223, 94, 0.4);
+  }
+}
+.link-github{
+  list-style: none;
+  text-decoration: none;
+  color: $font-color;
+  &:hover {
+    background-color: rgba(255, 223, 94, 0.4);
+    cursor: pointer;
+  }
+}

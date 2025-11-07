@@ -1,0 +1,69 @@
+@use '../base/variables.scss' as *;
+@use '../base/mixins.scss' as *;
+@use '../components/footer.scss';
+
+
+html, body {
+  height: 100vh;
+  margin: 0 auto;
+}
+.startscreen {
+  background: #344e41;
+}
+.wrapper {
+  max-width: 1260px;
+  margin: 20px auto;
+  height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.title {
+  background: linear-gradient(90deg, #FFF8DC 0%, #FFD700 40%, #B8860B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: $font-playfair;
+  font-size: 7vw;
+  text-align: center;
+  margin: 50px;
+}
+.logo-image {
+  background: none;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+.cards{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  font-family: $font-playfair;
+  text-decoration: none;
+}
+.card {
+  color: $font-color;
+  font-family: $font-playfair;
+  cursor: pointer;
+   font-size: 2vw;
+ &.glass-card {
+  @include glass-card(160px, 6vh, 220px, 160px, 6vh, 220px);
+  }
+  &:hover {
+    background-color: rgba(255, 223, 94, 0.4);
+    cursor: pointer;
+  }
+}
+.continue {
+  text-decoration: none;
+  margin-top: 20px;
+  margin-left: calc(50% - 78px);
+  font-family: $font-playfair;
+  color: $font-color;
+   &.glass-card {
+  @include glass-card(160px, 6vh, 220px, 50px, 6vh, 220px);
+  }
+  &:hover {
+    background-color: rgba(255, 223, 94, 0.4);
+    cursor: pointer;
+  }
+}

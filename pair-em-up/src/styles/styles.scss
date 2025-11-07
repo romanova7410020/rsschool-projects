@@ -1,0 +1,5 @@
+@use './screens/startScreen.scss';
+@use './screens/chaoticScreen.scss';
+@use './components/navigation.scss';
+@use './base/variables.scss' as *;
+@forward './base/mixins.scss';
