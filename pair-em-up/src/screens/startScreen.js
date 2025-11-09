@@ -37,23 +37,23 @@ export default class StartScreen {
 
     const liSettings = document.createElement('li');
     const linkSettings = document.createElement('a');
-    linkSettings.textContent = 'Settings';
+    linkSettings.textContent = 'Setting';
     linkSettings.href = '#';
-    linkSettings.classList.add('glass-card');
+    linkSettings.classList.add('setting-link','glass-card');
     linkSettings.onclick = (e) => {
       e.preventDefault();
-      this.switchScreen('settings');
+      this.switchScreen('setting');
     };
     liSettings.appendChild(linkSettings);
 
     const liResults = document.createElement('li');
     const linkResults = document.createElement('a');
-    linkResults.textContent = 'Results';
+    linkResults.textContent = 'Result';
     linkResults.href = '#';
-    linkResults.classList.add('glass-card');
+    linkResults.classList.add('result-link', 'glass-card');
     linkResults.onclick = (e) => {
       e.preventDefault();
-      this.switchScreen('results');
+      this.switchScreen('result');
     };
     liResults.appendChild(linkResults);
     ul.append(liSettings, liResults);

@@ -123,6 +123,10 @@ export default class ClassicModeScreen {
     hintsButton.classList.add('hints-button');
     hintsButton.textContent = "Hints";
     assistButtons.appendChild(hintsButton);
+    const counterHint = document.createElement('span');
+    counterHint.classList.add('counter');
+    counterHint.textContent = "5+";
+    hintsButton.appendChild(counterHint);
 
     const revetButton = document.createElement('button');
     revetButton.classList.add('revert-button');
@@ -133,16 +137,46 @@ export default class ClassicModeScreen {
     addNumbers.classList.add('addNumbers-button');
     addNumbers.textContent = "Add Numbers";
     assistButtons.appendChild(addNumbers);
+    const counterAdd = document.createElement('span');
+    counterAdd.classList.add('counter');
+    counterAdd.textContent = "10";
+    addNumbers.appendChild(counterAdd);
 
     const shuffleButton = document.createElement('button');
     shuffleButton.classList.add('shuffle-button');
     shuffleButton.textContent = "Shuffle";
     assistButtons.appendChild(shuffleButton);
+    const counterShuffle = document.createElement('span');
+    counterShuffle.classList.add('counter');
+    counterShuffle.textContent = "5";
+    shuffleButton.appendChild(counterShuffle);
 
     const eraserButton = document.createElement('button');
     eraserButton.classList.add('eraser-button');
     eraserButton.textContent = "Eraser";
     assistButtons.appendChild(eraserButton);
-  }
+    const counterEraser = document.createElement('span');
+    counterEraser.classList.add('counter');
+    counterEraser.textContent = "5";
+    eraserButton.appendChild(counterEraser);
 
-}
+
+    const linkSettings = document.querySelector('.setting-link');
+    if (linkSettings) {
+      linkSettings.onclick = (e) => {
+        e.preventDefault();
+        this.switchScreen('setting');
+      };
+    }
+
+    const linkResults = document.querySelector('.result-link');
+    if (linkResults) {
+      linkResults.onclick = (e) => {
+        e.preventDefault();
+        this.switchScreen('result');
+      };
+    }
+    }
+      }
+
+

@@ -13,6 +13,10 @@ html, body {
 .wrapper {
   @include wrapper;
 }
+.header {
+  height: 80px;
+}
+
 .title {
   background: linear-gradient(90deg, #FFF8DC 0%, #FFD700 40%, #B8860B 100%);
   -webkit-background-clip: text;
@@ -27,6 +31,9 @@ html, body {
   width: 50px;
   height: 50px;
   cursor: pointer;
+}
+main {
+  flex-grow: 1;
 }
 .cards{
   display: flex;
