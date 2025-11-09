@@ -2,6 +2,12 @@ import './styles/styles.scss';
 
 
 import StartScreen from '@/screens/startScreen';
+import ClassicModeScreen from '@/screens/classicMode';
+import ChaoticModeScreen from '@/screens/chaoticMode';
+import RandomModeScreen from '@/screens/randomMode';
+import ResultScreen from '@/screens/result';
+import SettingScreen from '@/screens/setting';
+
 const root = document.createElement('div');
 document.body.appendChild(root);
 

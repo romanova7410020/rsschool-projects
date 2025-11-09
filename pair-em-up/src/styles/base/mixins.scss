@@ -66,3 +66,10 @@
   flex-wrap: $wrap;
   gap: $gap;
 }
+@mixin wrapper {
+  max-width: 1260px;
+  margin: 0 auto;
+  height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}

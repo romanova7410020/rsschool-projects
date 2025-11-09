@@ -2,6 +2,7 @@
 @use '../base/mixins.scss' as *;
 
 .navigation {
+  height: 80px;
    @include flex-container(row, space-between, center, nowrap);
 ul {
     list-style: none;

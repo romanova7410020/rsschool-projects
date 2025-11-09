@@ -12,6 +12,7 @@ export default class StartScreen {
     const container = document.createElement('div');
     container.classList.add('wrapper');
     body.appendChild(container);
+
     const header = document.createElement('header');
     header.classList.add('header');
     container.appendChild(header);
@@ -27,7 +28,7 @@ export default class StartScreen {
     logoImg.href = '#';
     logoImg.onclick = (e) => {
       e.preventDefault();
-      switchScreen('start');
+      this.switchScreen('start');
     };
     nav.appendChild(logoImg);
 
@@ -41,7 +42,7 @@ export default class StartScreen {
     linkSettings.classList.add('glass-card');
     linkSettings.onclick = (e) => {
       e.preventDefault();
-      switchScreen('settings');
+      this.switchScreen('settings');
     };
     liSettings.appendChild(linkSettings);
 
@@ -52,20 +53,22 @@ export default class StartScreen {
     linkResults.classList.add('glass-card');
     linkResults.onclick = (e) => {
       e.preventDefault();
-      switchScreen('results');
+      this.switchScreen('results');
     };
     liResults.appendChild(linkResults);
     ul.append(liSettings, liResults);
 
-
+    const main = document.createElement('main');
+    main.classList.add('main');
+    container.appendChild(main)
     const h1 = document.createElement('h1');
     h1.classList.add('title');
     h1.textContent = 'Pair em Up';
-    container.appendChild(h1);
+    main.appendChild(h1);
 
     const cards = document.createElement('div');
     cards.classList.add('cards');
-    container.appendChild(cards);
+    main.appendChild(cards);
 
     const createCard = (text, screenName) => {
     const card = document.createElement('button');
@@ -73,7 +76,7 @@ export default class StartScreen {
     card.textContent = text;
     card.onclick = (e) => {
       e.preventDefault();
-      switchScreen(screenName);
+      this.switchScreen(screenName);
       };
     return card;
     };
@@ -85,11 +88,11 @@ export default class StartScreen {
 
     const linkContinue = document.createElement('button');
     linkContinue.classList.add('continue', 'glass-card');
-    container.append(linkContinue);
+    main.append(linkContinue);
     linkContinue.textContent = 'Continue game';
     linkContinue.onclick = (e) => {
       e.preventDefault();
-      switchScreen(screenName);
+      this.switchScreen(screenName);
       };
 
       const footer = document.createElement('footer');
