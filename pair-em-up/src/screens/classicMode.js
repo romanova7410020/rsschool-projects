@@ -50,20 +50,15 @@ export default class ClassicModeScreen {
     this.switchScreen = switchScreenCallback;
   }
   render() {
-    const main = document.querySelector('main');
-  if (main) {
-    main.innerHTML = '';
-  }
-    const container = document.querySelector('.wrapper');
-
+    this.root.innerHTML = '';
     const h2 = document.createElement('h2');
     h2.classList.add('h2');
     h2.textContent = 'Classic Mode';
-    container.appendChild(h2);
+    this.root.appendChild(h2);
 
     const gridContainer = document.createElement('div');
     gridContainer.classList.add('gridcontainer');
-    container.appendChild(gridContainer);
+    this.root.appendChild(gridContainer);
 
     this.classicGrid = new ClassicMode(gridContainer);
     this.classicGrid.renderGrid();
@@ -76,23 +71,23 @@ export default class ClassicModeScreen {
     span.id = 'current-score';
     span.textContent = '0';
     Score.appendChild(span);
-    container.appendChild(Score);
+    this.root.appendChild(Score);
 
     const targetScore = document.createElement('h3');
     targetScore.classList.add('h3');
     targetScore.textContent = "Target Score: 100 "
-    container.appendChild(targetScore);
+    this.root.appendChild(targetScore);
 
     const timerContainer = document.createElement('div');
     timerContainer.id = 'timer';
     timerContainer.textContent = '00:00';
-    container.appendChild(timerContainer);
+    this.root.appendChild(timerContainer);
 
     const timer = new Timer(timerContainer);
 
     const controlsButton = document.createElement('div');
     controlsButton.classList.add('contols-buttons');
-    container.appendChild(controlsButton);
+    this.root.appendChild(controlsButton);
 
     const resetButton = document.createElement('button');
     resetButton.classList.add('reset-button');
@@ -112,11 +107,11 @@ export default class ClassicModeScreen {
     const assistTitle = document.createElement('h4');
     assistTitle.classList.add('assist-title');
     assistTitle.textContent = "Assist Buttons";
-    container.appendChild(assistTitle);
+    this.root.appendChild(assistTitle);
 
     const assistButtons = document.createElement('div');
     assistButtons.classList.add('assist-buttons');
-    container.appendChild(assistButtons);
+    this.root.appendChild(assistButtons);
 
 
     const hintsButton = document.createElement('button');
@@ -160,22 +155,6 @@ export default class ClassicModeScreen {
     counterEraser.textContent = "5";
     eraserButton.appendChild(counterEraser);
 
-
-    const linkSettings = document.querySelector('.setting-link');
-    if (linkSettings) {
-      linkSettings.onclick = (e) => {
-        e.preventDefault();
-        this.switchScreen('setting');
-      };
-    }
-
-    const linkResults = document.querySelector('.result-link');
-    if (linkResults) {
-      linkResults.onclick = (e) => {
-        e.preventDefault();
-        this.switchScreen('result');
-      };
-    }
     }
       }
 
