@@ -81,6 +81,7 @@ const logoImg = document.createElement('img');
 
 
 function switchScreen(screenName) {
+  main.innerHTML = '';
   if (screenName === 'start') {
     const startScreen = new StartScreen(main,  switchScreen)
     startScreen.render();
