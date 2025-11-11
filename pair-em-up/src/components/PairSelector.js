@@ -26,62 +26,60 @@ export default class PairSelector {
     this.selectedCells = [];
   }
 
+  reindexCells() {
+    const cells = Array.from(document.querySelectorAll('.cell'));
+    cells.forEach((cell, idx) => {
+      cell.dataset.index = idx;
+    });
+  }
+
   buildGrid() {
-    const totalCells = document.querySelectorAll('.cell');
+
+    this.reindexCells();
+
+    const totalCells = Array.from(document.querySelectorAll('.cell'));
     const grid = [];
     const rows = Math.ceil(totalCells.length / this.gridWidth);
     for (let r = 0; r < rows; r++) {
       grid[r] = [];
       for (let c = 0; c < this.gridWidth; c++) {
-        const index = r * this.gridWidth + c;
-        grid[r][c] = index < totalCells.length ? totalCells[index].textContent.trim() : '';
+        const idx = r * this.gridWidth + c;
+        grid[r][c] = idx < totalCells.length ? totalCells[idx].textContent.trim() : '';
       }
     }
     return grid;
   }
 
-  isPathAvailable(grid, start, end) {
-    const rows = grid.length;
-    const cols = this.gridWidth;
-    const queue = [start];
-    const visited = new Set([`${start[0]},${start[1]}`]);
+  isBoundaryConnected(grid, row1, col1, row2, col2) {
+    if (Math.abs(row1 - row2) !== 1) return false;
 
-    while (queue.length > 0) {
-      const [r, c] = queue.shift();
-      if (r === end[0] && c === end[1]) return true;
-      const neighbors = [
-        [r, c + 1],
-        [r, c - 1],
-        [r + 1, c],
-        [r - 1, c],
-      ];
-      if (c === cols - 1 && r + 1 < rows) {
-        neighbors.push([r + 1, 0]);
-      }
-      if (c === 0 && r - 1 >= 0) {
-        neighbors.push([r - 1, cols - 1]);
-      }
+    const topRow = Math.min(row1, row2);
+    const bottomRow = Math.max(row1, row2);
+    const colTop = (topRow === row1) ? col1 : col2;
+    const colBottom = (bottomRow === row2) ? col2 : col1;
 
-      for (const [nr, nc] of neighbors) {
-        const key = `${nr},${nc}`;
-        if (visited.has(key)) continue;
-
-        const isSpecialTransition =
-          (c === cols - 1 && nc === 0 && nr === r + 1) ||
-          (c === 0 && nc === cols - 1 && nr === r - 1);
-        if (!isSpecialTransition) {
-          if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) continue;
-        }
-
-        if (grid[nr] && grid[nr][nc] !== undefined) {
-          if (grid[nr][nc] === '' || (nr === end[0] && nc === end[1])) {
-            queue.push([nr, nc]);
-            visited.add(key);
-          }
-        }
+    let lastNonEmptyTop = -1;
+    for (let c = grid[0].length - 1; c >= 0; c--) {
+      if (grid[topRow][c] !== '') {
+        lastNonEmptyTop = c;
+        break;
       }
     }
-    return false;
+
+    let firstNonEmptyBottom = -1;
+    for (let c = 0; c < grid[0].length; c++) {
+      if (grid[bottomRow][c] !== '') {
+        firstNonEmptyBottom = c;
+        break;
+      }
+    }
+
+    if (lastNonEmptyTop === -1 || firstNonEmptyBottom === -1) return false;
+
+    const offsetTop = lastNonEmptyTop - colTop;
+    const offsetBottom = colBottom - firstNonEmptyBottom;
+
+    return offsetTop === offsetBottom;
   }
 
   cellNeighborhood(cell1, cell2) {
@@ -120,13 +118,12 @@ export default class PairSelector {
       return true;
     }
 
-    if ((col1 === this.gridWidth - 1 && col2 === 0 && row2 === row1 + 1) ||
-        (col2 === this.gridWidth - 1 && col1 === 0 && row1 === row2 + 1)) {
+    const grid = this.buildGrid();
+    if (this.isBoundaryConnected(grid, row1, col1, row2, col2)) {
       return true;
     }
 
-    const grid = this.buildGrid();
-    return this.isPathAvailable(grid, [row1, col1], [row2, col2]);
+    return false;
   }
 
   checkPair() {
@@ -148,7 +145,6 @@ export default class PairSelector {
 
     let isValidPair = false;
     let points = 0;
-
     if (number1 === number2) {
       isValidPair = true;
       points = number1 === 5 ? 3 : 1;
@@ -165,6 +161,7 @@ export default class PairSelector {
       cell2.textContent = '';
       cell1.classList.remove('selected');
       cell2.classList.remove('selected');
+      this.reindexCells();
       if (typeof this.onPairMatched === 'function') {
         this.onPairMatched(points);
       }

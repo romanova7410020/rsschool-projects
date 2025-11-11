@@ -1,15 +1,20 @@
 import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
 
-class randomMode {
-  constructor(container) {
+class RandomMode {
+  constructor(container, updateScoreCallback) {
     this.container = container;
-    this.pairSelector = new PairSelector();
-    this.currentNumber = 1;
-    this.maxCells =27;
+    this.pairSelector = new PairSelector(this.handlePairMatched.bind(this), 9);
+    this.updateScoreCallback = updateScoreCallback;
+    this.totalCellCount = 0;
+    this.maxCells = 27;
     this.numbers = [];
-    for (let i  = 1; i <= 19; i++) {
-      if (i !== 10) this.numbers.push (i);
+    for (let i = 1; i <= 19; i++) if (i !== 10) this.numbers.push(i);
+  }
+
+  handlePairMatched(points) {
+    if (this.updateScoreCallback) {
+      this.updateScoreCallback(points);
     }
   }
 
@@ -25,35 +30,35 @@ class randomMode {
     return arr;
   }
 
-   createCell(number) {
+  createCell(number) {
     const digits = number.toString().split('');
     digits.forEach(digit => {
       const cell = document.createElement('div');
       cell.className = 'cell';
       cell.textContent = digit;
+      cell.dataset.index = this.totalCellCount;
+      this.totalCellCount++;
       this.container.appendChild(cell);
       cell.addEventListener('click', () => {
-      if (this.pairSelector.selectedCells.includes(cell)) {
-        this.pairSelector.deselectCell(cell);
-      } else {
-        this.pairSelector.selectCell(cell);
-      }
-    });
+        if (this.pairSelector.selectedCells.includes(cell)) {
+          this.pairSelector.deselectCell(cell);
+        } else {
+          this.pairSelector.selectCell(cell);
+        }
+      });
     });
   }
+
   renderGrid() {
     this.clearGrid();
-
-    let totalCellcount = 0;
+    let totalCells = 0;
     const maxCells = this.maxCells;
     const shuffledNumbers = this.shuffleArray([...this.numbers]);
-    for(let number of shuffledNumbers) {
+    for (let number of shuffledNumbers) {
       const digitsCount = number.toString().length;
-      if (totalCellcount + digitsCount > maxCells) {
-        break;
-      }
+      if (totalCells + digitsCount > maxCells) break;
       this.createCell(number);
-      totalCellcount += digitsCount
+      totalCells += digitsCount;
     }
   }
 }
@@ -64,6 +69,15 @@ export default class RandomModeScreen {
     this.root = rootElement;
     this.switchScreen = switchScreenCallback;
     this.controlsInitialized = false;
+    this.controlPanel = null;
+    this.randomGrid = null;
+  }
+
+  createControls() {
+    if (!this.controlsInitialized) {
+      this.controlPanel = createControlPanel(this.root);
+      this.controlsInitialized = true;
+    }
   }
 
   render() {
@@ -71,9 +85,7 @@ export default class RandomModeScreen {
     if (oldH2) oldH2.remove();
 
     let gridContainer = this.root.querySelector('.gridcontainer');
-    if (gridContainer) {
-      gridContainer.remove();
-    }
+    if (gridContainer) gridContainer.remove();
 
     const h2 = document.createElement('h2');
     h2.classList.add('h2');
@@ -84,18 +96,11 @@ export default class RandomModeScreen {
     gridContainer.classList.add('gridcontainer');
     this.root.appendChild(gridContainer);
 
+    this.createControls();
+
     if (!this.randomGrid) {
-      this.randomGrid = new randomMode(gridContainer);
+      this.randomGrid = new RandomMode(gridContainer, this.controlPanel.updateScore);
     }
     this.randomGrid.renderGrid();
-
-    if (!this.controlsInitialized) {
-      this.createControls();
-      this.controlsInitialized = true;
-    }
-  }
-
-  createControls() {
-    this.controlRefs = createControlPanel(this.root);
   }
 }
