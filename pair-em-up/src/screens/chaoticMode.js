@@ -1,9 +1,11 @@
 import { createControlPanel } from '../components/controlspanel';
+import PairSelector from '@/components/PairSelector';
 
 
 class chaoticMode {
   constructor(container) {
     this.container = container;
+    this.pairSelector= new PairSelector();
     this.maxCells = 27;
 
     this.numbers = Array.from({length: this.maxCells }, () => this.getRandomNumber())
@@ -20,7 +22,15 @@ class chaoticMode {
     cell.className = 'cell';
     cell.textContent = number;
     this.container.appendChild(cell);
+    cell.addEventListener('click', () => {
+    if (this.pairSelector.selectedCells.includes(cell)) {
+      this.pairSelector.deselectCell(cell);
+    } else {
+      this.pairSelector.selectCell(cell);
+    }
+    });
   }
+
 
   renderGrid() {
     this.clearGrid();

@@ -1,8 +1,10 @@
 import { createControlPanel } from '../components/controlspanel';
+import PairSelector from '@/components/PairSelector';
 
 class ClassicMode {
   constructor(container) {
     this.container = container;
+    this.pairSelector= new PairSelector();
     this.currentNumber = 1;
   }
 
@@ -17,6 +19,13 @@ class ClassicMode {
       cell.className = 'cell';
       cell.textContent = digit;
       this.container.appendChild(cell);
+      cell.addEventListener('click', () => {
+      if (this.pairSelector.selectedCells.includes(cell)) {
+        this.pairSelector.deselectCell(cell);
+      } else {
+        this.pairSelector.selectCell(cell);
+      }
+    });
     });
   }
 

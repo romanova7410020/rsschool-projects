@@ -1,8 +1,10 @@
 import { createControlPanel } from '../components/controlspanel';
+import PairSelector from '@/components/PairSelector';
 
 class randomMode {
   constructor(container) {
     this.container = container;
+    this.pairSelector = new PairSelector();
     this.currentNumber = 1;
     this.maxCells =27;
     this.numbers = [];
@@ -30,6 +32,13 @@ class randomMode {
       cell.className = 'cell';
       cell.textContent = digit;
       this.container.appendChild(cell);
+      cell.addEventListener('click', () => {
+      if (this.pairSelector.selectedCells.includes(cell)) {
+        this.pairSelector.deselectCell(cell);
+      } else {
+        this.pairSelector.selectCell(cell);
+      }
+    });
     });
   }
   renderGrid() {
