@@ -41,7 +41,6 @@ class chaoticMode {
     });
   }
 
-
   renderGrid() {
     this.clearGrid();
     this.numbers.forEach(number => this.createCell(number));
@@ -91,9 +90,7 @@ render() {
       }
   if (!this.chaoticGrid) {
   this.chaoticGrid = new chaoticMode(gridContainer, this.controlPanel.updateScore);
-}
+   }
   this.chaoticGrid.renderGrid();
-
-  
-}
+  }
 }

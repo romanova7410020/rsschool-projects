@@ -130,7 +130,6 @@ export default class PairSelector {
     const [cell1, cell2] = this.selectedCells;
 
     if (!this.cellNeighborhood(cell1, cell2)) {
-      console.log('Cells are not connected');
       setTimeout(() => this.clearSelection(), 300);
       return;
     }
