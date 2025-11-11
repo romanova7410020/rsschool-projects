@@ -1,5 +1,5 @@
 import { createControlPanel } from '../components/controlspanel';
-import PairSelector from '@/components/PairSelector';
+import PairSelector from '@/components/pairSelector';
 
 
 class chaoticMode {

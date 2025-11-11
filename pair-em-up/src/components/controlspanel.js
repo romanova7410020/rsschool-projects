@@ -5,10 +5,10 @@ export function createControlPanel(container) {
     Score.classList.add('h3');
     Score.textContent = "Score: "
 
-    const span = document.createElement('span');
-    span.id = 'current-score';
-    span.textContent = '0';
-    Score.appendChild(span);
+    const scoreSpan = document.createElement('span');
+    scoreSpan.id = 'current-score';
+    scoreSpan.textContent = '0';
+    Score.appendChild(scoreSpan);
     container.appendChild(Score);
 
     const targetScore = document.createElement('h3');
@@ -61,10 +61,10 @@ export function createControlPanel(container) {
     counterHint.textContent = "5+";
     hintsButton.appendChild(counterHint);
 
-    const revetButton = document.createElement('button');
-    revetButton.classList.add('revert-button');
-    revetButton.textContent = "Revert";
-    assistButtons.appendChild(revetButton);
+    const revertButton = document.createElement('button');
+    revertButton.classList.add('revert-button');
+    revertButton.textContent = "Revert";
+    assistButtons.appendChild(revertButton);
 
     const addNumbers = document.createElement('button');
     addNumbers.classList.add('addNumbers-button');
@@ -93,4 +93,21 @@ export function createControlPanel(container) {
     counterEraser.textContent = "5";
     eraserButton.appendChild(counterEraser);
 
+    let currentScore = 0;
+
+  return {
+    updateScore(points) {
+      currentScore += points;
+      scoreSpan.textContent = currentScore;
+    },
+    timer,
+    resetButton,
+    saveGameButton,
+    continueButton,
+    hintsButton,
+    revertButton,
+    addNumbers,
+    shuffleButton,
+    eraserButton,
+  };
 }

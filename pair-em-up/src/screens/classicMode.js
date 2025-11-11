@@ -1,15 +1,23 @@
 import { createControlPanel } from '../components/controlspanel';
-import PairSelector from '@/components/PairSelector';
+import PairSelector from '@/components/pairSelector';
 
 class ClassicMode {
-  constructor(container) {
+  constructor(container, updateScoreCallback) {
     this.container = container;
-    this.pairSelector= new PairSelector();
+    this.pairSelector= new PairSelector(this.handlePairMatched.bind(this), 9);
     this.currentNumber = 1;
+    this.totalCellCount = 0;
+    this.updateScoreCallback = updateScoreCallback;
+  }
+  handlePairMatched(points) {
+    if (this.updateScoreCallback) {
+      this.updateScoreCallback(points);
+    }
   }
 
   clearGrid() {
     this.container.innerHTML = '';
+    this.totalCellCount = 0; 
   }
 
   createCell(number) {
@@ -18,6 +26,7 @@ class ClassicMode {
       const cell = document.createElement('div');
       cell.className = 'cell';
       cell.textContent = digit;
+      cell.dataset.index = this.totalCellCount;
       this.container.appendChild(cell);
       cell.addEventListener('click', () => {
       if (this.pairSelector.selectedCells.includes(cell)) {
@@ -26,6 +35,7 @@ class ClassicMode {
         this.pairSelector.selectCell(cell);
       }
     });
+    this.totalCellCount++;
     });
   }
 
@@ -66,7 +76,9 @@ export default class ClassicModeScreen {
     if (gridContainer) {
     gridContainer.remove();
   }
-     const h2 = document.createElement('h2');
+ 
+
+    const h2 = document.createElement('h2');
     h2.classList.add('h2');
     h2.textContent = 'Classic Mode';
     this.root.appendChild(h2);
@@ -75,22 +87,18 @@ export default class ClassicModeScreen {
     gridContainer.classList.add('gridcontainer');
     this.root.appendChild(gridContainer);
 
+    this.createControls();
     if (!this.classicGrid) {
-      this.classicGrid = new ClassicMode(gridContainer);
+      this.classicGrid = new ClassicMode(gridContainer, this.controlPanel.updateScore);
     }
     this.classicGrid.renderGrid();
-
-    if (!this.controlsInitial) {
-      this.createControls();
-      this.controlsInitial = true;
-    }
   }
-    createControls() {
+   createControls() {
     if (!this.controlsInitialized) {
-      this.controlRefs = createControlPanel(this.root);
+      this.controlPanel = createControlPanel(this.root);
       this.controlsInitialized = true;
     }
   }
-      }
+}
 
 
