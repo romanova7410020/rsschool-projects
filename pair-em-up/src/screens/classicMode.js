@@ -105,6 +105,7 @@ export default class ClassicModeScreen {
     this.classicGrid.renderGrid();
     this.connectAddNumbersButton();
     this.connectShuffleButton();
+    this.connectEraserButton();
   }
 
   createControls() {
@@ -174,6 +175,46 @@ connectShuffleButton() {
     }
   });
 }
+connectEraserButton() {
+  const button = this.controlPanel.buttons.eraser;
+  const eraserLogic = this.controlPanel.eraserLogic;
+  const counter = this.controlPanel.counters.eraser;
+  const gridContainer = this.classicGrid.getGridContainer();
+
+  const observer = new MutationObserver(() => {
+    if (!eraserLogic.isActive()) {
+      button.style.backgroundColor = '';
+      button.style.color = '';
+
+      counter.textContent = eraserLogic.getEraserRemaining().toString();
+    }
+  });
+  observer.observe(gridContainer, { childList: true, subtree: true });
+
+  button.addEventListener('click', () => {
+    const result = eraserLogic.activateEraser(gridContainer);
+
+    if (result.success) {
+
+      if (result.isActive) {
+        button.style.backgroundColor = 'rgba(255, 107, 107, 0.1)';
+        button.style.color = 'white';
+      } else {
+        button.style.backgroundColor = '';
+        button.style.color = '';
+      }
+      if (result.remaining !== undefined) {
+        counter.textContent = result.remaining.toString();
+
+        if (result.remaining === 0) {
+          button.disabled = true;
+          button.style.opacity = '0.5';
+        }
+      }
+    }
+  });
+}
+
 }
 
 

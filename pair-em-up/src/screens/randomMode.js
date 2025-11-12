@@ -111,7 +111,7 @@ export default class RandomModeScreen {
     this.connectAddNumbersButton();
     this.connectShuffleButton();
     this.randomGrid.renderGrid();
-    
+    this.connectEraserButton();
   }
 
   connectHintsButton() {
@@ -139,6 +139,7 @@ export default class RandomModeScreen {
   const addNumbersLogic = this.controlPanel.addNumbersLogic;
   const counter = this.controlPanel.counters.add;
   const gridContainer = this.randomGrid.getGridContainer();
+  
 
   button.addEventListener('click', () => {
     const result = addNumbersLogic.addNumbers(gridContainer, 'random');
@@ -172,4 +173,44 @@ connectShuffleButton() {
     }
   });
 }
+connectEraserButton() {
+  const button = this.controlPanel.buttons.eraser;
+  const eraserLogic = this.controlPanel.eraserLogic;
+  const counter = this.controlPanel.counters.eraser;
+  const gridContainer = this.randomGrid.getGridContainer();
+
+  const observer = new MutationObserver(() => {
+    if (!eraserLogic.isActive()) {
+      button.style.backgroundColor = '';
+      button.style.color = '';
+
+      counter.textContent = eraserLogic.getEraserRemaining().toString();
+    }
+  });
+  observer.observe(gridContainer, { childList: true, subtree: true });
+
+  button.addEventListener('click', () => {
+    const result = eraserLogic.activateEraser(gridContainer);
+
+    if (result.success) {
+
+      if (result.isActive) {
+        button.style.backgroundColor = 'rgba(255, 107, 107, 0.1)';
+        button.style.color = 'white';
+      } else {
+        button.style.backgroundColor = '';
+        button.style.color = '';
+      }
+      if (result.remaining !== undefined) {
+        counter.textContent = result.remaining.toString();
+
+        if (result.remaining === 0) {
+          button.disabled = true;
+          button.style.opacity = '0.5';
+        }
+      }
+    }
+  });
+}
+
 }
