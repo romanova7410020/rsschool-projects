@@ -108,6 +108,7 @@ export default class RandomModeScreen {
 
     this.createControls();
     this.connectHintsButton();
+    this.connectAddNumbersButton();
     this.randomGrid.renderGrid();
   }
 
@@ -129,5 +130,25 @@ export default class RandomModeScreen {
         }
       }
       });
+}
+
+  connectAddNumbersButton() {
+  const button = this.controlPanel.buttons.addNumbers;
+  const addNumbersLogic = this.controlPanel.addNumbersLogic;
+  const counter = this.controlPanel.counters.add;
+  const gridContainer = this.randomGrid.getGridContainer();
+
+  button.addEventListener('click', () => {
+    const result = addNumbersLogic.addNumbers(gridContainer, 'random');
+
+    if (result.success) {
+      counter.textContent = result.remaining.toString();
+
+      if (result.remaining === 0) {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+      }
+    }
+  });
 }
 }

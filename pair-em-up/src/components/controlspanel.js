@@ -1,8 +1,10 @@
 import Timer from '../components/timer';
-import { HintsLogic} from './controlsbutton.js/hints';
+import { HintsLogic} from './controlsbutton/hints';
+import { AddNumbersLogic } from './controlsbutton/addnumbers';
 
 export function createControlPanel(container, pairSelector) {
   const hintsLogic = new HintsLogic(pairSelector);
+  const addNumbersLogic = new AddNumbersLogic(9, pairSelector);
   const Score = document.createElement('h3');
     Score.classList.add('h3');
     Score.textContent = "Score: "
@@ -75,7 +77,7 @@ export function createControlPanel(container, pairSelector) {
     assistButtons.appendChild(addNumbers);
     const counterAdd = document.createElement('span');
     counterAdd.classList.add('counter');
-    counterAdd.textContent = "10";
+    counterAdd.textContent =addNumbersLogic.getAddNumbersRemaining().toString();
     addNumbers.appendChild(counterAdd);
 
     const shuffleButton = document.createElement('button');
@@ -128,6 +130,7 @@ export function createControlPanel(container, pairSelector) {
     eraser: counterEraser
   },
   hintsLogic,
-  pairSelector
+  pairSelector,
+  addNumbersLogic,
 };
 }

@@ -103,6 +103,7 @@ export default class ClassicModeScreen {
     this.createControls();
     this.connectHintsButton();
     this.classicGrid.renderGrid();
+    this.connectAddNumbersButton();
   }
 
   createControls() {
@@ -133,6 +134,26 @@ export default class ClassicModeScreen {
       }
     });
   }
+
+  connectAddNumbersButton() {
+  const button = this.controlPanel.buttons.addNumbers;
+  const addNumbersLogic = this.controlPanel.addNumbersLogic;
+  const counter = this.controlPanel.counters.add;
+  const gridContainer = this.classicGrid.getGridContainer();
+
+  button.addEventListener('click', () => {
+    const result = addNumbersLogic.addNumbers(gridContainer, 'classic');
+
+    if (result.success) {
+      counter.textContent = result.remaining.toString();
+
+      if (result.remaining === 0) {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+      }
+    }
+  });
+}
 }
 
 

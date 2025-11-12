@@ -2,7 +2,7 @@ import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
 
 
-class chaoticMode {
+class ChaoticMode {
   constructor(container, updateScoreCallback) {
     this.container = container;
     this.pairSelector= new PairSelector(this.handlePairMatched.bind(this), 9);
@@ -62,11 +62,11 @@ export default class ChaoticModeScreen {
     this.switchScreen = switchScreenCallback;
     this.controlsInitialized = false;
     this.controlPanel = null;
-    this.randomGrid = null;
+    this.chaoticGrid = null;
   }
   createControls() {
     if (!this.controlsInitialized) {
-      this.controlPanel = createControlPanel(this.root, this.randomGrid.pairSelector);
+      this.controlPanel = createControlPanel(this.root, this.chaoticGrid.pairSelector);
       this.controlsInitialized = true;
     }
   }
@@ -87,8 +87,8 @@ render() {
   gridContainer = document.createElement('div');
   gridContainer.classList.add('gridcontainer');
   this.root.appendChild(gridContainer);
-  if (!this.randomGrid) {
-      this.randomGrid = new chaoticMode(
+  if (!this.chaoticGrid) {
+      this.chaoticGrid = new ChaoticMode(
         gridContainer,
         (points) => this.controlPanel.updateScore(points)
       );
@@ -96,14 +96,16 @@ render() {
 
     this.createControls();
     this.connectHintsButton();
-    this.randomGrid.renderGrid();
+    this.connectAddNumbersButton();
+    this.chaoticGrid.renderGrid();
+
   }
 
   connectHintsButton() {
     const button = this.controlPanel.buttons.hints;
     const hintsLogic = this.controlPanel.hintsLogic;
     const counter = this.controlPanel.counters.hints;
-    const gridContainer = this.randomGrid.getGridContainer();
+    const gridContainer = this.chaoticGrid.getGridContainer();
 
     button.addEventListener('click', () => {
       const result = hintsLogic.useHint(gridContainer);
@@ -117,5 +119,24 @@ render() {
         }
       }
       });
+}
+    connectAddNumbersButton() {
+  const button = this.controlPanel.buttons.addNumbers;
+  const addNumbersLogic = this.controlPanel.addNumbersLogic;
+  const counter = this.controlPanel.counters.add;
+  const gridContainer = this.chaoticGrid.getGridContainer();
+
+  button.addEventListener('click', () => {
+    const result = addNumbersLogic.addNumbers(gridContainer, 'chaotic');
+
+    if (result.success) {
+      counter.textContent = result.remaining.toString();
+
+      if (result.remaining === 0) {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+      }
+    }
+  });
 }
 }

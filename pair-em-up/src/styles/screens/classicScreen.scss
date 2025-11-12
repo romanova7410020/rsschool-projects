@@ -20,7 +20,7 @@ main{
 .gridcontainer{
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   gap: 3px;
 }
