@@ -4,9 +4,6 @@ export default class SettingScreen {
     this.switchScreen = switchScreenCallback;
   }
   render() {
-    const main = document.querySelector('main');
-  if (main) {
-    main.innerHTML = '';
-  }
-  }
+  
+}
 }

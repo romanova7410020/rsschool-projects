@@ -113,3 +113,9 @@ font-size: 25px;
   pointer-events: none;
   z-index: 1;
 }
+.cell.hint-highlight {
+  background-color: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+  transform: scale(1.1);
+  z-index: 10;
+}

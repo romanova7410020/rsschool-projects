@@ -50,37 +50,31 @@ export default class PairSelector {
     return grid;
   }
 
-  isBoundaryConnected(grid, row1, col1, row2, col2) {
-    if (Math.abs(row1 - row2) !== 1) return false;
+ isBoundaryConnected(grid, row1, col1, row2, col2) {
+  if (Math.abs(row1 - row2) !== 1) return false;
 
-    const topRow = Math.min(row1, row2);
-    const bottomRow = Math.max(row1, row2);
-    const colTop = (topRow === row1) ? col1 : col2;
-    const colBottom = (bottomRow === row2) ? col2 : col1;
+  const topRow = Math.min(row1, row2);
+  const bottomRow = Math.max(row1, row2);
+  const topCol = (topRow === row1) ? col1 : col2;
+  const bottomCol = (bottomRow === row2) ? col2 : col1;
 
-    let lastNonEmptyTop = -1;
-    for (let c = grid[0].length - 1; c >= 0; c--) {
-      if (grid[topRow][c] !== '') {
-        lastNonEmptyTop = c;
-        break;
-      }
+  let topIsLast = true;
+  for (let c = topCol + 1; c < grid[topRow].length; c++) {
+    if (grid[topRow][c] !== '') {
+      topIsLast = false;
+      break;
     }
-
-    let firstNonEmptyBottom = -1;
-    for (let c = 0; c < grid[0].length; c++) {
-      if (grid[bottomRow][c] !== '') {
-        firstNonEmptyBottom = c;
-        break;
-      }
-    }
-
-    if (lastNonEmptyTop === -1 || firstNonEmptyBottom === -1) return false;
-
-    const offsetTop = lastNonEmptyTop - colTop;
-    const offsetBottom = colBottom - firstNonEmptyBottom;
-
-    return offsetTop === offsetBottom;
   }
+
+  let bottomIsFirst = true;
+  for (let c = 0; c < bottomCol; c++) {
+    if (grid[bottomRow][c] !== '') {
+      bottomIsFirst = false;
+      break;
+    }
+  }
+  return topIsLast && bottomIsFirst;
+}
 
   cellNeighborhood(cell1, cell2) {
     const index1 = parseInt(cell1.dataset.index, 10);

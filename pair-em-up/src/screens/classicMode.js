@@ -1,14 +1,16 @@
+
 import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
 
 class ClassicMode {
   constructor(container, updateScoreCallback) {
     this.container = container;
-    this.pairSelector= new PairSelector(this.handlePairMatched.bind(this), 9);
+    this.pairSelector = new PairSelector(this.handlePairMatched.bind(this), 9);
     this.currentNumber = 1;
     this.totalCellCount = 0;
     this.updateScoreCallback = updateScoreCallback;
   }
+
   handlePairMatched(points) {
     if (this.updateScoreCallback) {
       this.updateScoreCallback(points);
@@ -17,7 +19,7 @@ class ClassicMode {
 
   clearGrid() {
     this.container.innerHTML = '';
-    this.totalCellCount = 0; 
+    this.totalCellCount = 0;
   }
 
   createCell(number) {
@@ -28,14 +30,16 @@ class ClassicMode {
       cell.textContent = digit;
       cell.dataset.index = this.totalCellCount;
       this.container.appendChild(cell);
+
       cell.addEventListener('click', () => {
-      if (this.pairSelector.selectedCells.includes(cell)) {
-        this.pairSelector.deselectCell(cell);
-      } else {
-        this.pairSelector.selectCell(cell);
-      }
-    });
-    this.totalCellCount++;
+        if (this.pairSelector.selectedCells.includes(cell)) {
+          this.pairSelector.deselectCell(cell);
+        } else {
+          this.pairSelector.selectCell(cell);
+        }
+      });
+
+      this.totalCellCount++;
     });
   }
 
@@ -54,6 +58,7 @@ class ClassicMode {
         break;
       }
       this.createCell(this.currentNumber);
+
       if (this.currentNumber === 19) {
         break;
       }
@@ -61,22 +66,25 @@ class ClassicMode {
       totalCell += digits.length;
     }
   }
+  getGridContainer() {
+    return this.container;
+  }
 }
 
 export default class ClassicModeScreen {
   constructor(rootElement, switchScreenCallback) {
     this.root = rootElement;
     this.switchScreen = switchScreenCallback;
-    this.controlsInitial = false;
+    this.controlsInitialized = false;
   }
+
   render() {
     const oldH2 = this.root.querySelector('.h2');
     if (oldH2) oldH2.remove();
     let gridContainer = this.root.querySelector('.gridcontainer');
     if (gridContainer) {
-    gridContainer.remove();
-  }
- 
+      gridContainer.remove();
+    }
 
     const h2 = document.createElement('h2');
     h2.classList.add('h2');
@@ -86,18 +94,44 @@ export default class ClassicModeScreen {
     gridContainer = document.createElement('div');
     gridContainer.classList.add('gridcontainer');
     this.root.appendChild(gridContainer);
-
-    this.createControls();
     if (!this.classicGrid) {
-      this.classicGrid = new ClassicMode(gridContainer, this.controlPanel.updateScore);
+      this.classicGrid = new ClassicMode(
+        gridContainer,
+        (points) => this.controlPanel.updateScore(points)
+      );
     }
+    this.createControls();
+    this.connectHintsButton();
     this.classicGrid.renderGrid();
   }
-   createControls() {
+
+  createControls() {
     if (!this.controlsInitialized) {
-      this.controlPanel = createControlPanel(this.root);
+      this.controlPanel = createControlPanel(
+        this.root,
+        this.classicGrid.pairSelector
+      );
       this.controlsInitialized = true;
     }
+  }
+  connectHintsButton() {
+    const button = this.controlPanel.buttons.hints;
+    const hintsLogic = this.controlPanel.hintsLogic;
+    const counter = this.controlPanel.counters.hints;
+    const gridContainer = this.classicGrid.getGridContainer();
+
+    button.addEventListener('click', () => {
+      const result = hintsLogic.useHint(gridContainer);
+
+      if (result.success) {
+        counter.textContent = result.remaining.toString();
+
+        if (result.remaining === 0) {
+          button.disabled = true;
+          button.style.opacity = '0.5';
+        }
+      }
+    });
   }
 }
 

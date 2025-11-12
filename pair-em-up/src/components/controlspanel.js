@@ -1,19 +1,22 @@
 import Timer from '../components/timer';
+import { HintsLogic} from './controlsbutton.js/hints';
 
-export function createControlPanel(container) {
+export function createControlPanel(container, pairSelector) {
+  const hintsLogic = new HintsLogic(pairSelector);
   const Score = document.createElement('h3');
     Score.classList.add('h3');
     Score.textContent = "Score: "
 
     const scoreSpan = document.createElement('span');
     scoreSpan.id = 'current-score';
+    scoreSpan.style.color = '#FFD700';
     scoreSpan.textContent = '0';
     Score.appendChild(scoreSpan);
     container.appendChild(Score);
 
     const targetScore = document.createElement('h3');
     targetScore.classList.add('h3');
-    targetScore.textContent = "Target Score: 100 "
+    targetScore.innerHTML = 'Target Score: <span style="color: #FFD700; font-weight: bold;">100</span>';
     container.appendChild(targetScore);
 
     const timerContainer = document.createElement('div');
@@ -58,7 +61,7 @@ export function createControlPanel(container) {
     assistButtons.appendChild(hintsButton);
     const counterHint = document.createElement('span');
     counterHint.classList.add('counter');
-    counterHint.textContent = "5+";
+    counterHint.textContent = hintsLogic.getHintsRemaining().toString();
     hintsButton.appendChild(counterHint);
 
     const revertButton = document.createElement('button');
@@ -96,18 +99,35 @@ export function createControlPanel(container) {
     let currentScore = 0;
 
   return {
-    updateScore(points) {
-      currentScore += points;
-      scoreSpan.textContent = currentScore;
-    },
-    timer,
-    resetButton,
-    saveGameButton,
-    continueButton,
-    hintsButton,
-    revertButton,
-    addNumbers,
-    shuffleButton,
-    eraserButton,
-  };
+  updateScore(points) {
+    currentScore += points;
+    scoreSpan.textContent = currentScore;
+  },
+  getScore() {
+    return currentScore;
+  },
+  resetScore() {
+    currentScore = 0;
+    scoreSpan.textContent = currentScore;
+  },
+  timer,
+  buttons: {
+    reset: resetButton,
+    save: saveGameButton,
+    continue: continueButton,
+    hints: hintsButton,
+    revert: revertButton,
+    addNumbers: addNumbers,
+    shuffle: shuffleButton,
+    eraser: eraserButton
+  },
+  counters: {
+    hints: counterHint,
+    add: counterAdd,
+    shuffle: counterShuffle,
+    eraser: counterEraser
+  },
+  hintsLogic,
+  pairSelector
+};
 }
