@@ -1,10 +1,12 @@
 import Timer from '../components/timer';
 import { HintsLogic} from './controlsbutton/hints';
 import { AddNumbersLogic } from './controlsbutton/addnumbers';
+import { ShuffleLogic } from './controlsbutton/shuffle';
 
 export function createControlPanel(container, pairSelector) {
   const hintsLogic = new HintsLogic(pairSelector);
   const addNumbersLogic = new AddNumbersLogic(9, pairSelector);
+  const shuffleLogic = new ShuffleLogic();
   const Score = document.createElement('h3');
     Score.classList.add('h3');
     Score.textContent = "Score: "
@@ -86,7 +88,7 @@ export function createControlPanel(container, pairSelector) {
     assistButtons.appendChild(shuffleButton);
     const counterShuffle = document.createElement('span');
     counterShuffle.classList.add('counter');
-    counterShuffle.textContent = "5";
+    counterShuffle.textContent = shuffleLogic.getShuffleRemaining().toString();
     shuffleButton.appendChild(counterShuffle);
 
     const eraserButton = document.createElement('button');
@@ -132,5 +134,6 @@ export function createControlPanel(container, pairSelector) {
   hintsLogic,
   pairSelector,
   addNumbersLogic,
+  shuffleLogic,
 };
 }

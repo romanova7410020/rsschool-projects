@@ -109,7 +109,9 @@ export default class RandomModeScreen {
     this.createControls();
     this.connectHintsButton();
     this.connectAddNumbersButton();
+    this.connectShuffleButton();
     this.randomGrid.renderGrid();
+    
   }
 
   connectHintsButton() {
@@ -140,6 +142,25 @@ export default class RandomModeScreen {
 
   button.addEventListener('click', () => {
     const result = addNumbersLogic.addNumbers(gridContainer, 'random');
+
+    if (result.success) {
+      counter.textContent = result.remaining.toString();
+
+      if (result.remaining === 0) {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+      }
+    }
+  });
+}
+connectShuffleButton() {
+  const button = this.controlPanel.buttons.shuffle;
+  const shuffleLogic = this.controlPanel.shuffleLogic;
+  const counter = this.controlPanel.counters.shuffle;
+  const gridContainer = this.randomGrid.getGridContainer();
+
+  button.addEventListener('click', () => {
+    const result = shuffleLogic.shuffle(gridContainer);
 
     if (result.success) {
       counter.textContent = result.remaining.toString();

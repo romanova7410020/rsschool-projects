@@ -104,6 +104,7 @@ export default class ClassicModeScreen {
     this.connectHintsButton();
     this.classicGrid.renderGrid();
     this.connectAddNumbersButton();
+    this.connectShuffleButton();
   }
 
   createControls() {
@@ -143,6 +144,25 @@ export default class ClassicModeScreen {
 
   button.addEventListener('click', () => {
     const result = addNumbersLogic.addNumbers(gridContainer, 'classic');
+
+    if (result.success) {
+      counter.textContent = result.remaining.toString();
+
+      if (result.remaining === 0) {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+      }
+    }
+  });
+}
+connectShuffleButton() {
+  const button = this.controlPanel.buttons.shuffle;
+  const shuffleLogic = this.controlPanel.shuffleLogic;
+  const counter = this.controlPanel.counters.shuffle;
+  const gridContainer = this.classicGrid.getGridContainer();
+
+  button.addEventListener('click', () => {
+    const result = shuffleLogic.shuffle(gridContainer);
 
     if (result.success) {
       counter.textContent = result.remaining.toString();
