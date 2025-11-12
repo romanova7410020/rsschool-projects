@@ -61,6 +61,9 @@ class RandomMode {
       totalCells += digitsCount;
     }
   }
+   getGridContainer() {
+    return this.container;
+  }
 }
 
 
@@ -75,7 +78,7 @@ export default class RandomModeScreen {
 
   createControls() {
     if (!this.controlsInitialized) {
-      this.controlPanel = createControlPanel(this.root);
+      this.controlPanel = createControlPanel(this.root, this.randomGrid.pairSelector);
       this.controlsInitialized = true;
     }
   }
@@ -96,11 +99,35 @@ export default class RandomModeScreen {
     gridContainer.classList.add('gridcontainer');
     this.root.appendChild(gridContainer);
 
-    this.createControls();
-
     if (!this.randomGrid) {
-      this.randomGrid = new RandomMode(gridContainer, this.controlPanel.updateScore);
+      this.randomGrid = new RandomMode(
+        gridContainer,
+        (points) => this.controlPanel.updateScore(points)
+      );
     }
+
+    this.createControls();
+    this.connectHintsButton();
     this.randomGrid.renderGrid();
   }
+
+  connectHintsButton() {
+    const button = this.controlPanel.buttons.hints;
+    const hintsLogic = this.controlPanel.hintsLogic;
+    const counter = this.controlPanel.counters.hints;
+    const gridContainer = this.randomGrid.getGridContainer();
+
+    button.addEventListener('click', () => {
+      const result = hintsLogic.useHint(gridContainer);
+
+      if (result.success) {
+        counter.textContent = result.remaining.toString();
+
+        if (result.remaining === 0) {
+          button.disabled = true;
+          button.style.opacity = '0.5';
+        }
+      }
+      });
+}
 }

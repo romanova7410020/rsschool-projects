@@ -51,6 +51,9 @@ class chaoticMode {
     }
     this.renderGrid();
   }
+  getGridContainer() {
+    return this.container;
+  }
 
 }
 export default class ChaoticModeScreen {
@@ -63,7 +66,7 @@ export default class ChaoticModeScreen {
   }
   createControls() {
     if (!this.controlsInitialized) {
-      this.controlPanel = createControlPanel(this.root);
+      this.controlPanel = createControlPanel(this.root, this.randomGrid.pairSelector);
       this.controlsInitialized = true;
     }
   }
@@ -84,13 +87,35 @@ render() {
   gridContainer = document.createElement('div');
   gridContainer.classList.add('gridcontainer');
   this.root.appendChild(gridContainer);
-  if (!this.controlsInitialized) {
+  if (!this.randomGrid) {
+      this.randomGrid = new chaoticMode(
+        gridContainer,
+        (points) => this.controlPanel.updateScore(points)
+      );
+    }
+
     this.createControls();
-    this.controlsInitialized = true;
-      }
-  if (!this.chaoticGrid) {
-  this.chaoticGrid = new chaoticMode(gridContainer, this.controlPanel.updateScore);
-   }
-  this.chaoticGrid.renderGrid();
+    this.connectHintsButton();
+    this.randomGrid.renderGrid();
   }
+
+  connectHintsButton() {
+    const button = this.controlPanel.buttons.hints;
+    const hintsLogic = this.controlPanel.hintsLogic;
+    const counter = this.controlPanel.counters.hints;
+    const gridContainer = this.randomGrid.getGridContainer();
+
+    button.addEventListener('click', () => {
+      const result = hintsLogic.useHint(gridContainer);
+
+      if (result.success) {
+        counter.textContent = result.remaining.toString();
+
+        if (result.remaining === 0) {
+          button.disabled = true;
+          button.style.opacity = '0.5';
+        }
+      }
+      });
+}
 }
