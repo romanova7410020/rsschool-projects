@@ -4,6 +4,7 @@ import { AddNumbersLogic } from './controlsbutton/addnumbers';
 import { ShuffleLogic } from './controlsbutton/shuffle';
 import { EraserLogic } from './controlsbutton/eraser';
 import { RevertLogic } from './controlsbutton/revert';
+import { SoundEffects } from './soundseffect';
 
 export function createControlPanel(container, pairSelector) {
   const hintsLogic = new HintsLogic(pairSelector);
@@ -11,6 +12,7 @@ export function createControlPanel(container, pairSelector) {
   const shuffleLogic = new ShuffleLogic();
   const eraserLogic = new EraserLogic();
   const revertLogic = new RevertLogic();
+  const soundEffects = new SoundEffects()
 
   pairSelector.setRevertLogic(revertLogic);
   pairSelector.setGetScoreCallback(() => currentScore);
@@ -149,5 +151,6 @@ export function createControlPanel(container, pairSelector) {
   shuffleLogic,
   eraserLogic,
   revertLogic,
+  soundEffects,
 };
 }

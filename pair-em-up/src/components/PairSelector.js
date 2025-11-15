@@ -1,3 +1,5 @@
+import { SoundEffects } from './soundseffect'
+
 export default class PairSelector {
   constructor(onPairMatchedCallback, gridWidth) {
     this.selectedCells = [];
@@ -5,6 +7,7 @@ export default class PairSelector {
     this.gridWidth = gridWidth;
     this.revertLogic = null;
     this.getScoreCallback = null;
+    this.soundEffects = new SoundEffects();
   }
   setRevertLogic(revertLogic) {
     this.revertLogic = revertLogic;
@@ -141,6 +144,7 @@ export default class PairSelector {
     const [cell1, cell2] = this.selectedCells;
 
     if (!this.cellNeighborhood(cell1, cell2)) {
+      this.soundEffects.playFailure();
       setTimeout(() => this.clearSelection(), 300);
       return;
     }
@@ -149,6 +153,7 @@ export default class PairSelector {
     const number2 = parseInt(cell2.textContent, 10);
 
     if (isNaN(number1) || isNaN(number2)) {
+      this.soundEffects.playFailure();
       setTimeout(() => this.clearSelection(), 300);
       return;
     }
@@ -166,6 +171,7 @@ export default class PairSelector {
     console.log('Pair validation:', { isValidPair, points });
 
     if (isValidPair) {
+      this.soundEffects.playSuccess();
        if (this.revertLogic && this.getScoreCallback) {
         const gridContainer = cell1.parentElement;
         const currentScore = this.getScoreCallback();
@@ -182,6 +188,7 @@ export default class PairSelector {
       }
       this.emitPairDeletedEvent();
     } else {
+      this.soundEffects.playFailure();
       console.log('Invalid number pair');
       setTimeout(() => this.clearSelection(), 300);
     }

@@ -2,6 +2,7 @@
 import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
 import { GameStatusChecker } from '@/components/gamestatus';
+import { SoundEffects } from '@/components/soundseffect';
 
 class ClassicMode {
   constructor(container, updateScoreCallback) {
@@ -78,6 +79,7 @@ export default class ClassicModeScreen {
     this.switchScreen = switchScreenCallback;
     this.controlsInitialized = false;
     this.gameStatusChecker = null;
+    this.soundEffects = new SoundEffects();
   }
 
   render() {
@@ -142,6 +144,7 @@ export default class ClassicModeScreen {
       const result = hintsLogic.useHint(gridContainer);
 
       if (result.success) {
+        this.controlPanel.soundEffects.playHint();
         counter.textContent = result.remaining.toString();
 
         if (result.remaining === 0) {
@@ -162,6 +165,7 @@ export default class ClassicModeScreen {
     const result = addNumbersLogic.addNumbers(gridContainer, 'classic');
 
     if (result.success) {
+      this.controlPanel.soundEffects.playAddNumbers();
       counter.textContent = result.remaining.toString();
 
       if (result.remaining === 0) {
@@ -181,6 +185,7 @@ connectShuffleButton() {
     const result = shuffleLogic.shuffle(gridContainer);
 
     if (result.success) {
+      this.controlPanel.soundEffects.playShuffle();
       counter.textContent = result.remaining.toString();
 
       if (result.remaining === 0) {
@@ -210,6 +215,7 @@ connectEraserButton() {
     const result = eraserLogic.activateEraser(gridContainer);
 
     if (result.success) {
+      this.controlPanel.soundEffects.playEraser();
 
       if (result.isActive) {
         button.style.backgroundColor = 'rgba(255, 107, 107, 0.1)';
@@ -248,6 +254,7 @@ connectRevertButton() {
     );
 
     if (result.success) {
+      this.controlPanel.soundEffects.playRevert();
       this.reconnectCellListeners();
       button.disabled = true;
       button.style.opacity = '0.5';
@@ -297,6 +304,7 @@ reconnectCellListeners() {
   }
 
  showWinModal(message, score) {
+  this.soundEffects.playWinGame();
   const modal = document.createElement('div');
   modal.className = 'game-modal win-modal';
   modal.innerHTML = `
@@ -319,6 +327,7 @@ reconnectCellListeners() {
 }
 
 showLoseModal(message, score) {
+  this.soundEffects.playLoseGame();
   const modal = document.createElement('div');
   modal.className = 'game-modal lose-modal';
   modal.innerHTML = `
