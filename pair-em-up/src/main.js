@@ -10,13 +10,15 @@ import SettingScreen from '@/screens/setting';
 
 import logoSrc from './assets/logo-leaves.png';
 import { ThemeToggle } from './components/themeToggle.js';
+import { Music } from './components/music.js';
+import bgMusicSrc from './assets/main_theme.mp3';
 
 
 
 const wrapper = document.createElement('div');
 wrapper.classList.add('wrapper');
 document.body.appendChild(wrapper);
-
+const music =new Music(bgMusicSrc);
 const header = document.createElement('header');
 header.classList.add('header');
 wrapper.appendChild(header);
@@ -80,6 +82,21 @@ const logoImg = document.createElement('img');
         ? 'Light Theme'
         : 'Dark Theme';
     });
+
+    const musicButton = document.createElement('button');
+musicButton.classList.add('music-btn', 'glass-card');
+musicButton.textContent = 'Music ON';
+footer.appendChild(musicButton);
+
+musicButton.addEventListener('click', () => {
+  music.toggleMusic();
+  musicButton.textContent = music.isPlaying
+    ? 'Music ON'
+    : 'Music OFF';
+});
+document.addEventListener('click', () => {
+  music.play();
+}, { once: true });
 
     const linkAuthor = document.createElement('a');
     linkAuthor.classList.add('link-github');

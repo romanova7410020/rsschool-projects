@@ -198,3 +198,12 @@ body.dark-theme #timer {
   color: $font-color-dark;
   background-color: $background-color-dark
 }
+body.dark-theme .link-github {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}
+.music-btn {
+  color: $font-color;
+  font-family: $font-playfair;
+  cursor: pointer;
+}
