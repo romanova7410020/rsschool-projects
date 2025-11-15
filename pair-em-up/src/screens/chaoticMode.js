@@ -100,6 +100,7 @@ render() {
     this.chaoticGrid.renderGrid();
     this.connectShuffleButton();
     this.connectEraserButton();
+    this.connectRevertButton();
 
   }
 
@@ -197,6 +198,50 @@ connectEraserButton() {
         }
       }
     }
+  });
+}
+connectRevertButton() {
+  const button = this.controlPanel.buttons.revert;
+  const revertLogic = this.controlPanel.revertLogic;
+  const gridContainer = this.chaoticGrid.getGridContainer();
+
+  const activateRevertButton = () => {
+    button.disabled = false;
+    button.style.opacity = '1';
+  };
+
+  document.addEventListener('pairDeleted', activateRevertButton);
+
+  button.addEventListener('click', () => {
+    const result = revertLogic.revert(
+      gridContainer,
+      (score) => this.controlPanel.setScore(score)
+    );
+
+    if (result.success) {
+      this.reconnectCellListeners();
+      button.disabled = true;
+      button.style.opacity = '0.5';
+    }
+  });
+}
+
+reconnectCellListeners() {
+  const gridContainer = this.chaoticGrid.getGridContainer();
+  const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+  const pairSelector = this.chaoticGrid.pairSelector;
+
+  cells.forEach(cell => {
+    const newCell = cell.cloneNode(true);
+    cell.parentNode.replaceChild(newCell, cell);
+
+    newCell.addEventListener('click', () => {
+      if (pairSelector.selectedCells.includes(newCell)) {
+        pairSelector.deselectCell(newCell);
+      } else {
+        pairSelector.selectCell(newCell);
+      }
+    });
   });
 }
 }

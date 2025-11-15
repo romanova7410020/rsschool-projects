@@ -3,12 +3,17 @@ import { HintsLogic} from './controlsbutton/hints';
 import { AddNumbersLogic } from './controlsbutton/addnumbers';
 import { ShuffleLogic } from './controlsbutton/shuffle';
 import { EraserLogic } from './controlsbutton/eraser';
+import { RevertLogic } from './controlsbutton/revert';
 
 export function createControlPanel(container, pairSelector) {
   const hintsLogic = new HintsLogic(pairSelector);
   const addNumbersLogic = new AddNumbersLogic(9, pairSelector);
   const shuffleLogic = new ShuffleLogic();
   const eraserLogic = new EraserLogic();
+  const revertLogic = new RevertLogic();
+
+  pairSelector.setRevertLogic(revertLogic);
+  pairSelector.setGetScoreCallback(() => currentScore);
 
   const Score = document.createElement('h3');
     Score.classList.add('h3');
@@ -110,6 +115,10 @@ export function createControlPanel(container, pairSelector) {
     currentScore += points;
     scoreSpan.textContent = currentScore;
   },
+  setScore(score) {
+      currentScore = score;
+      scoreSpan.textContent = currentScore;
+    },
   getScore() {
     return currentScore;
   },
@@ -139,5 +148,6 @@ export function createControlPanel(container, pairSelector) {
   addNumbersLogic,
   shuffleLogic,
   eraserLogic,
+  revertLogic,
 };
 }

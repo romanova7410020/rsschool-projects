@@ -49,7 +49,7 @@ export class AddNumbersLogic {
         }
       });
 
-      const countToAdd = nonEmptyDigits.length; 
+      const countToAdd = nonEmptyDigits.length;
       for (let i = 0; i < countToAdd; i++) {
         const randomNum = Math.floor(Math.random() * 9) + 1;
         digitsToAdd.push(randomNum.toString());

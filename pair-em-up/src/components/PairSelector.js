@@ -3,8 +3,15 @@ export default class PairSelector {
     this.selectedCells = [];
     this.onPairMatched = onPairMatchedCallback;
     this.gridWidth = gridWidth;
+    this.revertLogic = null;
+    this.getScoreCallback = null;
   }
-
+  setRevertLogic(revertLogic) {
+    this.revertLogic = revertLogic;
+  }
+  setGetScoreCallback(callback) {
+    this.getScoreCallback = callback;
+  }
   selectCell(cell) {
     if (cell.textContent.trim() === '') return;
     if (this.selectedCells.length < 2 && !this.selectedCells.includes(cell)) {
@@ -159,6 +166,11 @@ export default class PairSelector {
     console.log('Pair validation:', { isValidPair, points });
 
     if (isValidPair) {
+       if (this.revertLogic && this.getScoreCallback) {
+        const gridContainer = cell1.parentElement;
+        const currentScore = this.getScoreCallback();
+        this.revertLogic.saveState(gridContainer, currentScore);
+      }
       this.clearSelection();
       cell1.textContent = '';
       cell2.textContent = '';
@@ -168,9 +180,14 @@ export default class PairSelector {
       if (typeof this.onPairMatched === 'function') {
         this.onPairMatched(points);
       }
+      this.emitPairDeletedEvent();
     } else {
       console.log('Invalid number pair');
       setTimeout(() => this.clearSelection(), 300);
     }
+  }
+  emitPairDeletedEvent() {
+    const event = new CustomEvent('pairDeleted');
+    document.dispatchEvent(event);
   }
 }
