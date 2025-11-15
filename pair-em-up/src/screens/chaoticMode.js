@@ -1,5 +1,6 @@
 import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
+import { GameStatusChecker } from '@/components/gamestatus';
 
 
 class ChaoticMode {
@@ -63,13 +64,21 @@ export default class ChaoticModeScreen {
     this.controlsInitialized = false;
     this.controlPanel = null;
     this.chaoticGrid = null;
+    this.gameStatusChecker = null;
+
   }
   createControls() {
     if (!this.controlsInitialized) {
       this.controlPanel = createControlPanel(this.root, this.chaoticGrid.pairSelector);
+    }
+     this.gameStatusChecker = new GameStatusChecker(
+        this.chaoticGrid.pairSelector,
+        100,
+        50,
+      );
+
       this.controlsInitialized = true;
     }
-  }
 render() {
   const oldH2 = this.root.querySelector('.h2');
   if (oldH2) oldH2.remove();
@@ -101,6 +110,10 @@ render() {
     this.connectShuffleButton();
     this.connectEraserButton();
     this.connectRevertButton();
+
+     document.addEventListener('pairDeleted', () => {
+      this.checkGameStatus();
+    });
 
   }
 
@@ -244,4 +257,81 @@ reconnectCellListeners() {
     });
   });
 }
+checkGameStatus() {
+    const currentScore = this.controlPanel.getScore();
+    const gridContainer = this.chaoticGrid.getGridContainer();
+
+    const assists = {
+      hints: this.controlPanel.hintsLogic.getHintsRemaining(),
+      addNumbers: this.controlPanel.addNumbersLogic.getAddNumbersRemaining(),
+      shuffle: this.controlPanel.shuffleLogic.getShuffleRemaining(),
+      eraser: this.controlPanel.eraserLogic.getEraserRemaining()
+    };
+
+    const status = this.gameStatusChecker.checkGameStatus(
+      currentScore,
+      gridContainer,
+      assists
+    );
+
+    if (status.status === 'win') {
+      this.showWinModal(status.message, currentScore);
+    } else if (status.status === 'lose') {
+      this.showLoseModal(status.message, currentScore);
+    }
+  }
+
+ showWinModal(message, score) {
+  const modal = document.createElement('div');
+  modal.className = 'game-modal win-modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <h2>😀 YOU WIN! 😀</h2>
+      <p>${message}</p>
+      <p>Final Score: <strong>${score}</strong></p>
+    </div>
+  `;
+
+  this.root.appendChild(modal);
+
+  modal.addEventListener('click', () => {
+    modal.style.animation = 'popoverOut 0.3s ease-out';
+    setTimeout(() => modal.remove(), 300);
+  });
+  if (this.controlPanel.timer) {
+    this.controlPanel.timer.stop();
+  }
+}
+
+showLoseModal(message, score) {
+  const modal = document.createElement('div');
+  modal.className = 'game-modal lose-modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <h2>😭 GAME OVER 😭</h2>
+      <p>${message}</p>
+      <p>Final Score: <strong>${score}</strong></p>
+    </div>
+  `;
+
+  this.root.appendChild(modal);
+
+  modal.addEventListener('click', () => {
+    modal.style.animation = 'popoverOut 0.3s ease-out';
+    setTimeout(() => modal.remove(), 30000);
+  });
+
+  setTimeout(() => {
+    if (modal.parentNode) {
+      modal.style.animation = 'popoverOut 0.3s ease-out';
+      setTimeout(() => modal.remove(), 30000);
+    }
+  }, 4000);
+
+  if (this.controlPanel.timer) {
+    this.controlPanel.timer.stop();
+  }
+}
+
+
 }
