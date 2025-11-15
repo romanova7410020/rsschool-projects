@@ -168,3 +168,33 @@ font-size: 25px;
   color: #FFD700;
   font-size: 22px;
 }
+
+body.dark-theme {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+body.dark-theme button {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+
+body.dark-theme .cell {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+body.dark-theme li a {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+body.dark-theme .changeBtn {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}
+body.dark-theme h3 {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}
+body.dark-theme #timer {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}

@@ -276,7 +276,6 @@ checkGameStatus() {
     const gridContainer = this.randomGrid.getGridContainer();
 
     const assists = {
-      hints: this.controlPanel.hintsLogic.getHintsRemaining(),
       addNumbers: this.controlPanel.addNumbersLogic.getAddNumbersRemaining(),
       shuffle: this.controlPanel.shuffleLogic.getShuffleRemaining(),
       eraser: this.controlPanel.eraserLogic.getEraserRemaining()

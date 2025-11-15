@@ -8,7 +8,10 @@ import RandomModeScreen from '@/screens/randomMode';
 import ResultScreen from '@/screens/result';
 import SettingScreen from '@/screens/setting';
 
- import logoSrc from './assets/logo-leaves.png';
+import logoSrc from './assets/logo-leaves.png';
+import { ThemeToggle } from './components/themeToggle.js';
+
+
 
 const wrapper = document.createElement('div');
 wrapper.classList.add('wrapper');
@@ -66,11 +69,17 @@ const logoImg = document.createElement('img');
     const footer = document.createElement('footer');
     footer.classList.add('footer');
     wrapper.appendChild(footer);
-
+    const themeToggle = new ThemeToggle();
     const changeButton = document.createElement('button');
     changeButton.classList.add('changeBtn', 'glass-card');
-    changeButton.textContent = "Change theme";
+    changeButton.textContent = themeToggle.isDarkTheme ? 'Dark Theme' : 'Light Theme';
     footer.appendChild(changeButton);
+    changeButton.addEventListener('click', () => {
+  themeToggle.toggleTheme();
+  changeButton.textContent = themeToggle.isDarkTheme
+        ? 'Light Theme'
+        : 'Dark Theme';
+    });
 
     const linkAuthor = document.createElement('a');
     linkAuthor.classList.add('link-github');

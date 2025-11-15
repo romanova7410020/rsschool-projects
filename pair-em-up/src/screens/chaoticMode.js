@@ -262,7 +262,6 @@ checkGameStatus() {
     const gridContainer = this.chaoticGrid.getGridContainer();
 
     const assists = {
-      hints: this.controlPanel.hintsLogic.getHintsRemaining(),
       addNumbers: this.controlPanel.addNumbersLogic.getAddNumbersRemaining(),
       shuffle: this.controlPanel.shuffleLogic.getShuffleRemaining(),
       eraser: this.controlPanel.eraserLogic.getEraserRemaining()
@@ -332,6 +331,12 @@ showLoseModal(message, score) {
     this.controlPanel.timer.stop();
   }
 }
+
+
+
+
+
+
 
 
 }

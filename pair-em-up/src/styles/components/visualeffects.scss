@@ -1,3 +1,6 @@
 .selected {
   background: rgba(255, 223, 94, 0.4);
 }
+body.dark-theme .selected{
+  background: #869663;
+}
