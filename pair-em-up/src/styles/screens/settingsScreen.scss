@@ -1,0 +1,111 @@
+@use '../base/variables.scss' as *;
+@use '../base/mixins.scss' as *;
+
+.setting-container {
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.setting-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: $font-playfair;
+  color: $font-color;
+}
+
+.setting-section {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.setting-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-family: $font-playfair;
+  color: $font-color;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  font-family: $font-playfair;
+  color: $font-color;
+}
+
+.setting-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.setting-item label {
+  cursor: pointer;
+  flex: 1;
+}
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 28px;
+  margin-right: -175px;
+  cursor: pointer;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+.label-text {
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+}
+body.dark-theme .setting-container h2 { 
+  color: $font-color-dark;
+}
+body.dark-theme .setting-section h3 { 
+  color: $font-color-dark;
+}
+body.dark-theme .setting-item { 
+  color: $font-color-dark;
+}
