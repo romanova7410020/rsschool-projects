@@ -2,6 +2,7 @@ import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
 import { GameStatusChecker } from '@/components/gamestatus';
 import { SoundEffects } from '@/components/soundseffect';
+import { GameSaver } from '@/components/savegame';
 
 class RandomMode {
   constructor(container, updateScoreCallback) {
@@ -78,6 +79,7 @@ export default class RandomModeScreen {
     this.randomGrid = null;
     this.gameStatusChecker = null;
     this.soundEffects = new SoundEffects();
+     this.gameSaver = new GameSaver();
   }
 
   createControls() {
@@ -93,7 +95,8 @@ export default class RandomModeScreen {
       this.controlsInitialized = true;
     }
 
-  render() {
+  render(options = {}) {
+    const { isContinue = false } = options;
     const oldH2 = this.root.querySelector('.h2');
     if (oldH2) oldH2.remove();
 
@@ -114,16 +117,28 @@ export default class RandomModeScreen {
         gridContainer,
         (points) => this.controlPanel.updateScore(points)
       );
-    }
-
+    } else {
+    this.randomGrid.container = gridContainer;
+    this.randomGrid.totalCellCount = 0;
+  }
     this.createControls();
+
+    const savedGame = this.gameSaver.loadGame();
+
+     if (isContinue && savedGame && savedGame.mode === 'random') {
+    this.loadGameState(savedGame);
+  } else {
+    this.randomGrid.renderGrid();
+  }
+
     this.connectHintsButton();
     this.connectAddNumbersButton();
     this.connectShuffleButton();
-    this.randomGrid.renderGrid();
     this.connectEraserButton();
     this.connectRevertButton();
     this.connectResetButton();
+    this.connectSaveButton();
+    this.connectContinueButton();
 
     document.addEventListener('pairDeleted', () => {
       this.checkGameStatus();
@@ -368,5 +383,93 @@ connectResetButton() {
     }
   });
 }
+connectSaveButton() {
+  const button = this.controlPanel.buttons.save;
 
+  button.addEventListener('click', () => {
+    const gameState = {
+      mode: 'random',
+      score: this.controlPanel.getScore(),
+      timerTime: this.controlPanel.timer?.getTime?.() || 0,
+      assists: {
+        hintsRemaining: this.controlPanel.hintsLogic.getHintsRemaining(),
+        addNumbersRemaining: this.controlPanel.addNumbersLogic.getAddNumbersRemaining(),
+        shuffleRemaining: this.controlPanel.shuffleLogic.getShuffleRemaining(),
+        eraserRemaining: this.controlPanel.eraserLogic.getEraserRemaining()
+      },
+      cellStates: this.getCellStates()
+    };
+
+    this.gameSaver.saveGame(gameState);
+    console.log('Saved to localStorage');
+    document.dispatchEvent(new CustomEvent('gameSaved', { detail: { mode: 'random' } }));
+  });
 }
+
+connectContinueButton() {
+  const button = this.controlPanel.buttons.continue;
+
+  button.addEventListener('click', () => {
+    const savedGame = this.gameSaver.loadGame();
+    if (!savedGame || savedGame.mode !== 'random') {
+      button.disabled = true;
+      button.style.opacity = '0.5';
+      button.style.cursor = 'not-allowed';
+      return;
+    }
+
+    this.loadGameState(savedGame);
+  });
+}
+
+getCellStates() {
+  const gridContainer = this.randomGrid.getGridContainer();
+  const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+  return cells.map(cell => ({
+    index: cell.dataset.index,
+    textContent: cell.textContent
+  }));
+}
+
+loadGameState(gameState) {
+  this.randomGrid.renderGrid();
+
+  if (gameState.cellStates) {
+    const gridContainer = this.randomGrid.getGridContainer();
+    const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+    
+    gameState.cellStates.forEach(savedCell => {
+      const cell = cells[parseInt(savedCell.index)];
+      if (cell && savedCell.textContent === '') {
+        cell.textContent = '';
+      }
+    });
+  }
+
+  this.controlPanel.setScore(gameState.score);
+
+  if (this.controlPanel.timer && gameState.timerTime) {
+    this.controlPanel.timer.setTime(gameState.timerTime);
+    this.controlPanel.timer.start();
+  }
+
+  if (gameState.assists) {
+    this.restoreAssists(gameState.assists);
+  }
+
+  this.reconnectCellListeners();
+}
+
+restoreAssists(assists) {
+  this.controlPanel.hintsLogic.remaining = assists.hintsRemaining;
+  this.controlPanel.addNumbersLogic.remaining = assists.addNumbersRemaining;
+  this.controlPanel.shuffleLogic.remaining = assists.shuffleRemaining;
+  this.controlPanel.eraserLogic.remaining = assists.eraserRemaining;
+
+  this.controlPanel.counters.hints.textContent = assists.hintsRemaining;
+  this.controlPanel.counters.add.textContent = assists.addNumbersRemaining;
+  this.controlPanel.counters.shuffle.textContent = assists.shuffleRemaining;
+  this.controlPanel.counters.eraser.textContent = assists.eraserRemaining;
+}
+}
+

@@ -2,6 +2,8 @@ import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
 import { GameStatusChecker } from '@/components/gamestatus';
 import { SoundEffects } from '@/components/soundseffect';
+import { GameSaver } from '@/components/savegame';
+
 
 
 class ChaoticMode {
@@ -67,6 +69,7 @@ export default class ChaoticModeScreen {
     this.chaoticGrid = null;
     this.gameStatusChecker = null;
     this.soundEffects = new SoundEffects();
+    this.gameSaver = new GameSaver();
 
   }
   createControls() {
@@ -81,14 +84,16 @@ export default class ChaoticModeScreen {
 
       this.controlsInitialized = true;
     }
-render() {
+render(options = {}) {
+  const { isNewGame = false, isContinue = false } = options;
+
   const oldH2 = this.root.querySelector('.h2');
   if (oldH2) oldH2.remove();
 
   let gridContainer = this.root.querySelector('.gridcontainer');
   if (gridContainer) {
     gridContainer.remove();
-   }
+  }
 
   const h2 = document.createElement('h2');
   h2.classList.add('h2');
@@ -98,27 +103,44 @@ render() {
   gridContainer = document.createElement('div');
   gridContainer.classList.add('gridcontainer');
   this.root.appendChild(gridContainer);
+
   if (!this.chaoticGrid) {
-      this.chaoticGrid = new ChaoticMode(
-        gridContainer,
-        (points) => this.controlPanel.updateScore(points)
-      );
-    }
-
-    this.createControls();
-    this.connectHintsButton();
-    this.connectAddNumbersButton();
-    this.chaoticGrid.renderGrid();
-    this.connectShuffleButton();
-    this.connectEraserButton();
-    this.connectRevertButton();
-    this.connectResetButton();
-
-     document.addEventListener('pairDeleted', () => {
-      this.checkGameStatus();
-    });
-
+    this.chaoticGrid = new ChaoticMode(
+      gridContainer,
+      (points) => this.controlPanel.updateScore(points)
+    );
+  } else {
+    this.chaoticGrid.container = gridContainer;
+    this.chaoticGrid.totalCellCount = 0;
   }
+
+  this.createControls();
+
+  if (isContinue) {
+  const savedGame = this.gameSaver.loadGame();
+  if (savedGame && savedGame.mode === 'chaotic' && savedGame.numbers) {
+    this.chaoticGrid.numbers = [...savedGame.numbers];
+    this.loadGameState(savedGame);
+  } else {
+    this.chaoticGrid.renderGrid();
+  }
+} else {
+  this.chaoticGrid.renderGrid();
+}
+
+  this.connectHintsButton();
+  this.connectAddNumbersButton();
+  this.connectShuffleButton();
+  this.connectEraserButton();
+  this.connectRevertButton();
+  this.connectResetButton();
+  this.connectSaveButton();
+  this.connectContinueButton();
+
+  document.addEventListener('pairDeleted', () => {
+    this.checkGameStatus();
+  });
+}
 
   connectHintsButton() {
     const button = this.controlPanel.buttons.hints;
@@ -361,11 +383,107 @@ connectResetButton() {
     }
   });
 }
+connectSaveButton() {
+  const button = this.controlPanel.buttons.save;
 
+  button.addEventListener('click', () => {
+    const gameState = {
+      mode: 'chaotic',
+      numbers: this.chaoticGrid.numbers,
+      score: this.controlPanel.getScore(),
+      timerTime: this.controlPanel.timer?.getTime?.() || 0,
+      assists: {
+        hintsRemaining: this.controlPanel.hintsLogic.getHintsRemaining(),
+        addNumbersRemaining: this.controlPanel.addNumbersLogic.getAddNumbersRemaining(),
+        shuffleRemaining: this.controlPanel.shuffleLogic.getShuffleRemaining(),
+        eraserRemaining: this.controlPanel.eraserLogic.getEraserRemaining()
+      },
+      cellStates: this.getCellStates()
+    };
 
-
-
-
-
-
+    this.gameSaver.saveGame(gameState);
+    console.log('Saved to localStorage');
+    document.dispatchEvent(new CustomEvent('gameSaved', { detail: { mode: 'classic' } }));
+  });
 }
+
+connectContinueButton() {
+  const button = this.controlPanel.buttons.continue;
+  const savedGame = this.gameSaver.loadGame();
+
+  if (!savedGame || savedGame.mode !== 'chaotic') {
+    button.disabled = true;
+    button.style.opacity = '0.5';
+    button.style.cursor = 'not-allowed';
+    return;
+  }
+  button.disabled = false;
+  button.style.opacity = '1';
+  button.style.cursor = 'pointer';
+
+  button.addEventListener('click', () => {
+    const savedGame = this.gameSaver.loadGame();
+    if (!savedGame) return;
+    this.loadGameState(savedGame);
+  });
+}
+
+getCellStates() {
+  const gridContainer = this.chaoticGrid.getGridContainer();
+  const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+  return cells.map(cell => ({
+    index: cell.dataset.index,
+    textContent: cell.textContent
+  }));
+}
+
+loadGameState(gameState) {
+  if (gameState.numbers) {
+    this.chaoticGrid.numbers = [...gameState.numbers];
+  } else {
+    this.chaoticGrid.numbers = Array.from(
+      { length: this.chaoticGrid.maxCells },
+      () => this.chaoticGrid.getRandomNumber()
+    );
+  }
+  this.chaoticGrid.renderGrid();
+
+  if (gameState.cellStates) {
+    const gridContainer = this.chaoticGrid.getGridContainer();
+    const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+
+    gameState.cellStates.forEach((savedCell, index) => {
+      const cell = cells[index];
+      if (cell && savedCell.textContent === '') {
+        cell.textContent = '';
+      }
+    });
+  }
+
+  this.controlPanel.setScore(gameState.score);
+
+  if (this.controlPanel.timer && gameState.timerTime) {
+    this.controlPanel.timer.setTime(gameState.timerTime);
+    this.controlPanel.timer.start();
+  }
+
+  if (gameState.assists) {
+    this.restoreAssists(gameState.assists);
+  }
+
+  this.reconnectCellListeners();
+}
+
+restoreAssists(assists) {
+  this.controlPanel.hintsLogic.remaining = assists.hintsRemaining;
+  this.controlPanel.addNumbersLogic.remaining = assists.addNumbersRemaining;
+  this.controlPanel.shuffleLogic.remaining = assists.shuffleRemaining;
+  this.controlPanel.eraserLogic.remaining = assists.eraserRemaining;
+
+  this.controlPanel.counters.hints.textContent = assists.hintsRemaining;
+  this.controlPanel.counters.add.textContent = assists.addNumbersRemaining;
+  this.controlPanel.counters.shuffle.textContent = assists.shuffleRemaining;
+  this.controlPanel.counters.eraser.textContent = assists.eraserRemaining;
+}
+}
+

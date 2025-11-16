@@ -31,4 +31,11 @@ export default class Timer {
     this.secondsElapsed = 0;
     this.updateDisplay();
   }
+  getTime() {
+    return this.time;
+  }
+  setTime(time) {
+    this.time = time;
+    this.updateDisplay();
+  }
 }

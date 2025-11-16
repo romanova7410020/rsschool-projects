@@ -1,8 +1,9 @@
-
+import { GameSaver } from '@/components/savegame';
 export default class StartScreen {
   constructor (rootElement, switchScreenCallback) {
     this.root = rootElement;
     this.switchScreen = switchScreenCallback;
+    this.gameSaver = new GameSaver();
   }
   render() {
     this.root.innerHTML = '';
@@ -17,15 +18,15 @@ export default class StartScreen {
     this.root.appendChild(cards);
 
     const createCard = (text, screenName) => {
-    const card = document.createElement('button');
-    card.classList.add('card', 'glass-card');
-    card.textContent = text;
-    card.onclick = (e) => {
-      e.preventDefault();
-      this.switchScreen(screenName);
-      };
-    return card;
-    };
+  const card = document.createElement('button');
+  card.classList.add('card', 'glass-card');
+  card.textContent = text;
+  card.onclick = (e) => {
+    e.preventDefault();
+    this.switchScreen(screenName, { isNewGame: true });
+  };
+  return card;
+};
 
     const classic = createCard('Classic', 'classic');
     const random = createCard('Random', 'random');
@@ -36,11 +37,28 @@ export default class StartScreen {
     linkContinue.classList.add('continue', 'glass-card');
     this.root.append(linkContinue);
     linkContinue.textContent = 'Continue game';
-    linkContinue.onclick = (e) => {
-      e.preventDefault();
-      this.switchScreen(screenName);
-      };
-
+    this.updateContinueButton(linkContinue);
+     document.addEventListener('gameSaved', (e) => {
+      this.updateContinueButton(linkContinue);
+    });
   }
+    updateContinueButton(button) {
+    const savedGame = this.gameSaver.loadGame();
 
-}
+    if (!savedGame) {
+      button.disabled = true;
+      button.style.opacity = '0.5';
+      button.style.cursor = 'not-allowed';
+      button.onclick = null;
+    } else {
+      button.disabled = false;
+      button.style.opacity = '1';
+      button.style.cursor = 'pointer';
+
+      button.onclick = (e) => {
+        e.preventDefault();
+        this.switchScreen(savedGame.mode, { isContinue: true });
+      };
+    }
+  }
+  }

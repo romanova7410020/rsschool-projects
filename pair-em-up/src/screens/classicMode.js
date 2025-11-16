@@ -3,6 +3,7 @@ import { createControlPanel } from '../components/controlspanel';
 import PairSelector from '@/components/pairSelector';
 import { GameStatusChecker } from '@/components/gamestatus';
 import { SoundEffects } from '@/components/soundseffect';
+import { GameSaver } from '@/components/savegame';
 
 class ClassicMode {
   constructor(container, updateScoreCallback) {
@@ -22,6 +23,7 @@ class ClassicMode {
   clearGrid() {
     this.container.innerHTML = '';
     this.totalCellCount = 0;
+    this.currentNumber = 1;
   }
 
   createCell(number) {
@@ -80,9 +82,11 @@ export default class ClassicModeScreen {
     this.controlsInitialized = false;
     this.gameStatusChecker = null;
     this.soundEffects = new SoundEffects();
+    this.gameSaver = new GameSaver();
   }
 
-  render() {
+  render(options = {}) {
+    const { isContinue = false } = options;
     const oldH2 = this.root.querySelector('.h2');
     if (oldH2) oldH2.remove();
     let gridContainer = this.root.querySelector('.gridcontainer');
@@ -103,15 +107,41 @@ export default class ClassicModeScreen {
         gridContainer,
         (points) => this.controlPanel.updateScore(points)
       );
+    } else {
+      this.classicGrid.container = gridContainer;
+      this.classicGrid.currentNumber = 1;
+      this.classicGrid.totalCellCount = 0;
     }
+
     this.createControls();
-    this.connectHintsButton();
+
+    const savedGame = this.gameSaver.loadGame();
+  if (isContinue && savedGame && savedGame.mode === 'classic') {
+    this.loadGameState(savedGame);
+  } else {
     this.classicGrid.renderGrid();
+  }
+    this.connectHintsButton();
     this.connectAddNumbersButton();
     this.connectShuffleButton();
     this.connectEraserButton();
     this.connectRevertButton();
     this.connectResetButton();
+    this.connectSaveButton();
+    const continueButton = this.controlPanel.buttons.continue;
+    const savedGameCheck = this.gameSaver.loadGame();
+
+    if (!savedGameCheck || savedGameCheck.mode !== 'classic') {
+      continueButton.disabled = true;
+      continueButton.style.opacity = '0.5';
+      continueButton.style.cursor = 'not-allowed';
+    } else {
+      continueButton.disabled = false;
+      continueButton.style.opacity = '1';
+      continueButton.style.cursor = 'pointer';
+    }
+
+    this.connectContinueButton();
 
     document.addEventListener('pairDeleted', () => {
       this.checkGameStatus();
@@ -374,6 +404,99 @@ connectResetButton() {
       this.controlPanel.timer.start();
     }
   });
+}
+connectSaveButton() {
+  const button = this.controlPanel.buttons.save;
+
+  button.addEventListener('click', () => {
+    const timerTime = this.controlPanel.timer?.getTime?.();
+    const gameState = {
+      mode: 'classic',
+      score: this.controlPanel.getScore(),
+      timerTime: timerTime || 0,
+      assists: {
+        hintsRemaining: this.controlPanel.hintsLogic.getHintsRemaining(),
+        addNumbersRemaining: this.controlPanel.addNumbersLogic.getAddNumbersRemaining(),
+        shuffleRemaining: this.controlPanel.shuffleLogic.getShuffleRemaining(),
+        eraserRemaining: this.controlPanel.eraserLogic.getEraserRemaining()
+      },
+      cellStates: this.getCellStates()
+    };
+
+
+    this.gameSaver.saveGame(gameState);
+    console.log('Saved to localStorage');
+    document.dispatchEvent(new CustomEvent('gameSaved', { detail: { mode: 'classic' } }));
+
+  });
+}
+
+
+connectContinueButton() {
+  const button = this.controlPanel.buttons.continue;
+
+  button.addEventListener('click', () => {
+    const savedGame = this.gameSaver.loadGame();
+
+    if (!savedGame || savedGame.mode !== 'classic') {
+      button.disabled = true;
+      button.style.opacity = '0.5';
+      button.style.cursor = 'not-allowed';
+      return;
+    }
+
+    this.loadGameState(savedGame);
+  });
+}
+
+getCellStates() {
+  const gridContainer = this.classicGrid.getGridContainer();
+  const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+  return cells.map(cell => ({
+    index: cell.dataset.index,
+    textContent: cell.textContent
+  }));
+}
+
+loadGameState(gameState) {
+  this.classicGrid.renderGrid();
+
+  if (gameState.cellStates) {
+    const gridContainer = this.classicGrid.getGridContainer();
+    const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+
+    gameState.cellStates.forEach(savedCell => {
+      const cell = cells[parseInt(savedCell.index)];
+      if (cell && savedCell.textContent === '') {
+        cell.textContent = '';
+      }
+    });
+  }
+
+  this.controlPanel.setScore(gameState.score);
+
+  if (this.controlPanel.timer && gameState.timerTime) {
+    this.controlPanel.timer.setTime(gameState.timerTime);
+    this.controlPanel.timer.start();
+  }
+
+  if (gameState.assists) {
+    this.restoreAssists(gameState.assists);
+  }
+
+  this.reconnectCellListeners();
+}
+
+restoreAssists(assists) {
+  this.controlPanel.hintsLogic.remaining = assists.hintsRemaining;
+  this.controlPanel.addNumbersLogic.remaining = assists.addNumbersRemaining;
+  this.controlPanel.shuffleLogic.remaining = assists.shuffleRemaining;
+  this.controlPanel.eraserLogic.remaining = assists.eraserRemaining;
+
+  this.controlPanel.counters.hints.textContent = assists.hintsRemaining;
+  this.controlPanel.counters.add.textContent = assists.addNumbersRemaining;
+  this.controlPanel.counters.shuffle.textContent = assists.shuffleRemaining;
+  this.controlPanel.counters.eraser.textContent = assists.eraserRemaining;
 }
 }
 
