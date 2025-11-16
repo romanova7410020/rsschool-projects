@@ -62,14 +62,18 @@ export class GameStatusChecker {
       };
     }
 
-    const loseCheck = this.checkLose(gridContainer, assists);
-    if (loseCheck.isLose) {
+    const allCellsEmpty = this.areAllCellsEmpty(gridContainer);
+    if (allCellsEmpty && currentScore < this.targetScore) {
       return {
         status: 'lose',
-        message: `Game Over! ${loseCheck.reason}`
-      };
+        message: 'no available pairs',
+      }
     }
 
     return { status: 'playing', message: 'Game in progress' };
+  }
+  areAllCellsEmpty(gridContainer) {
+    const cells = Array.from(gridContainer.querySelectorAll('.cell'));
+    return cells.every(cell => cell.textContent.trim() === '');
   }
 }

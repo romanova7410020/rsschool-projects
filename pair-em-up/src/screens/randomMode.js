@@ -123,6 +123,7 @@ export default class RandomModeScreen {
     this.randomGrid.renderGrid();
     this.connectEraserButton();
     this.connectRevertButton();
+    this.connectResetButton();
 
     document.addEventListener('pairDeleted', () => {
       this.checkGameStatus();
@@ -351,6 +352,21 @@ showLoseModal(message, score) {
   if (this.controlPanel.timer) {
     this.controlPanel.timer.stop();
   }
+}
+connectResetButton() {
+  const button = this.controlPanel.buttons.reset;
+  button.addEventListener('click', () => {
+
+    this.randomGrid.clearGrid();
+    this.randomGrid.renderGrid();
+    this.controlPanel.resetScore();
+    this.controlPanel.resetAllAssists();
+    this.reconnectCellListeners();
+    if (this.controlPanel.timer) {
+      this.controlPanel.timer.reset();
+      this.controlPanel.timer.start();
+    }
+  });
 }
 
 }

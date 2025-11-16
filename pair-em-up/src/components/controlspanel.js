@@ -128,6 +128,28 @@ export function createControlPanel(container, pairSelector) {
     currentScore = 0;
     scoreSpan.textContent = currentScore;
   },
+  resetAllAssists() {
+      hintsLogic.reset();
+      addNumbersLogic.reset();
+      shuffleLogic.reset();
+      eraserLogic.reset();
+      revertLogic.reset();
+
+      counterHint.textContent = hintsLogic.getHintsRemaining().toString();
+      counterAdd.textContent = addNumbersLogic.getAddNumbersRemaining().toString();
+      counterShuffle.textContent = shuffleLogic.getShuffleRemaining().toString();
+      counterEraser.textContent = eraserLogic.getEraserRemaining().toString();
+      Object.values(this.buttons).forEach(button => {
+        if (button !== this.buttons.revert) {
+          button.disabled = false;
+          button.style.opacity = '1';
+        }
+      });
+
+      this.buttons.revert.disabled = true;
+      this.buttons.revert.style.opacity = '0.5';
+    },
+
   timer,
   buttons: {
     reset: resetButton,

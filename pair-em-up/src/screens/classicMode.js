@@ -111,6 +111,7 @@ export default class ClassicModeScreen {
     this.connectShuffleButton();
     this.connectEraserButton();
     this.connectRevertButton();
+    this.connectResetButton();
 
     document.addEventListener('pairDeleted', () => {
       this.checkGameStatus();
@@ -356,7 +357,24 @@ showLoseModal(message, score) {
     this.controlPanel.timer.stop();
   }
 }
+connectResetButton() {
+  const button = this.controlPanel.buttons.reset;
+  button.addEventListener('click', () => {
 
+    this.classicGrid.clearGrid();
+    this.classicGrid.currentNumber = 1;
+
+    this.classicGrid.renderGrid();
+
+    this.controlPanel.resetScore();
+    this.controlPanel.resetAllAssists();
+    this.reconnectCellListeners();
+    if (this.controlPanel.timer) {
+      this.controlPanel.timer.reset();
+      this.controlPanel.timer.start();
+    }
+  });
+}
 }
 
 

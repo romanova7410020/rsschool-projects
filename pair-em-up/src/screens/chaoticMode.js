@@ -112,6 +112,7 @@ render() {
     this.connectShuffleButton();
     this.connectEraserButton();
     this.connectRevertButton();
+    this.connectResetButton();
 
      document.addEventListener('pairDeleted', () => {
       this.checkGameStatus();
@@ -340,7 +341,26 @@ showLoseModal(message, score) {
     this.controlPanel.timer.stop();
   }
 }
+connectResetButton() {
+  const button = this.controlPanel.buttons.reset;
+  button.addEventListener('click', () => {
+    this.chaoticGrid.clearGrid();
 
+    this.chaoticGrid.numbers = Array.from(
+      { length: this.chaoticGrid.maxCells },
+      () => this.chaoticGrid.getRandomNumber()
+    );
+
+    this.chaoticGrid.renderGrid();
+    this.controlPanel.resetScore();
+    this.controlPanel.resetAllAssists();
+    this.reconnectCellListeners();
+    if (this.controlPanel.timer) {
+      this.controlPanel.timer.reset();
+      this.controlPanel.timer.start();
+    }
+  });
+}
 
 
 
