@@ -3,6 +3,7 @@ import PairSelector from '@/components/pairSelector';
 import { GameStatusChecker } from '@/components/gamestatus';
 import { SoundEffects } from '@/components/soundseffect';
 import { GameSaver } from '@/components/savegame';
+import { GameStats } from '@/components/statistic';
 
 class RandomMode {
   constructor(container, updateScoreCallback) {
@@ -317,6 +318,20 @@ checkGameStatus() {
 
  showWinModal(message, score) {
   this.soundEffects.playWinGame();
+  let completionTime = 0;
+  if (this.controlPanel.timer) {
+    completionTime = this.controlPanel.timer.secondsElapsed || 0;
+    this.controlPanel.timer.stop();
+  }
+  const moves = Math.floor(score / 2);
+  const gameStats = new GameStats();
+  gameStats.saveGameResult({
+    mode: 'random',
+    score: score,
+    isWin: true,
+    completionTime: completionTime,
+    moves: moves
+  });
   const modal = document.createElement('div');
   modal.className = 'game-modal win-modal';
   modal.innerHTML = `
@@ -340,6 +355,20 @@ checkGameStatus() {
 
 showLoseModal(message, score) {
   this.soundEffects.playLoseGame();
+  let completionTime = 0;
+  if (this.controlPanel.timer) {
+    completionTime = this.controlPanel.timer.secondsElapsed || 0;
+    this.controlPanel.timer.stop();
+  }
+  const moves = Math.floor(score / 2);
+  const gameStats = new GameStats();
+  gameStats.saveGameResult({
+    mode: 'random',
+    score: score,
+    isWin: false,
+    completionTime: completionTime,
+    moves: moves
+  });
   const modal = document.createElement('div');
   modal.className = 'game-modal lose-modal';
   modal.innerHTML = `

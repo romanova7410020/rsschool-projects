@@ -61,6 +61,13 @@ export class GameStatusChecker {
         message: `Congratulations! You reached ${currentScore} points!`
       };
     }
+    const loseCheck = this.checkLose(gridContainer, assists);
+  if (loseCheck.isLose) {
+    return {
+      status: 'lose',
+      message: loseCheck.reason
+    };
+  }
 
     const allCellsEmpty = this.areAllCellsEmpty(gridContainer);
     if (allCellsEmpty && currentScore < this.targetScore) {
