@@ -1,0 +1,209 @@
+@use '../base/variables.scss' as *;
+@use '../base/mixins.scss' as *;
+@use '../components/footer.scss';
+
+html, body {
+  min-height: 100vh;
+  margin: 0 auto;
+}
+main{
+  padding-bottom: 60px;
+}
+.classicscreen{
+  background: $background-color;
+}
+.wrapper {
+  @include wrapper;
+  position: relative;
+  flex-direction: column;
+}
+.gridcontainer{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  max-width: 500px;
+  margin: 0 auto;
+  gap: 3px;
+}
+.cell {
+  border: 1px solid;
+  border-image: linear-gradient(90deg, #FFF8DC 0%, #FFD700 40%, #B8860B 100%) 1;
+  border-radius: 2px;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: $font-color;
+  cursor: pointer;
+}
+.h2 {
+  background: linear-gradient(90deg, #FFF8DC 0%, #FFD700 40%, #B8860B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: $font-playfair;
+  font-size: 6vw;
+  text-align: center;
+  margin: 40px;
+}
+
+.h3{
+  font-family: $font-playfair;
+  left: 178px;
+  font-size: 25px;
+ color: $font-color;
+ margin: 0;
+
+}
+#timer {
+ font-family: $font-playfair;
+color: $font-color;
+font-size: 25px;
+}
+.contols-buttons{
+  @include flex-container($justify:center, $align:center, $gap: 15px);
+}
+.reset-button,
+.saveGame-button,
+.continue-button
+{
+  @include glass-card(100px, 6vh, 120px, 70px, 6vh, 70px);
+  color: $font-color;
+  font-size: 20px;
+  font-family: $font-playfair;
+  cursor: pointer;
+}
+.assist-title{
+  margin-bottom: 0;
+  font-family: $font-playfair;
+  color: $font-color;
+  font-size: 20px;
+}
+.assist-buttons {
+  @include flex-container($justify: center, $align: center, $gap: 15px, $wrap: wrap);
+  width: fit-content;
+  padding-left: 25px;
+  padding-right: 25px;
+  border: 1px solid #ebd34f;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.hints-button,
+.revert-button,
+.addNumbers-button,
+.shuffle-button,
+.eraser-button {
+  @include glass-card(100px, 6vh, 120px, 70px, 6vh, 70px);
+  color: $font-color;
+  font-size: 20px;
+  font-family: $font-playfair;
+  cursor: pointer;
+ margin-top: 10px;
+ margin-bottom: 10px;
+}
+
+.counter {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  background: rgb(252, 206, 109);
+  color: rgb(48, 47, 47);
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8em;
+  font-weight: bold;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}
+.cell.hint-highlight {
+  background-color: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+  transform: scale(1.1);
+  z-index: 10;
+}
+.cell.eraser-mode {
+  cursor: crosshair;
+  border: 2px  #FF6B6B;
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.cell.eraser-mode:hover {
+  background-color: rgba(255, 107, 107, 0.3);
+  transform: scale(1.1);
+}
+.game-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: $font-color;
+  padding: 0;
+  border-radius: 0;
+  animation: popoverIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: $background-color;
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+.modal-content h2 {
+  font-size: 36px;
+  margin: 0 0 20px 0;
+  font-weight: bold;
+  font-family: $font-playfair;
+  color: $font-color;
+}
+
+.modal-content p {
+  font-size: 18px;
+  margin: 10px 0;
+  color: $font-color;
+  font-family: $font-playfair;
+}
+
+.modal-content strong {
+  color: #FFD700;
+  font-size: 22px;
+}
+
+body.dark-theme {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+body.dark-theme button {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+
+body.dark-theme .cell {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+body.dark-theme li a {
+  color: $font-color-dark;
+  background-color: $background-color-dark;
+}
+body.dark-theme .changeBtn {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}
+body.dark-theme h3 {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}
+body.dark-theme #timer {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}
+body.dark-theme .link-github {
+  color: $font-color-dark;
+  background-color: $background-color-dark
+}
+.music-btn {
+  color: $font-color;
+  font-family: $font-playfair;
+  cursor: pointer;
+}

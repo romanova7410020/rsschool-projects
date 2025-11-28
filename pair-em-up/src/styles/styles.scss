@@ -1,0 +1,12 @@
+@use './screens/startScreen.scss';
+@use './screens/chaoticScreen.scss';
+@use './screens/classicScreen.scss';
+@use './screens/resultScreen.scss';
+@use './screens/settingsScreen.scss';
+
+@use './components/navigation.scss';
+@use './components/footer.scss';
+@use './components/visualeffects.scss';
+@use './base/variables.scss' as *;
+
+@forward './base/mixins.scss';

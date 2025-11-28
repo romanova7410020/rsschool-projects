@@ -1,0 +1,40 @@
+@use '../base/variables.scss' as *;
+@use '../base/mixins.scss' as *;
+
+.navigation {
+  height: 80px;
+   @include flex-container(row, space-between, center, nowrap);
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  li {
+      margin-right: 15px;
+
+      a {
+        text-decoration: none;
+        color: #1a1818;
+        padding: 5px 10px;
+        display: block;
+        font-family: $font-playfair;
+        font-size: clamp(1rem, 1vw, 2rem);
+        color: $font-color;
+        font-weight: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          background-color: rgba(255, 223, 94, 0.4);
+          cursor: pointer;
+        }
+      }
+    }
+}
+.glass-card {
+  @include glass-card(70px, 6vh, 40px, 40px, 6vh, 20px);
+}
